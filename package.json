@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "build-develop": "webpack --config webpack.dev.js",
+    "build-production": "webpack --config webpack.prod.js",
+    "build": "npm run build-css && npm run build-develop",
+    "build-css": "node-sass client/src/ -o client/src --output-style compressed",
+    "build-dev": "npm run build-css && npm run build-develop -- --devtool source-map",
+    "build-prod": "npm run build-css && npm run build-production"
   },
   "author": "",
   "license": "ISC",

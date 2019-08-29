@@ -6,5 +6,6 @@ app.use(bodyParser.urlencoded({extended: true}))
 
 const client = './client/build'
 app.use('/', express.static(client))
+app.use('/login', express.static(client))
 
 app.listen(3000)

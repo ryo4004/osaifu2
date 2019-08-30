@@ -1,4 +1,4 @@
-import { prefix } from '../Actions/Base/Login'
+import { prefix } from '../Actions/Constants/Login'
 
 const initialState = {
   loading: false,

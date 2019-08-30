@@ -1,17 +1,17 @@
-export const prefix = 'LOGIN'
+import * as ActionType from '../Constants/Login'
 
 const loading = (loading) => ({
-  type: prefix + 'LOADING',
+  type: ActionType.LOGIN_LOADING,
   payload: { loading }
 })
 
 export const changeUserid = (userid) => ({
-  type: prefix + 'CHANGE_USER',
+  type: ActionType.LOGIN_CHANGE_USER,
   prefix: { userid }
 })
 
 export const changePassword = (password) => ({
-  type: prefix + 'CHANGE_PASSWORD',
+  type: ActionType.LOGIN_CHANGE_PASSWORD,
   prefix: { password }
 })
 

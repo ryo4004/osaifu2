@@ -5,7 +5,7 @@ import {
   changeUserid,
   changePassword,
   requestLogin
-} from '../../../Actions/Base/Login'
+} from '../../../Actions/Actions/Login'
 
 const mapStateToProps = (state) => ({
   userid: state.login.userid,

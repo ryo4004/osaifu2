@@ -7,6 +7,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 const client = './client/build'
 app.use('/', express.static(client))
 app.use('/login', express.static(client))
+app.use('/signup', express.static(client))
 
 app.post('/login', (req, res) => {
   const { userid, password } = req.body

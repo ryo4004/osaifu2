@@ -25,7 +25,7 @@ export const requestSignup = {
   })
 }
 
-export const setError = () => ({
+export const setError = (err) => ({
   type: ActionType.SIGNUP_SET_ERROR,
   payload: { err }
 })

@@ -32,6 +32,21 @@ const Signup = ({
     return () => setError(false)
   }, [])
 
+  const showError = () => {
+    if (!err) return false
+    let message
+    switch (err.type) {
+      case 'blankTextbox':
+        message = 'empty input box'
+        break
+      default:
+        message = 'error: ' + err.type
+    }
+    return (
+      <div className='err'>{message}</div>
+    )
+  }
+
   return (
     <div className='signup'>
       <h2>Signup</h2>
@@ -39,7 +54,7 @@ const Signup = ({
       <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} />
       <label>password</label>
       <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} />
-      {/* {showError()} */}
+      {showError()}
       <button onClick={() => requestSignup()}>Button</button>
     </div>
   )

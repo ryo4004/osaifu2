@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { connect }from 'react-redux'
+import { connect } from 'react-redux'
 
 import {
   changeUserid,
@@ -30,7 +30,6 @@ const Login = ({
 }) => {
 
   useEffect(() => {
-    console.log('useEffect')
     return () => setError(false)
   }, [])
 
@@ -44,7 +43,6 @@ const Login = ({
       default:
         message = 'error: ' + err.type
     }
-    // return message
     return (
       <div className='err'>{message}</div>
     )

@@ -16,11 +16,9 @@ export const changePassword = (password) => ({
 })
 
 export const requestLogin = {
-  request: () => {
-    return {
-      type: ActionType.LOGIN_REQUEST_LOGIN_REQUEST
-    }  
-  },
+  request: () => ({
+    type: ActionType.LOGIN_REQUEST_LOGIN_REQUEST
+  }),
   result: (result) => ({
     type: ActionType.LOGIN_REQUEST_LOGIN_RESULT,
     payload: { result }

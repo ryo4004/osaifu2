@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect }from 'react-redux'
-import { bindActionCreators } from 'redux'
 
 import {
   changeUserid,
   changePassword,
   requestLogin
 } from '../../../Actions/Actions/Login'
+
+import './Login.css'
 
 const mapStateToProps = (state) => ({
   loading: state.login.loading,
@@ -27,8 +28,12 @@ const Login = ({
   requestLogin = () => {}
 }) => {
   return (
-    <div>
-      Login
+    <div className='login'>
+      <h2>Login</h2>
+      <label>userid</label>
+      <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} />
+      <label>password</label>
+      <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} />
       <button onClick={requestLogin}>Button</button>
     </div>
   )

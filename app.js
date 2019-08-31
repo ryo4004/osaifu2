@@ -9,7 +9,8 @@ app.use('/', express.static(client))
 app.use('/login', express.static(client))
 
 app.post('/login', (req, res) => {
-  console.log('/login')
+  const { userid, password } = req.body
+  console.log('/login', userid, password)
   return res.json({status: true})
 })
 

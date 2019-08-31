@@ -7,7 +7,7 @@ import createStore, { history, sagaMiddleware } from './Store/Store'
 
 import Navigation from './Component/Navigation'
 
-import rootSaga from './Sagas/Login'
+import rootSaga from './Sagas/Saga/Saga'
 
 const store = createStore()
 

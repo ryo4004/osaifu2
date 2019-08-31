@@ -6,13 +6,13 @@ const loading = (loading) => ({
 })
 
 export const changeUserid = (userid) => ({
-  type: ActionType.LOGIN_CHANGE_USER,
-  prefix: { userid }
+  type: ActionType.LOGIN_CHANGE_USERID,
+  payload: { userid }
 })
 
 export const changePassword = (password) => ({
   type: ActionType.LOGIN_CHANGE_PASSWORD,
-  prefix: { password }
+  payload: { password }
 })
 
 export const requestLogin = {
@@ -26,3 +26,8 @@ export const requestLogin = {
     payload: { result }
   })
 }
+
+export const setError = (err) => ({
+  type: ActionType.LOGIN_SET_ERROR,
+  payload: { err }
+})

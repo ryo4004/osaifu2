@@ -1,4 +1,4 @@
-import { prefix } from '../Actions/Constants/Login'
+import * as ActionType from '../Actions/Constants/Login'
 
 const initialState = {
   loading: false,
@@ -9,22 +9,22 @@ const initialState = {
 
 export default function loginReducer (state = initialState, action) {
   switch (action.type) {
-    case prefix + 'LOADING':
+    case ActionType.LOGIN_LOADING:
       return {
         ...state,
         loading: action.payload.loading
       }
-    case prefix + 'CHANGE_USERID':
+    case ActionType.LOGIN_CHANGE_USERID:
       return {
         ...state,
         userid: action.payload.userid
       }
-    case prefix + 'CHANGE_PASSWORD':
+    case ActionType.LOGIN_CHANGE_PASSWORD:
       return {
         ...state,
         password: action.payload.password
       }
-    case prefix + 'SET_ERROR':
+    case ActionType.LOGIN_SET_ERROR:
       return {
         ...state,
         err: action.payload.err

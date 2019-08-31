@@ -11,6 +11,7 @@ import createSagaMiddleware from 'redux-saga'
 import createReducer from '../Reducers/Reducer/Reducer'
 
 export const history = createBrowserHistory()
+export const sagaMiddleware = createSagaMiddleware()
 
 export default function createStore () {
   return reduxCreateStore(
@@ -18,7 +19,7 @@ export default function createStore () {
     compose(
       applyMiddleware(
         // logger,
-        createSagaMiddleware(),
+        sagaMiddleware,
         routerMiddleware(history)
       )
     )

@@ -11,7 +11,7 @@ import * as lib from '../Library/Library'
 
 function* runRequestSignup () {
   const state = yield select()
-  if (!state.signup.userid || !state.signup.password) yield put(setError({type: 'blankTextbox'}))
+  if (!state.signup.userid || !state.signup.password) return yield put(setError({type: 'blankTextbox'}))
   yield put(loading(true))
   yield put(setError(false))
   const send = {

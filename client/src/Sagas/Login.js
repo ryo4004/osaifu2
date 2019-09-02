@@ -10,7 +10,6 @@ import * as lib from '../Library/Library'
 
 function* runRequestLogin () {
   const state = yield select()
-  console.log(!state.login.userid || !state.login.password)
   if (!state.login.userid || !state.login.password) return yield put(setError({type: 'blankTextbox'}))
   yield put(loading(true))
   yield put(setError(false))
@@ -22,7 +21,6 @@ function* runRequestLogin () {
     version: lib.version
   }
   const res = yield call(() => post('/login', send))
-  console.log('login', res)
   yield put(loading(false))
   if (!res.body.status) return yield put(setError(res.body.err))
   yield put(setUser(res.body.user))

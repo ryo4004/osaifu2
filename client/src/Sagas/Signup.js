@@ -23,9 +23,10 @@ function* runRequestSignup () {
   }
   const res = yield call(() => post('/signup', send))
   yield put(loading(false))
-  console.log('response', res)
   if (!res.body.status) return yield put(setError(res.body.err))
   yield put(setUser(res.body.user))
+  yield call(() => lib.updateToken(res.body.token))
+  yield call(() => lib.updateUserid(res.body.user.userid))
   yield put(replace('/home'))
 }
 

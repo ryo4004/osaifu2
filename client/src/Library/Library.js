@@ -9,6 +9,14 @@ export function getClientid () {
   return clientid
 }
 
+export function updateToken (token) {
+  window.localStorage.setItem('token', token)
+}
+
+export function updateUserid (userid) {
+  window.localStorage.setItem('userid', userid)
+}
+
 export function getSession () {
   return {
     userid: window.localStorage.userid,

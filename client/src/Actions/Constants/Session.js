@@ -1,4 +1,5 @@
 export const prefix = 'SESSION_'
 export const SESSION_LOADING = prefix + 'LOADING'
+export const SESSION_REQUEST_AUTH = prefix + 'REQUEST_AUTH'
 export const SESSION_SET_USER = prefix + 'SET_USER'
 export const SESSION_SET_ERROR = prefix + 'SET_ERROR'

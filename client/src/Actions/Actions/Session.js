@@ -5,6 +5,10 @@ export const loading = (loading) => ({
   payload: { loading }
 })
 
+export const requestAuth = () => ({
+  type: ActionType.SESSION_REQUEST_AUTH
+})
+
 export const setUser = (user) => ({
   type: ActionType.SESSION_SET_USER,
   payload: { user }

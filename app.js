@@ -8,6 +8,7 @@ const client = './client/build'
 app.use('/', express.static(client))
 app.use('/login', express.static(client))
 app.use('/signup', express.static(client))
+app.use('/home', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')
@@ -28,6 +29,13 @@ app.post('/signup', (req, res) => {
     if (err) return res.json({status: false, err})
     return res.json({status: true, user, token: lib.getToken(clientid, user)})
   })
+})
+
+app.post('/auth', (req, res) => {
+  const { session } = req.body
+  console.log(lib.time() + '/auth', session.version)
+  console.log(session)
+  return res.json({status: true})
 })
 
 app.listen(3000)

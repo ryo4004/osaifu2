@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
+
+import { requestAuth } from '../../Actions/Actions/Session'
 
 import Home from './Home/Home'
 
@@ -8,9 +10,18 @@ import './Auth.css'
 
 const mapStateToProps = () => ({})
 
-const mapDispatchToProps = () => ({})
+const mapDispatchToProps = (dispatch) => ({
+  requestAuth: () => dispatch(requestAuth())
+})
 
-const Auth = () => {
+const Auth = ({
+  requestAuth
+}) => {
+
+  useEffect(() => {
+    requestAuth()
+  }, [])
+
   return (
     <div className='auth'>
       <Switch>

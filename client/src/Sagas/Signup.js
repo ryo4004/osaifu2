@@ -1,4 +1,6 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { replace } from 'connected-react-router'
+
 import * as ActionType from '../Actions/Constants/Signup'
 import { post } from '../Library/Request'
 
@@ -24,6 +26,7 @@ function* runRequestSignup () {
   console.log('response', res)
   if (!res.body.status) return yield put(setError(res.body.err))
   yield put(setUser(res.body.user))
+  yield put(replace('/home'))
 }
 
 export default function* watchRequestSignup () {

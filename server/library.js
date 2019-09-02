@@ -1,3 +1,22 @@
+function getHash (string) {
+  const salt = '::i5lhYCN4zYgc9c1Y'
+  const crypto = require('crypto')
+  const hashsum = crypto.createHash('sha512')
+  hashsum.update(string + salt)
+  return hashsum.digest('hex')
+}
+
+function createToken (clientid) {
+  return getHash(clientid + (new Date()).getTime())
+}
+
+function getToken (id, user) {
+  if (!'clientList' in user) return false
+  const client = user.clientList.filter((e) => {return e.id === id})
+  if (client.length === 0) return false
+  return client[0].token
+}
+
 function showTime () {
   const time = new Date()
   const z = (v) => {
@@ -12,5 +31,6 @@ function time () {
 }
 
 module.exports = {
+  getHash, createToken, getToken,
   showTime, time
 }

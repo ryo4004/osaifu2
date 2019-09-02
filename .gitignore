@@ -3,5 +3,7 @@
 
 # production
 *.css
-bundle.js
-bundle.js.map
+bundle.js*
+
+# database
+server/database/*.db

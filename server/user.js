@@ -32,6 +32,39 @@ async function addUser (userdata, callback) {
   })
 }
 
+function login (userdata, callback) {
+  const hash = lib.getHash(userdata.password)
+  const token = lib.createToken(userdata.clientid)
+  const lastLogin = (new Date()).getTime()
+  getUser(userdata.userid, (getUserError, user) => {
+    if (getUserError) return callback(getUserError, null)
+    if (user.passwordHash !== hash) return callback({type: 'passwordWrong'}, null)
+    lib.getToken(userdata.clientid, user) ? console.log('Known device') : console.log('New device')
+    const newClientList = lib.getToken(userdata.clientid, user) ?
+    user.clientList.map(client => {
+      return client.id === userdata.clientid ? {
+        ...client,
+        token,
+        lastLogin
+      } : client
+    }) : 
+    user.clientList.concat({
+      agent: userdata.userAgent,
+      id: userdata.clientid,
+      token,
+      lastLogin
+    })
+    const newUser = {
+      ...user,
+      clientList: newClientList
+    }
+    updateUser(newUser, (UpdateUserError) => {
+      if (UpdateUserError) return callback(UpdateUserError)
+      callback(null, newUser)
+    })
+  })
+}
+
 function checkPastSignups (userid) {
   return new Promise((resolve, reject) => {
     userDB.findOne({userid}, (err, result) => {
@@ -42,7 +75,7 @@ function checkPastSignups (userid) {
   })
 }
 
-function getUser (userid) {
+function getUser (userid, callback) {
   userDB.findOne({ userid }, (err, user) => {
     if (err || user === null) return callback({type: 'userNotFound'}, null)
     callback(null, user)
@@ -60,7 +93,7 @@ function updateUser (user, callback) {
 function authentication (session, callback) {
   getUser(session.userid, (err, user) => {
     if (err) return callback(err, null)
-    if (libUser.getToken(session.clientid, user) !== session.clientToken) return callback({type: 'notMatchToken'}, null)
+    if (lib.getToken(session.clientid, user) !== session.clientToken) return callback({type: 'notMatchToken'}, null)
     const clientList = user.clientList.map(client => {
       return client.id === session.clientid ? {
         ...client,
@@ -79,5 +112,5 @@ function authentication (session, callback) {
 }
 
 module.exports = {
-  addUser, authentication
+  addUser, login, authentication
 }

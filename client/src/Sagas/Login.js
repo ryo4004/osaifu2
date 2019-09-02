@@ -1,19 +1,34 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Login'
 import { post } from '../Library/Request'
 
-import { requestLogin, setError } from '../Actions/Actions/Login'
+import { loading, requestLogin, setError } from '../Actions/Actions/Login'
+import { setUser } from '../Actions/Actions/Session'
+
+import * as lib from '../Library/Library'
 
 function* runRequestLogin () {
   const state = yield select()
-  console.log(select(), yield select())
-  if (!state.login.userid || !state.login.password) yield put(setError({type: 'blankTextbox'}))
+  console.log(!state.login.userid || !state.login.password)
+  if (!state.login.userid || !state.login.password) return yield put(setError({type: 'blankTextbox'}))
+  yield put(loading(true))
+  yield put(setError(false))
   const send = {
     userid: state.login.userid,
-    password: state.login.password
+    password: state.login.password,
+    clientid: lib.getClientid(),
+    userAgent: window.navigator.userAgent,
+    version: lib.version
   }
-  const result = yield call(() => post('/login', send))
-  yield put(requestLogin.result(result))
+  const res = yield call(() => post('/login', send))
+  console.log('login', res)
+  yield put(loading(false))
+  if (!res.body.status) return yield put(setError(res.body.err))
+  yield put(setUser(res.body.user))
+  yield call(() => lib.updateToken(res.body.token))
+  yield call(() => lib.updateUserid(res.body.user.userid))
+  yield put(replace('/home'))
 }
 
 export default function* watchRequestLogin () {

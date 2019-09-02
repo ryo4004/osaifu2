@@ -4,7 +4,8 @@ import { connect } from 'react-redux'
 import {
   changeUserid,
   changePassword,
-  requestSignup
+  requestSignup,
+  setError
 } from '../../../Actions/Actions/Signup'
 
 import './Signup.css'
@@ -25,10 +26,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Signup = ({
   loading, userid, password, err,
-  changeUserid, changePassword, requestSignup
+  changeUserid, changePassword, requestSignup, setError
 }) => {
 
   useEffect(() => {
+    () => setError(false)
     return () => setError(false)
   }, [])
 

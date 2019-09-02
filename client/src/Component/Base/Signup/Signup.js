@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import {
@@ -40,20 +41,20 @@ const Signup = ({
     switch (err.type) {
       // Local Error
       case 'blankTextbox':
-        message = 'Empty input box'
+        message = '入力を確認してください'
         break
       // Server Error
       case 'blankUserid':
-        message = 'Blank userid'
+        message = 'ユーザ名が入力されていません'
         break
       case 'blankPassword':
-        message = 'Blank password'
+        message = 'パスワードが入力されていません'
         break
       case 'alreadySignuped':
-        message = 'Already Signuped'
+        message = '指定されたユーザ名は使えません'
         break
       case 'DBError':
-        message = 'DBError'
+        message = 'データベースエラー'
         break
       default:
         message = 'error: ' + err.type
@@ -67,14 +68,15 @@ const Signup = ({
 
   return (
     <div className='signup'>
-      <h2>Signup</h2>
-      <label>userid</label>
-      <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} />
-      <label>password</label>
-      <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} />
-      {showError()}
-      <button onClick={() => requestSignup()}>Button</button>
-      {showLoading}
+      <div>
+        <h2>アカウントの新規作成</h2>
+        <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} placeholder='ユーザ名' />
+        <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} placeholder='パスワード' />
+        {showError()}
+        <button onClick={() => requestSignup()}>登録する</button>
+        {showLoading}
+        <div className='login-account'>作成済みの方は<Link to='/login'>こちら</Link></div>
+      </div>
     </div>
   )
 }

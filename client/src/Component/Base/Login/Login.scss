@@ -1,10 +1,20 @@
 .login {
 
-  label {
-    display: block;
+  & > div {
+    padding: 48px 0;
   }
-  
-  input {
-    display: block;
+
+  .add-account {
+    margin: 16px 0;
+    font-size: .9rem;
+
+    a {
+      color: #0070c9;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 }

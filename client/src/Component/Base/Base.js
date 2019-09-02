@@ -5,16 +5,20 @@ import { connect } from 'react-redux'
 import Login from './Login/Login'
 import Signup from './Signup/Signup'
 
+import './Base.css'
+
 const mapStateToProps = () => ({})
 
 const mapDispatchToProps = () => ({})
 
 const Base = () => {
   return (
-    <Switch>
-      <Route path='/login' component={Login} />
-      <Route path='/signup' component={Signup} />
-    </Switch>
+    <div className='base'>
+      <Switch>
+        <Route path='/login' component={Login} />
+        <Route path='/signup' component={Signup} />
+      </Switch>
+    </div>
   )
 }
 

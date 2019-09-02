@@ -15,7 +15,8 @@ function* runRequestSession () {
   yield put(loading(false))
   if (!res.body.status) {
     yield put(setUser(null))
-    return yield put(setError(res.body.err))
+    yield put(setError(res.body.err))
+    return replace('/login')
   }
   yield put(setUser(res.body.user))
 }

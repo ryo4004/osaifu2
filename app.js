@@ -34,8 +34,10 @@ app.post('/signup', (req, res) => {
 app.post('/auth', (req, res) => {
   const { session } = req.body
   console.log(lib.time() + '/auth', session.version)
-  console.log(session)
-  return res.json({status: true})
+  libUser.authentication(session, (err, user) => {
+    if (err) return res.json({status: false, err})
+    return res.json({status: true, user})
+  })
 })
 
 app.listen(3000)

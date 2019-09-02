@@ -36,8 +36,22 @@ const Signup = ({
     if (!err) return false
     let message
     switch (err.type) {
+      // Local Error
       case 'blankTextbox':
-        message = 'empty input box'
+        message = 'Empty input box'
+        break
+      // Server Error
+      case 'blankUserid':
+        message = 'Blank userid'
+        break
+      case 'blankPassword':
+        message = 'Blank password'
+        break
+      case 'alreadySignuped':
+        message = 'Already Signuped'
+        break
+      case 'DBError':
+        message = 'DBError'
         break
       default:
         message = 'error: ' + err.type
@@ -46,6 +60,8 @@ const Signup = ({
       <div className='err'>{message}</div>
     )
   }
+
+  const showLoading = loading ? '読み込み中' : false
 
   return (
     <div className='signup'>
@@ -56,6 +72,7 @@ const Signup = ({
       <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} />
       {showError()}
       <button onClick={() => requestSignup()}>Button</button>
+      {showLoading}
     </div>
   )
 }

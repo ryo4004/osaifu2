@@ -3,6 +3,7 @@ import * as ActionType from '../Actions/Constants/Signup'
 import { post } from '../Library/Request'
 
 import { loading, setError } from '../Actions/Actions/Signup'
+import { setUser } from '../Actions/Actions/Session'
 
 import * as lib from '../Library/Library'
 
@@ -22,6 +23,7 @@ function* runRequestSignup () {
   yield put(loading(false))
   console.log('response', res)
   if (!res.body.status) return yield put(setError(res.body.err))
+  yield put(setUser(res.body.user))
 }
 
 export default function* watchRequestSignup () {

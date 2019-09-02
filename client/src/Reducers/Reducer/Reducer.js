@@ -4,9 +4,12 @@ import { connectRouter } from 'connected-react-router'
 import loginReducer from '../Login'
 import signupReducer from '../Signup'
 
+import sessionReducer from '../Session'
+
 export default (history) => combineReducers({
   login: loginReducer,
   signup: signupReducer,
+  session: sessionReducer,
 
   // The key must be router
   router: connectRouter(history)

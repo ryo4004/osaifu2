@@ -9,6 +9,7 @@ app.use('/', express.static(client))
 app.use('/login', express.static(client))
 app.use('/signup', express.static(client))
 app.use('/home', express.static(client))
+app.use('/list', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')

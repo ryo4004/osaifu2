@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { requestAuth } from '../../Actions/Actions/Session'
 
 import Home from './Home/Home'
+import List from './List/List'
 
 import './Auth.css'
 
@@ -26,6 +27,7 @@ const Auth = ({
     <div className='auth'>
       <Switch>
         <Route path='/home' component={Home} />
+        <Route path='/list' component={List} />
       </Switch>
     </div>
   )

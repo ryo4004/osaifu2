@@ -1,27 +1,22 @@
-import React, { useEffect } from 'react'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import { setTitle } from '../../../Actions/Actions/Header'
+import Home from './Home/Home'
 
 import './Setting.css'
 
 const mapStateToProps = (state) => ({})
 
-const mapDispatchToProps = (dispatch) => ({
-  setTitle: (title) => dispatch(setTitle(title))
-})
+const mapDispatchToProps = (dispatch) => ({})
 
-const Setting = ({
-  setTitle
-}) => {
-
-  useEffect(() => {
-    setTitle('設定')
-  }, [])
+const Setting = ({}) => {
 
   return (
     <div className='setting contents'>
-      <h2>Setting</h2>
+      <Switch>
+        <Route path='/setting' component={Home} />
+      </Switch>
     </div>
   )
 }

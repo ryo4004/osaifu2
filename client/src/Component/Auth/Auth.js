@@ -7,6 +7,7 @@ import { requestAuth } from '../../Actions/Actions/Session'
 import Home from './Home/Home'
 import List from './List/List'
 import Setting from './Setting/Setting'
+import Header from './Component/Header/Header'
 import Navigation from './Component/Navigation/Navigation'
 
 import './Auth.css'
@@ -27,6 +28,7 @@ const Auth = ({
 
   return (
     <React.Fragment>
+      <Header />
       <div className='auth'>
         <Switch>
           <Route path='/home' component={Home} />

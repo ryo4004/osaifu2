@@ -10,6 +10,8 @@ import Setting from './Setting/Setting'
 import Header from './Component/Header/Header'
 import Navigation from './Component/Navigation/Navigation'
 
+import Add from './Add/Add'
+
 import './Auth.css'
 
 const mapStateToProps = () => ({})
@@ -37,6 +39,7 @@ const Auth = ({
         </Switch>
       </div>
       <Navigation />
+      <Add />
     </React.Fragment>
   )
 }

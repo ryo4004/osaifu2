@@ -6,6 +6,7 @@ import { requestAuth } from '../../Actions/Actions/Session'
 
 import Home from './Home/Home'
 import List from './List/List'
+import Setting from './Setting/Setting'
 
 import './Auth.css'
 
@@ -28,6 +29,7 @@ const Auth = ({
       <Switch>
         <Route path='/home' component={Home} />
         <Route path='/list' component={List} />
+        <Route path='/setting' component={Setting} />
       </Switch>
     </div>
   )

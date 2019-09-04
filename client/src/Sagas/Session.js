@@ -13,12 +13,13 @@ function* runRequestSession () {
   const send = {session: lib.getSession()}
   const res = yield call(() => post('/auth', send))
   yield put(loading(false))
-  if (!res.body.status) {
+  if (res.body.err) {
     yield put(setUser(null))
     yield put(setError(res.body.err))
-    return yield put(replace('/login'))
+    yield put(replace('/login'))
+  } else {
+    yield put(setUser(res.body.user))
   }
-  yield put(setUser(res.body.user))
 }
 
 export default function* watchRequestSession () {

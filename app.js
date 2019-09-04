@@ -20,12 +20,11 @@ const libList = require('./server/list')
 app.post('/signup', (req, res) => {
   const { userid, password, clientid, userAgent, version } = req.body
   console.log(lib.time() + '/signup', userid, version)
-  if (!userid) return res.json({err: {type: 'blankUserid'}})
-  if (!password) return res.json({err: {type: 'blankPassword'}})
+  if (!userid) return res.json({status: false, err: {type: 'blankUserid'}})
+  if (!password) return res.json({status: false, err: {type: 'blankPassword'}})
   libUser.addUser({userid, password, clientid, userAgent}, (err, user) => {
     console.log(lib.time() + (err ? 'Signup NG' : 'Signup OK'))
-    if (err) return res.json({status: false, err})
-    return res.json({status: true, user, token: lib.getToken(clientid, user)})
+    return res.json({user, err, token: lib.getToken(clientid, user)})
   })
 })
 
@@ -33,8 +32,7 @@ app.post('/login', (req, res) => {
   const { userid, password, clientid, userAgent, version } = req.body
   console.log(lib.time() + '/login', userid, version)
   libUser.login({userid, password, clientid, userAgent}, (err, user) => {
-    if (err) return res.json({status: false, err})
-    return res.json({status: true, user, token: lib.getToken(clientid, user)})
+    return res.json({user, err, token: lib.getToken(clientid, user)})
   })
 })
 
@@ -43,8 +41,7 @@ app.post('/auth', (req, res) => {
   console.log(lib.time() + '/auth', session.version)
   libUser.authentication(session, (err, user) => {
     console.log(lib.time() + '/auth ' + (err ? 'NG' : 'OK'))
-    if (err) return res.json({status: false, err})
-    return res.json({status: true, user})
+    return res.json({user, err})
   })
 })
 
@@ -52,11 +49,11 @@ app.post('/status', (req, res) => {
   const { session } = req.body
   console.log(lib.time() + '/status', session.version)
   libUser.authentication(session, (authError, user) => {
-    console.log(lib.time() + '/status ' + (err ? 'NG' : 'OK'))
+    console.log(lib.time() + '/status ' + (authError ? 'NG' : 'OK'))
     if (authError) return res.json({status: false, err: authError})
     libList.getDBStatus(user, (listError, status) => {
-      if (listError) return res.json({status: false, err: listError})
-      return res.json({status: true, status})
+      if (listError) return res.json({err: listError})
+      return res.json({status, err: listSoftError})
     })
   })
 })

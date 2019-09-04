@@ -23,11 +23,14 @@ function* runRequestSignup () {
   }
   const res = yield call(() => post('/signup', send))
   yield put(loading(false))
-  if (!res.body.status) return yield put(setError(res.body.err))
-  yield put(setUser(res.body.user))
-  yield call(() => lib.updateToken(res.body.token))
-  yield call(() => lib.updateUserid(res.body.user.userid))
-  yield put(replace('/home'))
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setUser(res.body.user))
+    yield call(() => lib.updateToken(res.body.token))
+    yield call(() => lib.updateUserid(res.body.user.userid))
+    yield put(replace('/home'))
+  }
 }
 
 export default function* watchRequestSignup () {

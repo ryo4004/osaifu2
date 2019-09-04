@@ -13,9 +13,12 @@ function* runRequestStatus () {
   const send = {session: lib.getSession()}
   const res = yield call(() => post('/status', send))
   yield put(loading(false))
-  if (!res.body.status) return yield put(setStatus(res.body.dbStatus))
-  yield put(setStatus(null))
-  yield put(setError(res.body.err))
+  if (res.body.err) {
+    yield put(setStatus(null))
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setStatus(res.body.status))
+  }
 }
 
 export default function* watchRequestSession () {

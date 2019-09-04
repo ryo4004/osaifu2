@@ -13,7 +13,7 @@ const userDB = new NeDB({
 })
 
 async function addUser (userdata, callback) {
-  if (await checkPastSignups(userdata.userid)) return callback({type: 'alreadySignuped'}, null)
+  if (await checkPastSignups(userdata.userid)) return callback({type: 'alreadySignuped', fatal: false}, null)
   const clientToken = lib.createToken(userdata.clientid)
   const user = {
     userid: userdata.userid,
@@ -28,7 +28,7 @@ async function addUser (userdata, callback) {
     }]
   }
   userDB.insert(user, (err, newdoc) => {
-    if (err || !newdoc) return callback({type: 'DBError'}, null)
+    if (err || !newdoc) return callback({type: 'DBError', fatal: true}, null)
     callback(null, user)
   })
 }
@@ -39,7 +39,7 @@ function login (userdata, callback) {
   const lastLogin = (new Date()).getTime()
   getUser(userdata.userid, (getUserError, user) => {
     if (getUserError) return callback(getUserError, null)
-    if (user.passwordHash !== hash) return callback({type: 'passwordWrong'}, null)
+    if (user.passwordHash !== hash) return callback({type: 'passwordWrong', fatal: false}, null)
     lib.getToken(userdata.clientid, user) ? console.log('Known device') : console.log('New device')
     const newClientList = lib.getToken(userdata.clientid, user) ?
     user.clientList.map(client => {
@@ -69,8 +69,8 @@ function login (userdata, callback) {
 function checkPastSignups (userid) {
   return new Promise((resolve, reject) => {
     userDB.findOne({userid}, (err, result) => {
-      if (err) return resolve({type: 'DBError'})
-      if (result) return resolve({type: 'alreadySignuped'})
+      if (err) return resolve({type: 'DBError', fatal: true})
+      if (result) return resolve({type: 'alreadySignuped', fatal: false})
       return resolve(false)
     })
   })
@@ -78,15 +78,16 @@ function checkPastSignups (userid) {
 
 function getUser (userid, callback) {
   userDB.findOne({ userid }, (err, user) => {
-    if (err || user === null) return callback({type: 'userNotFound'}, null)
+    if (err) return callback({type: 'DBError', fatal: true}, null)
+    if (user === null) return callback({type: 'userNotFound', fatal: false}, null)
     callback(null, user)
   })
 }
 
 function updateUser (user, callback) {
   userDB.update({userid: user.userid}, user, {}, (err, num) => {
-    if (err) return callback({type: 'updateUserNotFound'}, null)
-    if (num === 0) return callback({type: 'updateUserError'}, null)
+    if (err) return callback({type: 'updateUserNotFound', fatal: true}, null)
+    if (num === 0) return callback({type: 'updateUserError', fatal: true}, null)
     callback(null, user)
   })
 }
@@ -94,7 +95,7 @@ function updateUser (user, callback) {
 function authentication (session, callback) {
   getUser(session.userid, (err, user) => {
     if (err) return callback(err, null)
-    if (lib.getToken(session.clientid, user) !== session.clientToken) return callback({type: 'notMatchToken'}, null)
+    if (lib.getToken(session.clientid, user) !== session.clientToken) return callback({type: 'notMatchToken', fatal: false}, null)
     const clientList = user.clientList.map(client => {
       return client.id === session.clientid ? {
         ...client,
@@ -105,8 +106,8 @@ function authentication (session, callback) {
       ...user,
       clientList
     }
-    updateUser(newUser, (err) => {
-      if (err) return callback(err, null)
+    updateUser(newUser, (updateUserError) => {
+      if (updateUserError) return callback(updateUserError, null)
       return callback(null, newUser)
     })
   })

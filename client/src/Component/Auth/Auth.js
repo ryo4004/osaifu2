@@ -3,6 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { requestAuth } from '../../Actions/Actions/Session'
+import { requestStatus } from '../../Actions/Actions/Status'
 
 import Home from './Home/Home'
 import List from './List/List'
@@ -17,15 +18,17 @@ import './Auth.css'
 const mapStateToProps = () => ({})
 
 const mapDispatchToProps = (dispatch) => ({
-  requestAuth: () => dispatch(requestAuth())
+  requestAuth: () => dispatch(requestAuth()),
+  requestStatus: () => dispatch(requestStatus())
 })
 
 const Auth = ({
-  requestAuth
+  requestAuth, requestStatus
 }) => {
 
   useEffect(() => {
     requestAuth()
+    requestStatus()
   }, [])
 
   return (

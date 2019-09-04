@@ -18,6 +18,7 @@ async function addUser (userdata, callback) {
   const user = {
     userid: userdata.userid,
     passwordHash: lib.getHash(userdata.password),
+    userKey: lib.getHash(uuidv1().split('-').join('')),
     name: userdata.userid,
     clientList: [{
       agent: userdata.userAgent,

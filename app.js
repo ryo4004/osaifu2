@@ -15,6 +15,7 @@ app.use('/setting/name', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')
+const libList = require('./server/list')
 
 app.post('/signup', (req, res) => {
   const { userid, password, clientid, userAgent, version } = req.body
@@ -44,6 +45,19 @@ app.post('/auth', (req, res) => {
     console.log(lib.time() + '/auth ' + (err ? 'NG' : 'OK'))
     if (err) return res.json({status: false, err})
     return res.json({status: true, user})
+  })
+})
+
+app.post('/status', (req, res) => {
+  const { session } = req.body
+  console.log(lib.time() + '/status', session.version)
+  libUser.authentication(session, (authError, user) => {
+    console.log(lib.time() + '/status ' + (err ? 'NG' : 'OK'))
+    if (authError) return res.json({status: false, err: authError})
+    libList.getDBStatus(user, (listError, status) => {
+      if (listError) return res.json({status: false, err: listError})
+      return res.json({status: true, status})
+    })
   })
 })
 

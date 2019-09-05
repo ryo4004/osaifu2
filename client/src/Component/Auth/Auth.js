@@ -33,8 +33,8 @@ const Auth = ({
 
   return (
     <React.Fragment>
-      <Header />
       <div className='auth'>
+        <Header />
         <Switch>
           <Route path='/home' component={Home} />
           <Route path='/list' component={List} />

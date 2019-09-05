@@ -5,13 +5,16 @@ import { setTitle } from '../../../Actions/Actions/Header'
 
 import './Home.css'
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  addModal: state.add.modal
+})
 
 const mapDispatchToProps = (dispatch) => ({
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const Home = ({
+  addModal,
   setTitle
 }) => {
 
@@ -19,9 +22,13 @@ const Home = ({
     setTitle('支払い')
   }, [])
 
+  const modal = addModal ? ' modal-open' : ''
+
   return (
     <div className='home contents'>
-      <h2>Home</h2>
+      <div className={'contents-inner' + modal}>
+        <h2>Home</h2>
+      </div>
     </div>
   )
 }

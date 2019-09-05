@@ -6,6 +6,20 @@
     right: 0;
     bottom: 0;
     display: block;
-    margin: 45px 0 50px;
+    margin: 44.547px 0 49.547px;
+    z-index: 5;
+
+    .contents-inner {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      transform: translateZ(0);
+
+      &.modal-open {
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: auto;
+      }
+    }
   }
 }

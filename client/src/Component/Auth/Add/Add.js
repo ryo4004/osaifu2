@@ -18,6 +18,10 @@ const Home = ({
     <div className='add'>
       <div className={'modal-contents' + modalClass}>
         <header><h2>新しいおさいふの作成</h2></header>
+        <div className='contents'>
+          <div className='contents-inner-modal'>
+          </div>
+        </div>
       </div>
       <div className={'modal-background' + modalClass}></div>
     </div>

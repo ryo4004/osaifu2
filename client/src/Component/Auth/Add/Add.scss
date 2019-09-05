@@ -36,6 +36,7 @@
       height: 44px;
       border-bottom: .55px solid rgba(0,0,0,0.2);
       background: #fff;
+      z-index: 14;
     
       display: flex;
       justify-content: center;
@@ -44,6 +45,35 @@
       h2 {
         font-size: 17px;
         font-weight: bold;
+      }
+    }
+
+    .contents {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: block;
+      margin: 44.547px 0 0;
+      z-index: 12;
+
+      // height: 100%;
+      // overflow-x: hidden;
+      // overflow-y: scroll;
+      // -webkit-overflow-scrolling: touch;
+      // overflow-scrolling: touch;
+      // will-change: scroll-position;
+      // contain: size style layout;
+      // transform: translateZ(0);
+
+      .contents-inner-modal {
+        height: 100%;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        transform: translateZ(0);
+        z-index: 13;
       }
     }
   }

@@ -50,12 +50,22 @@ app.post('/status', (req, res) => {
   console.log(lib.time() + '/status', session.version)
   libUser.authentication(session, (authError, user) => {
     console.log(lib.time() + '/status ' + (authError ? 'NG' : 'OK'))
-    if (authError) return res.json({status: false, err: authError})
-    libList.getDBStatus(user, (listError, status) => {
-      if (listError) return res.json({err: listError})
-      return res.json({status, err: listSoftError})
+    if (authError) return res.json({err: authError})
+    libList.getDBStatus(user, (getDBStatusError, status) => {
+      if (getDBStatusError) return res.json({err: getDBStatusError})
+      return res.json({status, err: getDBStatusError})
     })
   })
 })
 
+app.post('/adddb', (req, res) => {
+  const { session, name } = req.body
+  console.log(lib.time() + '/adddb', name)
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    list.createDB(user, name, (createDBError, db) => {
+      return res.json({status: db, err: createDBError})
+    })
+  })
+})
 app.listen(3000)

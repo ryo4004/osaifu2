@@ -1,6 +1,8 @@
 const path = require('path')
 const NeDB = require('nedb')
 
+const uuidv4 = require('uuid/v4')
+
 const lib = require('./library')
 
 const listDB = new NeDB({
@@ -30,6 +32,22 @@ function getDBStatus (user, callback) {
   })
 }
 
+function createDB (user, name, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (dbStatus) return callback({type:'alreadyCreated', fatal: false})
+    const dbKey = uuidv1().split('-').join('')
+    const docs = {
+      dbKey: uuidv1().split('-').join(''),
+      host: user.userKey,
+      client: null
+    }
+    listDB.insert(docs, (err, newdoc) => {
+      if (err) return callback({type: 'DBError', fatal: true}, null)
+      callback(null, newdoc)
+    })
+  })
+}
+
 module.exports = {
-  getDBStatus
+  getDBStatus, createDB
 }

@@ -11,6 +11,7 @@ function createToken (clientid) {
 }
 
 function getToken (id, user) {
+  if (!user) return false
   if (!'clientList' in user) return false
   const client = user.clientList.filter((e) => {return e.id === id})
   if (client.length === 0) return false

@@ -52,7 +52,6 @@ app.post('/status', (req, res) => {
     console.log(lib.time() + '/status ' + (authError ? 'NG' : 'OK'))
     if (authError) return res.json({err: authError})
     libList.getDBStatus(user, (getDBStatusError, status) => {
-      if (getDBStatusError) return res.json({err: getDBStatusError})
       return res.json({status, err: getDBStatusError})
     })
   })

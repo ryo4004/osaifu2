@@ -1,6 +1,7 @@
 import * as ActionType from '../Actions/Constants/Add'
 
 const initialState = {
+  loading: false,
   modal: false,
   name: '',
   err: false
@@ -8,6 +9,11 @@ const initialState = {
 
 export default function addReducer (state = initialState, action) {
   switch (action.type) {
+    case ActionType.ADD_LOADING:
+      return {
+        ...state,
+        loading: action.payload.loading
+      }
     case ActionType.ADD_SET_MODAL:
       return {
         ...state,

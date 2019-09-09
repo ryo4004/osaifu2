@@ -1,4 +1,5 @@
 export const prefix = 'ADD_'
+export const ADD_LOADING = prefix + 'LOADING'
 export const ADD_SET_MODAL = prefix + 'SET_MODAL'
 export const ADD_CHANGE_NAME = prefix + 'CHANGE_NAME'
 export const ADD_REQUEST_CREATE_OSAIFU = prefix + 'REQUEST_CREATE_OSAIFU'

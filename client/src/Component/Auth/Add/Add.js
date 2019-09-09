@@ -8,7 +8,9 @@ import './Add.css'
 const mapStateToProps = (state) => ({
   modal: state.add.modal,
   name: state.add.name,
-  err: state.add.err
+  err: state.add.err,
+
+  user: state.session.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,9 +19,14 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Home = ({
-  modal, name, err,
+  modal, name, err, user,
   changeName, requestCreateOsaifu
 }) => {
+
+  useEffect(() => {
+    console.log(user)
+    changeName(user ? user.name + ' のおさいふ' : 'おさいふ')
+  }, [])
 
   const modalClass = modal ? ' open' : ' close'
   return (

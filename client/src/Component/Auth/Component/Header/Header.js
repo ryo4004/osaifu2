@@ -9,7 +9,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({})
 
-const Home = ({ title }) => {
+const Header = ({ title }) => {
 
   return (
     <div className='header'>
@@ -18,4 +18,4 @@ const Home = ({ title }) => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Header)

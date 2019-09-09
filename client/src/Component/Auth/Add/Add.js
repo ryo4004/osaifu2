@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch) => ({
   requestCreateOsaifu: () => dispatch(requestCreateOsaifu())
 })
 
-const Home = ({
+const Add = ({
   modal, name, err, user,
   changeName, requestCreateOsaifu
 }) => {
@@ -44,4 +44,4 @@ const Home = ({
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Add)

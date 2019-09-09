@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 
 import { setTitle } from '../../../Actions/Actions/Header'
 
-import './Home.css'
+import './Payment.css'
 
 const mapStateToProps = (state) => ({
   addModal: state.add.modal
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   setTitle: (title) => dispatch(setTitle(title))
 })
 
-const Home = ({
+const Payment = ({
   addModal,
   setTitle
 }) => {
@@ -25,12 +25,12 @@ const Home = ({
   const modal = addModal ? ' modal-open' : ''
 
   return (
-    <div className='home contents'>
+    <div className='payment contents'>
       <div className={'contents-inner' + modal}>
-        <h2>Home</h2>
+        <h2>Payment</h2>
       </div>
     </div>
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home)
+export default connect(mapStateToProps, mapDispatchToProps)(Payment)

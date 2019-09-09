@@ -8,7 +8,7 @@ const client = './client/build'
 app.use('/', express.static(client))
 app.use('/login', express.static(client))
 app.use('/signup', express.static(client))
-app.use('/home', express.static(client))
+app.use('/payment', express.static(client))
 app.use('/list', express.static(client))
 app.use('/setting', express.static(client))
 app.use('/setting/name', express.static(client))

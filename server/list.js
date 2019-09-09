@@ -37,6 +37,7 @@ function createDB (user, name, callback) {
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (dbStatus) return callback({type:'alreadyCreated', fatal: false}, null)
     const docs = {
+      status: true,
       dbKey: uuidv1().split('-').join(''),
       host: user.userKey,
       client: null,

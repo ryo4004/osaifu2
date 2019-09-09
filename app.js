@@ -63,9 +63,10 @@ app.post('/adddb', (req, res) => {
   console.log(lib.time() + '/adddb', name)
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    list.createDB(user, name, (createDBError, db) => {
+    libList.createDB(user, name, (createDBError, db) => {
       return res.json({status: db, err: createDBError})
     })
   })
 })
+
 app.listen(3000)

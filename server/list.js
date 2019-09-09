@@ -1,7 +1,7 @@
 const path = require('path')
 const NeDB = require('nedb')
 
-const uuidv4 = require('uuid/v4')
+const uuidv1 = require('uuid/v1')
 
 const lib = require('./library')
 
@@ -34,12 +34,13 @@ function getDBStatus (user, callback) {
 
 function createDB (user, name, callback) {
   getDBStatus(user, (getDBStatusError, dbStatus) => {
-    if (dbStatus) return callback({type:'alreadyCreated', fatal: false})
-    const dbKey = uuidv1().split('-').join('')
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (dbStatus) return callback({type:'alreadyCreated', fatal: false}, null)
     const docs = {
       dbKey: uuidv1().split('-').join(''),
       host: user.userKey,
-      client: null
+      client: null,
+      name
     }
     listDB.insert(docs, (err, newdoc) => {
       if (err) return callback({type: 'DBError', fatal: true}, null)

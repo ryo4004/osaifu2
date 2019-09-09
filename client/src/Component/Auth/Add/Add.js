@@ -24,8 +24,7 @@ const Home = ({
 }) => {
 
   useEffect(() => {
-    console.log(user)
-    changeName(user ? user.name + ' のおさいふ' : 'おさいふ')
+    changeName(window.localStorage.userid ? window.localStorage.userid + ' のおさいふ' : 'おさいふ')
   }, [])
 
   const modalClass = modal ? ' open' : ' close'

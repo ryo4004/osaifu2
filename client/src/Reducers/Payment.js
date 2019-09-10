@@ -2,6 +2,7 @@ import * as ActionType from '../Actions/Constants/Payment'
 
 const initialState = {
   loading: false,
+  date: '',
   payment: '',
   paymentCheck: false,
   selfPayment: '',
@@ -19,6 +20,11 @@ export default function paymentReducer (state = initialState, action) {
       return {
         ...state,
         loading: action.payload.loading
+      }
+    case ActionType.PAYMENT_SET_DATE:
+      return {
+        ...state,
+        date: action.payload.date
       }
     case ActionType.PAYMENT_SET_PAYMENT:
       return {

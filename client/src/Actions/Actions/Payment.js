@@ -5,6 +5,11 @@ export const loading = (loading) => ({
   payload: { loading }
 })
 
+export const setDate = (date) => ({
+  type: ActionType.PAYMENT_SET_DATE,
+  payload: { date }
+})
+
 export const setPayment = (payment) => ({
   type: ActionType.PAYMENT_SET_PAYMENT,
   payload: { payment }

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import {
+  setDate,
   setPayment,
   setPaymentCheck,
   setSelfPayment,
@@ -14,6 +15,7 @@ import { setTitle } from '../../../Actions/Actions/Header'
 import './Payment.css'
 
 const mapStateToProps = (state) => ({
+  date: state.payment.date,
   payment: state.payment.payment,
   paymentCheck: state.payment.paymentCheck,
   selfPayment: state.payment.selfPayment,
@@ -22,6 +24,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setDate: (date) => dispatch(setDate(date)),
   setPayment: (payment) => dispatch(setPayment(payment)),
   setPaymentCheck: (paymentCheck) => dispatch(setPaymentCheck(paymentCheck)),
   setSelfPayment: (selfPayment) => dispatch(setSelfPayment(selfPayment)),
@@ -31,19 +34,23 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Payment = ({
-  payment, paymentCheck, selfPayment, otherPayment, memo,
-  setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setTitle
+  date, payment, paymentCheck, selfPayment, otherPayment, memo,
+  setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('支払い')
+    const time = new Date()
+    setDate(time.getFullYear() + '-' + ('00' + (time.getMonth() + 1)).slice(-2) + '-' + ('00' + time.getDate()).slice(-2))
   }, [])
 
   const changeValue = (type, value) => {
     const validValue = value.replace(/[０-９]/g, (s) => {return String.fromCharCode(s.charCodeAt(0)-0xFEE0)}).replace(/[^0-9]/g, '')
     if (value && !isNaN(validValue)) {
       calcEachPayment(type, validValue)
-      type === 'payment' && setPayment(parseInt(validValue))
+      if (type === 'payment') {
+        validValue > 1e16 ? setPayment(parseInt(payment)) : setPayment(parseInt(validValue))
+      }
       // calcPay(type, value, rate)
     } else {
       if (type === 'payment') {
@@ -76,13 +83,12 @@ const Payment = ({
       selfPayment = value
       otherPayment = 0
     }
-    console.log(value, selfPayment, otherPayment)
     if (selfPayment !== 0 && otherPayment === 0) {
       setPaymentCheck('self')
     } else if (selfPayment === 0 && otherPayment !== 0) {
       setPaymentCheck('other')
     } else {
-      setPaymentCheck(false)
+      setPaymentCheck('split')
     }
     setSelfPayment(parseInt(selfPayment))
     setOtherPayment(parseInt(otherPayment))
@@ -93,63 +99,90 @@ const Payment = ({
   }
 
   const updateCheck = (e) => {
+    if (e.target.id === 'split' && (payment === selfPayment || payment === otherPayment)) return
     setPaymentCheck(e.target.id)
     setSelfPayment(e.target.id === 'self' ? payment : 0)
     setOtherPayment(e.target.id === 'other' ? payment : 0)
   }
 
   const inputClass = payment ? 'input' : 'empty'
+
   return (
     <div className='payment contents'>
       <div className='contents-inner'>
-        <h2>Payment</h2>
-        <label className={inputClass}>支払額</label>
-        <input
-          type='text'
-          value={String(payment)}
-          onChange={(e) => changeValue('payment',e.target.value)}
-          onKeyPress={(e) => keyPress(e)}
-          pattern='\d*'
-          placeholder='ユーザ名'
-        />
+        <div className='form'>
+          <div className='date'>
+            <label>日付</label>
+            <input type='date' value={date} onChange={(e) => setDate(e.target.value)} />
+          </div>
+          <div className='payment'>
+            <label className={inputClass}>支払額</label>
+            <div>
+              {/* <span><i className='fas fa-yen-sign'></i></span> */}
+              {/* <span>&yen;</span> */}
+              <input
+                type='text'
+                value={String(payment)}
+                onChange={(e) => changeValue('payment',e.target.value)}
+                onKeyPress={(e) => keyPress(e)}
+                pattern='\d*'
+                placeholder='0'
+              />
+              <span>円</span>
+            </div>
+          </div>
 
-        <label className='memo'>メモ</label>
-        <input
-          type='text'
-          value={memo}
-          onChange={(e) => setMemo(e.target.value)}
-          onKeyPress={(e) => keyPress(e)}
-          placeholder='メモ'
-        />
+          <div className='memo'>
+            <label>メモ</label>
+            <input
+              type='text'
+              value={memo}
+              onChange={(e) => setMemo(e.target.value)}
+              onKeyPress={(e) => keyPress(e)}
+              placeholder='未入力'
+            />
+          </div>
 
-        <label>支払担当</label>
-        <div className='payment-check'>
-          <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
-          <label htmlFor='self'>self</label>
-          <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
-          <label htmlFor='other'>other</label>
+          <div className='payment-check'>
+            <label>支払分担</label>
+            <div>
+              <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
+              <label htmlFor='self' className='self'>あなた</label>
+              <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
+              <label htmlFor='other' className='other'>あいて</label>
+              <input type='radio' id='split' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'split'} />
+              <label htmlFor='split' className='split'>分担</label>
+            </div>
+          </div>
+
+          <div className='each-payment'>
+
+            <div>
+              <input
+                type='text'
+                value={String(selfPayment)}
+                onChange={(e) => changeValue('selfPayment', e.target.value)}
+                onKeyPress={(e) => keyPress(e)}
+                pattern='\d*'
+                placeholder='0'
+              />
+              <span>円</span>
+            </div>
+
+            <div>
+              <input
+                type='text'
+                value={String(otherPayment)}
+                onChange={(e) => changeValue('otherPayment', e.target.value)}
+                onKeyPress={(e) => keyPress(e)}
+                pattern='\d*'
+                placeholder='0'
+              />
+              <span>円</span>
+            </div>
+          </div>
+
         </div>
-
-        <label className='memo'>自分</label>
-        <input
-          type='text'
-          value={String(selfPayment)}
-          onChange={(e) => changeValue('selfPayment',e.target.value)}
-          onKeyPress={(e) => keyPress(e)}
-          pattern='\d*'
-          placeholder='自分'
-        />
-
-        <label className='memo'>相手</label>
-        <input
-          type='text'
-          value={String(otherPayment)}
-          onChange={(e) => changeValue('otherPayment',e.target.value)}
-          onKeyPress={(e) => keyPress(e)}
-          pattern='\d*'
-          placeholder='相手'
-        />
-
       </div>
     </div>
   )

@@ -15,11 +15,6 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       transform: translateZ(0);
-
-      &.modal-open {
-        overflow-y: hidden;
-        -webkit-overflow-scrolling: auto;
-      }
     }
   }
 }

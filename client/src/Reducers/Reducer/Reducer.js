@@ -8,6 +8,7 @@ import sessionReducer from '../Session'
 import statusReducer from '../Status'
 import headerReducer from '../Header'
 import addReducer from '../Add'
+import paymentReducer from '../Payment'
 
 export default (history) => combineReducers({
   login: loginReducer,
@@ -16,6 +17,7 @@ export default (history) => combineReducers({
   status: statusReducer,
   header: headerReducer,
   add: addReducer,
+  payment: paymentReducer,
 
   // The key must be router
   router: connectRouter(history)

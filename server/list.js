@@ -40,7 +40,7 @@ function createDB (user, name, callback) {
       status: true,
       dbKey: uuidv1().split('-').join(''),
       host: user.userKey,
-      client: null,
+      client: false,
       name
     }
     listDB.insert(docs, (err, newdoc) => {
@@ -50,6 +50,25 @@ function createDB (user, name, callback) {
   })
 }
 
+function createOsaifuDB (dbkey) {
+  return new NeDB({
+    filename: path.join(__dirname, 'osaifu/' + dbkey + '.db'),
+    autoload: true
+  })
+}
+
+function addPayment (user, payment, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
+    const osaifuDB = createOsaifuDB(dbStatus.dbKey)
+    osaifuDB.insert(payment, (osaifuDBError, newdoc) => {
+      if (osaifuDBError) return callback({type: 'DBError', fatal: true}, null)
+      callback(null, newdoc)
+    })
+  })
+}
+
 module.exports = {
-  getDBStatus, createDB
+  getDBStatus, createDB, addPayment
 }

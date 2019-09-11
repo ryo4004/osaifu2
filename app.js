@@ -68,4 +68,15 @@ app.post('/adddb', (req, res) => {
   })
 })
 
+app.post('/payment', (req, res) => {
+  const { session, payment } = req.body
+  console.log(lib.time() + '/payment')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.addPayment(user, payment, (addPaymentError, newdoc) => {
+      return res.json({status: newdoc && true, err: addPaymentError})
+    })
+  })
+})
+
 app.listen(3000)

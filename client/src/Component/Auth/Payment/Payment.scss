@@ -13,6 +13,11 @@
         padding-left: 8px;
         font-size: 1rem;
         white-space: nowrap;
+        color: #ccc;
+      }
+
+      &.use label {
+        color: #333;
       }
 
       input {
@@ -25,6 +30,32 @@
         text-align: right;
         font-size: 1.2rem;
         background: #fff;
+        color: #ccc;
+      }
+
+      &.use input {
+        color: #333;
+      }
+
+      .use-date {
+        input[type="checkbox"] {
+          display: none;
+
+          & + label {
+            margin: 0 8px 0 0;
+            padding: 0 6px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: .9rem;
+            cursor: pointer;
+          }
+
+          &:checked + label {
+            border: 1px solid #666;
+            background: #666;
+            color: #fff;
+          }
+        }
       }
     }
 
@@ -37,6 +68,7 @@
       label {
         padding-left: 8px;
         white-space: nowrap;
+        color: #333;
       }
 
       & > div {
@@ -73,8 +105,8 @@
 
       label {
         padding-left: 8px;
-        font-size: 1rem;
         white-space: nowrap;
+        color: #333;
       }
 
       input {
@@ -97,7 +129,6 @@
 
       label {
         padding-left: 8px;
-        font-size: 1rem;
         white-space: nowrap;
       }
     }
@@ -109,8 +140,8 @@
       & > label {
         display: block;
         padding-left: 8px;
-        font-size: 1rem;
         white-space: nowrap;
+        color: #333;
       }
 
       & > div {
@@ -120,8 +151,8 @@
   
         label {
           padding-left: 16px;
-          font-size: 1rem;
           white-space: nowrap;
+          color: #333;
         }
 
         .payment-check {
@@ -161,7 +192,7 @@
             margin: 0;
             padding: 0;
             border: 0;
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             text-align: right;
   
             &:placeholder-shown, &::-webkit-input-placeholder {

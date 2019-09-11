@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import {
+  setUseDate,
   setDate,
   setPayment,
   setPaymentCheck,
@@ -17,6 +18,7 @@ import './Payment.css'
 
 const mapStateToProps = (state) => ({
   loading: state.payment.loading,
+  useDate: state.payment.useDate,
   date: state.payment.date,
   payment: state.payment.payment,
   paymentCheck: state.payment.paymentCheck,
@@ -27,6 +29,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setUseDate: (useDate) => dispatch(setUseDate(useDate)),
   setDate: (date) => dispatch(setDate(date)),
   setPayment: (payment) => dispatch(setPayment(payment)),
   setPaymentCheck: (paymentCheck) => dispatch(setPaymentCheck(paymentCheck)),
@@ -39,16 +42,20 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Payment = ({
-  loading, date, payment, paymentCheck, selfPayment, otherPayment, memo, err,
-  setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
+  loading, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err,
+  setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('支払い')
     setError(false)
+    resetDate()
+  }, [])
+  
+  const resetDate = () => {
     const time = new Date()
     setDate(time.getFullYear() + '-' + ('00' + (time.getMonth() + 1)).slice(-2) + '-' + ('00' + time.getDate()).slice(-2))
-  }, [])
+  }
 
   const changeValue = (type, value) => {
     const validValue = value.replace(/[０-９]/g, (s) => {return String.fromCharCode(s.charCodeAt(0)-0xFEE0)}).replace(/[^0-9]/g, '')
@@ -102,6 +109,16 @@ const Payment = ({
     setOtherPayment(parseInt(otherPayment))
   }
 
+  const updateUseDate = () => {
+    resetDate()
+    setUseDate(!useDate)
+  }
+
+  const updateDate = (date) => {
+    setUseDate(true)
+    setDate(date)
+  }
+
   const updateCheck = (e) => {
     if (e.target.id === 'split' && (payment === selfPayment || payment === otherPayment)) return
     setPaymentCheck(e.target.id)
@@ -112,9 +129,19 @@ const Payment = ({
   const addSeparator = (num) => {
     return num.toLocaleString()
   }
-  
+
   const keyPress = (e) => {
     if (e.which === 13) sendPayment()
+  }
+
+  const showUseDate = () => {
+    if (!useDate) return
+    return (
+      <div className='use-date'>
+        <input type='checkbox' id='date' onChange={() => updateUseDate()} checked={useDate === true} />
+        <label htmlFor='date'>削除</label>
+      </div>  
+    )
   }
 
   const showError = () => {
@@ -137,6 +164,8 @@ const Payment = ({
     )
   }
 
+  const dateClass = useDate ? ' use' : ''
+
   const inputClass = payment ? 'input' : 'empty'
 
   const buttonLabel = loading ? '読み込み中' : '登録'
@@ -145,9 +174,10 @@ const Payment = ({
     <div className='payment contents'>
       <div className='contents-inner'>
         <div className='form'>
-          <div className='date'>
+          <div className={'date' + dateClass}>
             <label>日付</label>
-            <input type='date' value={date} onChange={(e) => setDate(e.target.value)} />
+            <input type='date' value={date} onChange={(e) => updateDate(e.target.value)} />
+            {showUseDate()}
           </div>
           <div className='payment'>
             <label className={inputClass}>支払額</label>

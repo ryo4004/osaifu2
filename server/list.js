@@ -53,7 +53,8 @@ function createDB (user, name, callback) {
 function createOsaifuDB (dbkey) {
   return new NeDB({
     filename: path.join(__dirname, 'osaifu/' + dbkey + '.db'),
-    autoload: true
+    autoload: true,
+    timestampData: true
   })
 }
 

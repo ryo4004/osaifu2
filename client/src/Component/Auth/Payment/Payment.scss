@@ -172,6 +172,52 @@
       }
     }
 
+    .err {
+      margin: 16px 8px;
+      padding: 1rem 12px;
+      border: 1px solid #f5c6cb;
+      border-radius: .25rem;
+      background: #f8d7da;
+      color: #721c24;
+      font-size: .9rem;
+    }
+
+    button {
+      display: block;
+      width: calc(100% - 16px);
+      height: 44px;
+      margin: 8px;
+      padding: 6px 18px;
+      border: none;
+      border-radius: .25rem;
+      background: rgba(243,115,53,.6);
+      font-size: 1rem;
+      color: #fff;
+      cursor: pointer;
+      outline: none;
+      transition: all ease-in-out .2s;
+
+      &:focus {
+        // box-shadow: 0 0 0 0.2rem rgba(243,115,53,.25);
+      }
+
+      &:hover, &:active, &:focus {
+        background: rgba(243,115,53,.8);
+        transition: all ease-in-out .1s;
+        color: #fff;
+      }
+
+      &:active, &:focus {
+        box-shadow: 0 0 0 0.2rem rgba(243,115,53,.25);
+      }
+
+      &:disabled {
+        color: #888;
+        background: #f8f8f8;
+        cursor: default;
+      }
+    }
+
     // input[type="text"] {
     //   -webkit-appearance: none;
     //   display: block;

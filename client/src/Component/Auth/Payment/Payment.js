@@ -8,19 +8,22 @@ import {
   setSelfPayment,
   setOtherPayment,
   setMemo,
-  sendPayment
+  sendPayment,
+  setError
 } from '../../../Actions/Actions/Payment'
 import { setTitle } from '../../../Actions/Actions/Header'
 
 import './Payment.css'
 
 const mapStateToProps = (state) => ({
+  loading: state.payment.loading,
   date: state.payment.date,
   payment: state.payment.payment,
   paymentCheck: state.payment.paymentCheck,
   selfPayment: state.payment.selfPayment,
   otherPayment: state.payment.otherPayment,
   memo: state.payment.memo,
+  err: state.payment.err
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -30,23 +33,25 @@ const mapDispatchToProps = (dispatch) => ({
   setSelfPayment: (selfPayment) => dispatch(setSelfPayment(selfPayment)),
   setOtherPayment: (otherPayment) => dispatch(setOtherPayment(otherPayment)),
   setMemo: (memo) => dispatch(setMemo(memo)),
+  sendPayment: () => dispatch(sendPayment()),
+  setError: (err) => dispatch(setError(err)),
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const Payment = ({
-  date, payment, paymentCheck, selfPayment, otherPayment, memo,
-  setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setTitle
+  loading, date, payment, paymentCheck, selfPayment, otherPayment, memo, err,
+  setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('支払い')
+    setError(false)
     const time = new Date()
     setDate(time.getFullYear() + '-' + ('00' + (time.getMonth() + 1)).slice(-2) + '-' + ('00' + time.getDate()).slice(-2))
   }, [])
 
   const changeValue = (type, value) => {
     const validValue = value.replace(/[０-９]/g, (s) => {return String.fromCharCode(s.charCodeAt(0)-0xFEE0)}).replace(/[^0-9]/g, '')
-    console.warn(value, validValue)
     if (value && !isNaN(validValue)) {
       calcEachPayment(type, validValue)
       if (type === 'payment') {
@@ -62,14 +67,6 @@ const Payment = ({
         calcEachPayment(type, 0)
       }
     }
-  }
-
-  const addSeparator = (num) => {
-    return num.toLocaleString()
-  }
-
-  const removeSeparator = (num) => {
-    return num.replace(/,/g, '')
   }
 
   const maxHold = (value, max) => {
@@ -105,10 +102,6 @@ const Payment = ({
     setOtherPayment(parseInt(otherPayment))
   }
 
-  const keyPress = (e) => {
-    if (e.which === 13) sendPayment()
-  }
-
   const updateCheck = (e) => {
     if (e.target.id === 'split' && (payment === selfPayment || payment === otherPayment)) return
     setPaymentCheck(e.target.id)
@@ -116,7 +109,37 @@ const Payment = ({
     setOtherPayment(e.target.id === 'other' ? payment : 0)
   }
 
+  const addSeparator = (num) => {
+    return num.toLocaleString()
+  }
+  
+  const keyPress = (e) => {
+    if (e.which === 13) sendPayment()
+  }
+
+  const showError = () => {
+    if (!err) return false
+    let message
+    switch (err.type) {
+      // Local Error
+      case 'blankPayment':
+        message = '支払額が指定されていません'
+        break
+      // Server Error
+      case 'DBError':
+        message = 'データベースエラー'
+        break
+      default:
+        message = 'error: ' + err.type
+    }
+    return (
+      <div className='err'>{message}</div>
+    )
+  }
+
   const inputClass = payment ? 'input' : 'empty'
+
+  const buttonLabel = loading ? '読み込み中' : '登録'
 
   return (
     <div className='payment contents'>
@@ -129,8 +152,6 @@ const Payment = ({
           <div className='payment'>
             <label className={inputClass}>支払額</label>
             <div>
-              {/* <span><i className='fas fa-yen-sign'></i></span> */}
-              {/* <span>&yen;</span> */}
               <input
                 type='text'
                 value={String(addSeparator(payment))}
@@ -154,26 +175,14 @@ const Payment = ({
             />
           </div>
 
-          {/* <div className='payment-check'>
-            <label>支払分担</label>
-            <div>
-              <input type='radio' id='split' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'split'} />
-              <label htmlFor='split' className='split'>分担</label>
-            </div>
-          </div> */}
-
           <div className='each-payment'>
-
             <label>支払分担</label>
-
             <div>
               <label>あなた</label>
-
               <div className='payment-check'>
                 <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
                 <label htmlFor='self' className='self'>全額</label>
               </div>
-
               <div className='self-payment'>
                 <input
                   type='text'
@@ -186,15 +195,12 @@ const Payment = ({
                 <span>円</span>
               </div>
             </div>
-
             <div>
               <label>あいて</label>
-
               <div className='payment-check'>
                 <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
                 <label htmlFor='other' className='other'>全額</label>
               </div>
-
               <div className='other-payment'>
                 <input
                   type='text'
@@ -207,7 +213,12 @@ const Payment = ({
                 <span>円</span>
               </div>
             </div>
+          </div>
 
+          {showError()}
+
+          <div className='button'>
+            <button onClick={() => sendPayment()}>{buttonLabel}</button>
           </div>
 
         </div>

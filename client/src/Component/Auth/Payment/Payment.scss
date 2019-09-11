@@ -6,7 +6,8 @@
     .date {
       display: flex;
       align-items: center;
-      margin: 8px 0;
+      padding: 12px 0;
+      border-bottom: .55px solid #eee;
 
       label {
         padding-left: 8px;
@@ -30,7 +31,8 @@
     .payment {
       display: flex;
       align-items: center;
-      margin: 8px 0;
+      padding: 8px 0;
+      border-bottom: .55px solid #eee;
 
       label {
         padding-left: 8px;
@@ -66,7 +68,8 @@
     .memo {
       display: flex;
       align-items: center;
-      margin: 12px 0;
+      padding: 12px 0;
+      border-bottom: .55px solid #eee;
 
       label {
         padding-left: 8px;
@@ -97,70 +100,73 @@
         font-size: 1rem;
         white-space: nowrap;
       }
-
-      & > div {
-        display: flex;
-        width: 100%;
-        padding: 0 8px;
-
-        input[type="radio"] {
-          display: none;
-
-          &:checked + label {
-            background: #666;
-            color: #fff;
-          }
-        }
-
-        label {
-          width: 100%;
-          padding: 0 8px;
-          text-align: center;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          border-top: 1px solid #666;
-          border-bottom: 1px solid #666;
-
-          &.self {
-            border-left: 1px solid #666;
-            border-radius: 6px 0 0 6px;
-          }
-
-          &.other {
-            border-left: 1px solid #666;
-            border-right: 1px solid #666;
-          }
-
-          &.split {
-            border-right: 1px solid #666;
-            border-radius: 0 6px 6px 0;
-          }
-        }
-      }
     }
 
     .each-payment {
+      padding: 12px 0;
+      border-bottom: .55px solid #eee;
+
+      & > label {
+        display: block;
+        padding-left: 8px;
+        font-size: 1rem;
+        white-space: nowrap;
+      }
+
       & > div {
         display: flex;
-        align-items: baseline;
-
-        span {
-          padding: 0 8px;
-          color: #333;
-          font-size: 1.1rem;
+        align-items: center;
+        margin: 0;
+  
+        label {
+          padding-left: 16px;
+          font-size: 1rem;
+          white-space: nowrap;
         }
 
-        input[type="text"] {
-          flex-grow: 2;
-          width: 100%;
-          margin: 0;
-          padding: 0;
-          border: 0;
-          font-size: 1.8rem;
-          text-align: right;
+        .payment-check {
+          input[type="radio"] {
+            display: none;
 
-          &:placeholder-shown, &::-webkit-input-placeholder {
+            & + label {
+              margin: 0 2px;
+              padding: 0 6px;
+              border: 1px solid #ccc;
+              border-radius: 6px;
+              font-size: .9rem;
+              cursor: pointer;
+            }
+
+            &:checked + label {
+              border: 1px solid #666;
+              background: #666;
+              color: #fff;
+            }
+          }
+        }
+
+        .self-payment, .other-payment {
+          display: flex;
+          align-items: baseline;
+  
+          span {
+            padding: 0 8px;
             color: #333;
+            font-size: 1.1rem;
+          }
+  
+          input[type="text"] {
+            flex-grow: 2;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            font-size: 1.8rem;
+            text-align: right;
+  
+            &:placeholder-shown, &::-webkit-input-placeholder {
+              color: #333;
+            }
           }
         }
       }

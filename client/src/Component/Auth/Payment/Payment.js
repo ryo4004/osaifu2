@@ -46,6 +46,7 @@ const Payment = ({
 
   const changeValue = (type, value) => {
     const validValue = value.replace(/[０-９]/g, (s) => {return String.fromCharCode(s.charCodeAt(0)-0xFEE0)}).replace(/[^0-9]/g, '')
+    console.warn(value, validValue)
     if (value && !isNaN(validValue)) {
       calcEachPayment(type, validValue)
       if (type === 'payment') {
@@ -57,8 +58,18 @@ const Payment = ({
         setPayment('')
         setSelfPayment('')
         setOtherPayment('')
+      } else {
+        calcEachPayment(type, 0)
       }
     }
+  }
+
+  const addSeparator = (num) => {
+    return num.toLocaleString()
+  }
+
+  const removeSeparator = (num) => {
+    return num.replace(/,/g, '')
   }
 
   const maxHold = (value, max) => {
@@ -122,7 +133,7 @@ const Payment = ({
               {/* <span>&yen;</span> */}
               <input
                 type='text'
-                value={String(payment)}
+                value={String(addSeparator(payment))}
                 onChange={(e) => changeValue('payment',e.target.value)}
                 onKeyPress={(e) => keyPress(e)}
                 pattern='\d*'
@@ -143,43 +154,60 @@ const Payment = ({
             />
           </div>
 
-          <div className='payment-check'>
+          {/* <div className='payment-check'>
             <label>支払分担</label>
             <div>
-              <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
-              <label htmlFor='self' className='self'>あなた</label>
-              <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
-              <label htmlFor='other' className='other'>あいて</label>
               <input type='radio' id='split' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'split'} />
               <label htmlFor='split' className='split'>分担</label>
             </div>
-          </div>
+          </div> */}
 
           <div className='each-payment'>
 
+            <label>支払分担</label>
+
             <div>
-              <input
-                type='text'
-                value={String(selfPayment)}
-                onChange={(e) => changeValue('selfPayment', e.target.value)}
-                onKeyPress={(e) => keyPress(e)}
-                pattern='\d*'
-                placeholder='0'
-              />
-              <span>円</span>
+              <label>あなた</label>
+
+              <div className='payment-check'>
+                <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
+                <label htmlFor='self' className='self'>全額</label>
+              </div>
+
+              <div className='self-payment'>
+                <input
+                  type='text'
+                  value={String(addSeparator(selfPayment))}
+                  onChange={(e) => changeValue('selfPayment', e.target.value)}
+                  onKeyPress={(e) => keyPress(e)}
+                  pattern='\d*'
+                  placeholder='0'
+                />
+                <span>円</span>
+              </div>
             </div>
 
             <div>
-              <input
-                type='text'
-                value={String(otherPayment)}
-                onChange={(e) => changeValue('otherPayment', e.target.value)}
-                onKeyPress={(e) => keyPress(e)}
-                pattern='\d*'
-                placeholder='0'
-              />
-              <span>円</span>
+              <label>あいて</label>
+
+              <div className='payment-check'>
+                <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
+                <label htmlFor='other' className='other'>全額</label>
+              </div>
+
+              <div className='other-payment'>
+                <input
+                  type='text'
+                  value={String(addSeparator(otherPayment))}
+                  onChange={(e) => changeValue('otherPayment', e.target.value)}
+                  onKeyPress={(e) => keyPress(e)}
+                  pattern='\d*'
+                  placeholder='0'
+                />
+                <span>円</span>
+              </div>
             </div>
+
           </div>
 
         </div>

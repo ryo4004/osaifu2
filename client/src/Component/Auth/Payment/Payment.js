@@ -70,6 +70,7 @@ const Payment = ({
         setPayment('')
         setSelfPayment('')
         setOtherPayment('')
+        setPaymentCheck('split')
       } else {
         calcEachPayment(type, 0)
       }
@@ -139,7 +140,7 @@ const Payment = ({
     return (
       <div className='use-date'>
         <input type='checkbox' id='date' onChange={() => updateUseDate()} checked={useDate === true} />
-        <label htmlFor='date'>削除</label>
+        <label htmlFor='date'><i className='fas fa-times-circle'></i></label>
       </div>  
     )
   }

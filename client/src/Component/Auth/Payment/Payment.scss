@@ -43,17 +43,12 @@
 
           & + label {
             margin: 0 8px 0 0;
-            padding: 0 6px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-size: .9rem;
+            font-size: 1rem;
             cursor: pointer;
           }
 
           &:checked + label {
-            border: 1px solid #666;
-            background: #666;
-            color: #fff;
+            color: #888;
           }
         }
       }

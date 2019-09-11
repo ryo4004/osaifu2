@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import FocusInput from '../Component/FocusInput/FocusInput'
+
 import {
   setUseDate,
   setDate,
@@ -183,7 +185,7 @@ const Payment = ({
           <div className='payment'>
             <label className={inputClass}>支払額</label>
             <div>
-              <input
+              <FocusInput
                 type='text'
                 value={String(addSeparator(payment))}
                 onChange={(e) => changeValue('payment',e.target.value)}

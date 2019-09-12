@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import { requestList } from '../../../Actions/Actions/List'
 import { setTitle } from '../../../Actions/Actions/Header'
 
 import './List.css'
@@ -8,15 +9,17 @@ import './List.css'
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = (dispatch) => ({
+  requestList: () => dispatch(requestList()),
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const List = ({
-  setTitle
+  requestList, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('履歴')
+    requestList()
   }, [])
 
   return (

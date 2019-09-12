@@ -6,6 +6,7 @@ import Session from '../Session'
 import Status from '../Status'
 import Add from '../Add'
 import Payment from '../Payment'
+import List from '../List'
 
 export default function* rootSaga () {
   yield all([
@@ -14,6 +15,7 @@ export default function* rootSaga () {
     fork(Session),
     fork(Status),
     fork(Add),
-    fork(Payment)
+    fork(Payment),
+    fork(List)
   ])
 }

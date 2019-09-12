@@ -14,6 +14,8 @@ import {
 } from '../../../Actions/Actions/Payment'
 import { setTitle } from '../../../Actions/Actions/Header'
 
+import * as lib from '../../../Library/Library'
+
 import './Payment.css'
 
 const mapStateToProps = (state) => ({
@@ -127,10 +129,6 @@ const Payment = ({
     setOtherPayment(e.target.id === 'other' ? payment : 0)
   }
 
-  const addSeparator = (num) => {
-    return num.toLocaleString()
-  }
-
   const keyPress = (e) => {
     if (e.which === 13) sendPayment()
   }
@@ -185,7 +183,7 @@ const Payment = ({
             <div>
               <input
                 type='text'
-                value={String(addSeparator(payment))}
+                value={String(lib.addSeparator(payment))}
                 onChange={(e) => changeValue('payment',e.target.value)}
                 onKeyPress={(e) => keyPress(e)}
                 pattern='\d*'
@@ -217,7 +215,7 @@ const Payment = ({
               <div className='self-payment'>
                 <input
                   type='text'
-                  value={String(addSeparator(selfPayment))}
+                  value={String(lib.addSeparator(selfPayment))}
                   onChange={(e) => changeValue('selfPayment', e.target.value)}
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'
@@ -235,7 +233,7 @@ const Payment = ({
               <div className='other-payment'>
                 <input
                   type='text'
-                  value={String(addSeparator(otherPayment))}
+                  value={String(lib.addSeparator(otherPayment))}
                   onChange={(e) => changeValue('otherPayment', e.target.value)}
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'

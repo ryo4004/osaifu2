@@ -36,7 +36,7 @@ const List = ({
         {list.map((each, i) => {
           return (
             <li key={'list' + i}>
-              <div className='payment'>{each.payment}</div>
+              <div className='payment'>{lib.addSeparator(parseInt(each.payment))}</div>
               <div className='date'>{each.createdAt}</div>
               <div className='date'>{lib.unixDateTime(each.paymentDate)}</div>
             </li>

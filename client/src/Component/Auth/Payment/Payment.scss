@@ -69,6 +69,7 @@
       & > div {
         display: flex;
         align-items: baseline;
+        width: 100%;
 
         span {
           padding: 0 8px;
@@ -174,7 +175,8 @@
         .self-payment, .other-payment {
           display: flex;
           align-items: baseline;
-  
+          width: 100%;
+
           span {
             padding: 0 8px;
             color: #333;

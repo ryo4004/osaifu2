@@ -51,3 +51,7 @@ export function unixTime (timestamp) {
   var min  = ('0' + d.getMinutes()).slice(-2)
   return(hour + ':' + min);
 }
+
+export function addSeparator (num) {
+  return num.toLocaleString()
+}

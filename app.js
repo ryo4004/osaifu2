@@ -79,4 +79,15 @@ app.post('/payment', (req, res) => {
   })
 })
 
+app.post('/list', (req, res) => {
+  const { session } = req.body
+  console.log(lib.time() + '/list')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.getList(user, (getListError, list) => {
+      return res.json({list, err: getListError})
+    })
+  })
+})
+
 app.listen(3000)

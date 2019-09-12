@@ -70,6 +70,18 @@ function addPayment (user, payment, callback) {
   })
 }
 
+function getList (user, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
+    const osaifuDB = createOsaifuDB(dbStatus.dbKey)
+    osaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec((findError, list) => {
+      if (findError) return callback({type: 'DBError', fatal: true}, null)
+      return callback(null, list)
+    })
+  })
+}
+
 module.exports = {
-  getDBStatus, createDB, addPayment
+  getDBStatus, createDB, addPayment, getList
 }

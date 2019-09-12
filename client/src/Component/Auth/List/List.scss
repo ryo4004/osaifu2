@@ -1,17 +1,34 @@
 .list {
-  li {
-    padding: 8px;
 
-    .payment {
-      font-size: 1.6rem;
-    }
+  ul {
+    max-width: 600px;
+    margin: 0 auto;
 
-    .date {
-      font-size: .8rem;
-      color: #ccc;
+    li {
+      padding: 8px;
 
-      &.use {
-        color: #333;
+      display: flex;
+      align-items: baseline;
+      cursor: pointer;
+
+      &:hover {
+        background: #eee;
+      }
+
+      .date {
+        font-size: .8rem;
+        color: #666;
+      }
+
+      .payment {
+        flex: 2;
+        text-align: right;
+        font-size: 1.6rem;
+
+        span {
+          padding-left: 6px;
+          font-size: 1.1rem;
+        }
       }
     }
   }

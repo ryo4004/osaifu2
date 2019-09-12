@@ -29,16 +29,16 @@ const List = ({
   }, [])
 
   const showList = () => {
-    if (!list || loading) return
+    if (!list) return
     console.log(list)
     return (
       <ul>
         {list.map((each, i) => {
+          const date = (each.useDate ? lib.unixDateTime(each.paymentDate) : each.createdAt).split('T')[0].replace('-', '/')
           return (
             <li key={'list' + i}>
-              <div className='payment'>{lib.addSeparator(parseInt(each.payment))}</div>
-              <div className='date'>{each.createdAt}</div>
-              <div className='date'>{lib.unixDateTime(each.paymentDate)}</div>
+              <div className='date'>{date}</div>
+              <div className='payment'>{lib.addSeparator(parseInt(each.payment))}<span>円</span></div>
             </li>
           )
         })}

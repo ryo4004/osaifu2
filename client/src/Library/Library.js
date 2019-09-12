@@ -25,3 +25,29 @@ export function getSession () {
     version
   }
 }
+
+export function unixDateTime (timestamp) {
+  const date = new Date(parseInt(timestamp))
+  var Y = date.getFullYear()
+  var m = ('0' + (date.getMonth() + 1)).slice(-2)
+  var d = ('0' + date.getDate()).slice(-2)
+  var H = ('0' + date.getHours()).slice(-2)
+  var i = ('0' + date.getMinutes()).slice(-2)
+  var s = ('0' + date.getSeconds()).slice(-2)
+  return Y + '-' + m + '-' + d + 'T' + H + ':' + i + ':' + s
+}
+
+export function unixDate (timestamp) {
+  var d = new Date(parseInt(timestamp))
+  var year = d.getFullYear()
+  var month = d.getMonth() + 1
+  var day = d.getDate()
+  return(year + '/' + month + '/' + day)
+}
+
+export function unixTime (timestamp) {
+  var d = new Date(parseInt(timestamp))
+  var hour = ('0' + d.getHours()).slice(-2)
+  var min  = ('0' + d.getMinutes()).slice(-2)
+  return(hour + ':' + min);
+}

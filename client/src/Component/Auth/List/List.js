@@ -4,9 +4,14 @@ import { connect } from 'react-redux'
 import { requestList } from '../../../Actions/Actions/List'
 import { setTitle } from '../../../Actions/Actions/Header'
 
+import * as lib from '../../../Library/Library'
+
 import './List.css'
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  loading: state.list.loading,
+  list: state.list.list
+})
 
 const mapDispatchToProps = (dispatch) => ({
   requestList: () => dispatch(requestList()),
@@ -14,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const List = ({
+  loading, list,
   requestList, setTitle
 }) => {
 
@@ -22,9 +28,29 @@ const List = ({
     requestList()
   }, [])
 
+  const showList = () => {
+    if (!list || loading) return
+    console.log(list)
+    return (
+      <ul>
+        {list.map((each, i) => {
+          return (
+            <li key={'list' + i}>
+              <div className='payment'>{each.payment}</div>
+              <div className='date'>{each.createdAt}</div>
+              <div className='date'>{lib.unixDateTime(each.paymentDate)}</div>
+            </li>
+          )
+        })}
+      </ul>
+    )
+  }
+
   return (
     <div className='list contents'>
-      <h2>List</h2>
+      <div className='contents-inner'>
+        {showList()}
+      </div>
     </div>
   )
 }

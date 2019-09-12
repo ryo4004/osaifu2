@@ -1,0 +1,18 @@
+.list {
+  li {
+    padding: 8px;
+
+    .payment {
+      font-size: 1.6rem;
+    }
+
+    .date {
+      font-size: .8rem;
+      color: #ccc;
+
+      &.use {
+        color: #333;
+      }
+    }
+  }
+}

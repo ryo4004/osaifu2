@@ -12,6 +12,7 @@ import Header from './Component/Header/Header'
 import Navigation from './Component/Navigation/Navigation'
 
 import Add from './Add/Add'
+import Detail from './Detail/Detail'
 
 import './Auth.css'
 
@@ -43,6 +44,7 @@ const Auth = ({
       </div>
       <Navigation />
       <Add />
+      <Detail />
     </React.Fragment>
   )
 }

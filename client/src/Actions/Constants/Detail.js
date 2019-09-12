@@ -1,0 +1,6 @@
+export const prefix = 'DETAIL_'
+export const DETAIL_LOADING = prefix + 'LOADING'
+export const DETAIL_SET_MODAL = prefix + 'SET_MODAL'
+export const DETAIL_SET_CONTENT = prefix + 'SET_CONTENT'
+export const DETAIL_REQUEST_DELETE = prefix + 'REQUEST_DELETE'
+export const DETAIL_SET_ERROR = prefix + 'SET_ERROR'

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 
 import { requestList } from '../../../Actions/Actions/List'
 import { setTitle } from '../../../Actions/Actions/Header'
+import { setModal, setContent } from '../../../Actions/Actions/Detail'
 
 import * as lib from '../../../Library/Library'
 
@@ -15,12 +16,14 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   requestList: () => dispatch(requestList()),
-  setTitle: (title) => dispatch(setTitle(title))
+  setTitle: (title) => dispatch(setTitle(title)),
+  setModal: (modal) => dispatch(setModal(modal)),
+  setContent: (content) => dispatch(setContent(content))
 })
 
 const List = ({
   loading, list,
-  requestList, setTitle
+  requestList, setTitle, setModal, setContent
 }) => {
 
   useEffect(() => {
@@ -28,15 +31,20 @@ const List = ({
     requestList()
   }, [])
 
+  const openModal = (content) => {
+    setContent(content)
+    setModal(true)
+  }
+
   const showList = () => {
     if (!list) return
-    console.log(list)
     return (
       <ul>
         {list.map((each, i) => {
-          const date = (each.useDate ? lib.unixDateTime(each.paymentDate) : each.createdAt).split('T')[0].replace('-', '/')
+          const date = (each.useDate ? lib.unixDateTime(each.paymentDate) : each.createdAt).split('T')[0].replace(/-/g, '/')
+          console.log(each)
           return (
-            <li key={'list' + i}>
+            <li key={'list' + i} onClick={() => openModal(each)}>
               <div className='date'>{date}</div>
               <div className='payment'>{lib.addSeparator(parseInt(each.payment))}<span>円</span></div>
             </li>

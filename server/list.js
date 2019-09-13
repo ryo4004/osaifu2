@@ -82,6 +82,19 @@ function getList (user, callback) {
   })
 }
 
+function deletePayment (user, id, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
+    const osaifuDB = createOsaifuDB(dbStatus.dbKey)
+    osaifuDB.remove({_id: id}, {}, (removeError, num) => {
+      if (removeError) return callback({type: 'DBError', fatal: true}, null)
+      if (num !== 1) return callback({type: 'removeError', fatal: true}, null)
+      return callback(null, true)
+    })
+  })
+}
+
 module.exports = {
-  getDBStatus, createDB, addPayment, getList
+  getDBStatus, createDB, addPayment, getList, deletePayment
 }

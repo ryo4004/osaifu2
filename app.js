@@ -90,4 +90,15 @@ app.post('/list', (req, res) => {
   })
 })
 
+app.post('/delete', (req, res) => {
+  const { session, id } = req.body
+  console.log(lib.time() + '/delete: ' + id)
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.deletePayment(user, id, (deletePaymentError, result) => {
+      return res.json({result, err: deletePaymentError})
+    })
+  })
+})
+
 app.listen(3000)

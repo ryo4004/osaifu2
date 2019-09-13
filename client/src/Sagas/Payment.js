@@ -5,6 +5,7 @@ import * as ActionType from '../Actions/Constants/Payment'
 import { post } from '../Library/Request'
 
 import { loading, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setError } from '../Actions/Actions/Payment'
+import { showToast } from '../Actions/Actions/Toast'
 
 import * as lib from '../Library/Library'
 
@@ -33,6 +34,8 @@ function* runRequest () {
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
+    console.log({payment})
+    yield put(showToast(payment.payment + '円 記録しました'))
     yield put(setPayment(''))
     yield put(setPaymentCheck(false))
     yield put(setSelfPayment(''))

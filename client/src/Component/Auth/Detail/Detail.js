@@ -34,6 +34,7 @@ const Detail = ({
         <div className='other-payment'>{lib.addSeparator(content.otherPayment)}<span>円</span></div>
         <div>{content.createdAt}</div>
         <div>{lib.unixDateTime(content.paymentDate)}</div>
+        <button onClick={() => requestDelete(content._id)}>削除</button>
       </div>
     )
   }

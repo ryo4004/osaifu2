@@ -42,7 +42,6 @@ const List = ({
       <ul>
         {list.map((each, i) => {
           const date = (each.useDate ? lib.unixDateTime(each.paymentDate) : each.createdAt).split('T')[0].replace(/-/g, '/')
-          console.log(each)
           return (
             <li key={'list' + i} onClick={() => openModal(each)}>
               <div className='date'>{date}</div>

@@ -15,8 +15,9 @@ export const setContent = (content) => ({
   payload: { content }
 })
 
-export const requestDelete = () => ({
-  type: ActionType.DETAIL_REQUEST_DELETE
+export const requestDelete = (id) => ({
+  type: ActionType.DETAIL_REQUEST_DELETE,
+  payload: { id }
 })
 
 export const setError = (err) => ({

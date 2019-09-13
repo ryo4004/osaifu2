@@ -11,6 +11,7 @@ import addReducer from '../Add'
 import paymentReducer from '../Payment'
 import listReducer from '../List'
 import detailReducer from '../Detail'
+import toastReducer from '../Toast'
 
 export default (history) => combineReducers({
   login: loginReducer,
@@ -22,6 +23,7 @@ export default (history) => combineReducers({
   payment: paymentReducer,
   list: listReducer,
   detail: detailReducer,
+  toast: toastReducer,
 
   // The key must be router
   router: connectRouter(history)

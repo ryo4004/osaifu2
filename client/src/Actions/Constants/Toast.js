@@ -1,0 +1,5 @@
+export const prefix = 'TOAST_'
+export const TOAST_SHOW_TOAST = prefix + 'SHOW_TOAST'
+export const TOAST_SHOW = prefix + 'SHOW'
+export const TOAST_HIDE = prefix + 'HIDE'
+export const TOAST_END = prefix + 'END'

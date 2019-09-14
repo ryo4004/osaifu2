@@ -1,18 +1,26 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import { changeName, requestChangeName } from '../../../../Actions/Actions/Setting'
 import { setTitle } from '../../../../Actions/Actions/Header'
 
 import './Name.css'
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = (state) => ({
+  loading: state.setting.loading,
+  name: state.setting.name,
+  err: state.setting.err
+})
 
 const mapDispatchToProps = (dispatch) => ({
+  changeName: (name) => dispatch(changeName(name)),
+  requestChangeName: () => dispatch(requestChangeName()),
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const Name = ({
-  setTitle
+  loading, name, err,
+  changeName, requestChangeName, setTitle
 }) => {
 
   useEffect(() => {
@@ -21,7 +29,10 @@ const Name = ({
 
   return (
     <div className='setting-name'>
-      <h2>Setting name</h2>
+      <div className='form'>
+        <input value={name} onChange={(e) => changeName(e.target.value)} />
+        <button onClick={() => requestChangeName()}>送信</button>
+      </div>
     </div>
   )
 }

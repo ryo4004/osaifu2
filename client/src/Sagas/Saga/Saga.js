@@ -9,6 +9,7 @@ import Payment from '../Payment'
 import List from '../List'
 import Detail from '../Detail'
 import Toast from '../Toast'
+import Setting from '../Setting'
 
 export default function* rootSaga () {
   yield all([
@@ -20,6 +21,7 @@ export default function* rootSaga () {
     fork(Payment),
     fork(List),
     fork(Detail),
-    fork(Toast)
+    fork(Toast),
+    fork(Setting)
   ])
 }

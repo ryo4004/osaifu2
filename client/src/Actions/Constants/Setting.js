@@ -1,0 +1,5 @@
+export const prefix = 'SETTING_'
+export const SETTING_LOADING = prefix + 'LOADING'
+export const SETTING_CHANGE_NAME = prefix + 'CHANGE_NAME'
+export const SETTING_REQUEST_CHANGE_NAME = prefix + 'REQUEST_CHANGE_NAME'
+export const SETTING_SET_ERROR = prefix + 'SET_ERROR'

@@ -1,7 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { confirmAlert } from 'react-confirm-alert'
 
+import { requestLogout } from '../../../../Actions/Actions/Session'
 import { setTitle } from '../../../../Actions/Actions/Header'
 
 import './Home.css'
@@ -12,17 +14,38 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  requestLogout: () => dispatch(requestLogout()),
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const Home = ({
   user, status,
-  setTitle
+  requestLogout, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('設定')
   }, [])
+
+  const logout = () => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='alert'>
+            <h1>ログアウトしますか？</h1>
+            <p>ユーザー情報は端末に残りません。</p>
+            <div className='button-group'>
+              <button onClick={onClose}>キャンセル</button>
+              <button onClick={() => {
+                requestLogout()
+                onClose()
+              }}>ログアウト</button>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
 
   const showUser = () => {
     if (!user) return false
@@ -50,6 +73,9 @@ const Home = ({
       {showStatus()}
       <ul>
         <li><Link to='/setting/name'><span>名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
+      </ul>
+      <ul>
+        <li><button onClick={() => logout()}>ログアウト</button></li>
       </ul>
     </div>
   )

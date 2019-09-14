@@ -2,7 +2,7 @@ import * as ActionType from '../Actions/Constants/Session'
 
 const initialState = {
   loading: false,
-  user: null,
+  user: false,
   err: false
 }
 

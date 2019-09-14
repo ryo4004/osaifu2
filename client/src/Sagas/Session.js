@@ -22,6 +22,19 @@ function* runRequestSession () {
   }
 }
 
+function* runRequestLogout () {
+  console.warn('requestLogout')
+  yield put(loading(true))
+  const send = {session: lib.getSession()}
+  yield call(() => post('/logout', send))
+  yield put(loading(false))
+  yield put(setUser(false))
+  window.localStorage.clear()
+  yield put(replace('/login'))
+}
+
 export default function* watchRequestSession () {
   yield takeLatest(ActionType.SESSION_REQUEST_AUTH, runRequestSession)
+  yield takeLatest(ActionType.SESSION_REQUEST_LOGOUT, runRequestLogout)
 }
+

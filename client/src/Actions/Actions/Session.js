@@ -9,6 +9,10 @@ export const requestAuth = () => ({
   type: ActionType.SESSION_REQUEST_AUTH
 })
 
+export const requestLogout = () => ({
+  type: ActionType.SESSION_REQUEST_LOGOUT
+})
+
 export const setUser = (user) => ({
   type: ActionType.SESSION_SET_USER,
   payload: { user }

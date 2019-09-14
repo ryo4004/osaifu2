@@ -9,7 +9,7 @@ export const requestStatus = () => ({
   type: ActionType.STATUS_REQUEST_STATUS
 })
 
-export const setStatus = () => ({
+export const setStatus = (status) => ({
   type: ActionType.STATUS_SET_STATUS,
   payload: { status }
 })

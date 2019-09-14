@@ -15,10 +15,12 @@ const Setting = ({}) => {
 
   return (
     <div className='setting contents'>
-      <Switch>
-        <Route path='/setting' exact component={Home} />
-        <Route path='/setting/name' component={Name} />
-      </Switch>
+      <div className='contents-inner'>
+        <Switch>
+          <Route path='/setting' exact component={Home} />
+          <Route path='/setting/name' component={Name} />
+        </Switch>
+      </div>
     </div>
   )
 }

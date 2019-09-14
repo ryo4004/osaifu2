@@ -139,5 +139,5 @@ function updateName (user, name, callback) {
 }
 
 module.exports = {
-  addUser, login, deleteSession, authentication
+  addUser, login, deleteSession, authentication, updateName
 }

@@ -19,10 +19,10 @@ function getDBStatus (user, callback) {
       if (host === null && client === null) return callback({type: 'notFound', fatal: false}, null)
       if (host) {
         if (!host.status) return callback({type: 'statusError', fatal: false}, null)
-        return callback(null, {dbStatus: host.status, dbKey: host.dbKey, user: 'host'})
+        return callback(null, {dbStatus: host.status, dbKey: host.dbKey, name: host.name, user: 'host'})
       } else if (client) {
         if (!client.status) return callback({type: 'clientDisabled', fatal: false}, null)
-        return callback(null, {dbStatus: client.status, dbKey: client.dbKey, user: 'client'})
+        return callback(null, {dbStatus: client.status, dbKey: client.dbKey, name: client.name, user: 'client'})
       } else if (host === null) {
         return callback({type: 'hostNotFound', fatal: false}, null)
       } else if (client === null) {

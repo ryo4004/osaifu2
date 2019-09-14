@@ -1,0 +1,61 @@
+.setting-home {
+  .user, .status {
+    max-width: 600px;
+    margin: 8px auto;
+
+    & > div {
+      display: flex;
+      align-items: center;
+      margin: 0 8px;
+      color: #333;
+
+      label {
+        color: #666;
+      }
+
+      span {
+        flex: 2;
+        text-align: right;
+      }
+    }
+  }
+
+  ul {
+    max-width: 600px;
+    margin: 0 auto;
+    border-top: .55px solid #c8c7cc;
+
+    li {
+      a {
+        display: block;
+        border-bottom: .55px solid #c8c7cc;
+        text-decoration: none;
+        color: #333;
+        cursor: pointer;
+
+        padding: 0 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        &:hover {
+          background: #eee;
+        }
+
+        &:active {
+          background: #e3e3e3;
+        }
+
+        span {
+          line-height: 44px;
+          font-size: 1rem;
+        }
+
+        i {
+          color: #666;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

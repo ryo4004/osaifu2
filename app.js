@@ -36,6 +36,15 @@ app.post('/login', (req, res) => {
   })
 })
 
+app.post('/logout', (req, res) => {
+  const { session } = req.body
+  console.log(lib.time() + '/logout')
+  libUser.deleteSession(session, (err, result) => {
+    console.log(lib.time() + '/logout ' + (result ? 'OK' : 'NG'))
+    return res.json({})
+  })
+})
+
 app.post('/auth', (req, res) => {
   const { session } = req.body
   console.log(lib.time() + '/auth', session.version)

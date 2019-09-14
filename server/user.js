@@ -60,7 +60,22 @@ function login (userdata, callback) {
       clientList: newClientList
     }
     updateUser(newUser, (UpdateUserError) => {
-      if (UpdateUserError) return callback(UpdateUserError)
+      if (UpdateUserError) return callback(UpdateUserError, null)
+      callback(null, newUser)
+    })
+  })
+}
+
+function deleteSession (session, callback) {
+  getUser(session.userid, (getUserError, user) => {
+    if (getUserError) return callback(getUserError, null)
+    const newClientList = user.clientList.filter((e) => {return e.id !== session.clientid})
+    const newUser = {
+      ...user,
+      clientList: newClientList
+    }
+    updateUser(newUser, (updateUserError) => {
+      if (updateUserError) return callback(updateUserError, null)
       callback(null, newUser)
     })
   })
@@ -124,5 +139,5 @@ function updateName (user, name, callback) {
 }
 
 module.exports = {
-  addUser, login, authentication
+  addUser, login, deleteSession, authentication
 }

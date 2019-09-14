@@ -1,18 +1,41 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import './Header.css'
 
 const mapStateToProps = (state) => ({
-  title: state.header.title
+  title: state.header.title,
+  back: state.header.back
 })
 
 const mapDispatchToProps = (dispatch) => ({})
 
-const Header = ({ title }) => {
+const Back = () => {
+  return (
+    <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' className='s-ion-icon'>
+      <path d='M217.9 256L345 129c9.4-9.4 9.4-24.6 0-33.9-9.4-9.4-24.6-9.3-34 0L167 239c-9.1 9.1-9.3 23.7-.7 33.1L310.9 417c4.7 4.7 10.9 7 17 7s12.3-2.3 17-7c9.4-9.4 9.4-24.6 0-33.9L217.9 256z'></path>
+    </svg>
+  )
+}
+
+const Header = ({ title, back }) => {
+
+  const showBack = () => {
+    if (!back) return
+    return (
+      <div className='label back'>
+        <Link to={back}>
+          <div className='back-icon'><Back /></div>
+          <span>戻る</span>
+        </Link>
+      </div>
+    )
+  }
 
   return (
     <div className='header'>
+      {showBack()}
       <h2>{title}</h2>
     </div>
   )

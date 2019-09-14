@@ -1,7 +1,8 @@
 import * as ActionType from '../Actions/Constants/Header'
 
 const initialState = {
-  title: 'おさいふ'
+  title: 'おさいふ',
+  back: false
 }
 
 export default function headerReducer (state = initialState, action) {
@@ -10,6 +11,11 @@ export default function headerReducer (state = initialState, action) {
       return {
         ...state,
         title: action.payload.title
+      }
+    case ActionType.HEADER_SET_BACK:
+      return {
+        ...state,
+        back: action.payload.back
       }
     default:
       return state

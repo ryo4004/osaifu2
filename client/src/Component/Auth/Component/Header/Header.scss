@@ -10,6 +10,77 @@
   justify-content: center;
   align-items: center;
 
+  .label {
+    position: fixed;
+    // top: 0;
+    left: 0;
+    width: 44px;
+    height: 44px;
+    color: #0D5783;
+    // color: #488aff;
+    // color: #B60005;
+    z-index: 21;
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.back {
+      // left: 8px;
+      width: auto;
+
+      a {
+        color: #488aff;
+        text-decoration: none;
+
+        display: flex;
+        align-items: center;
+
+        i {
+          margin-right: .1em;
+          font-size: 1.6em;
+        }
+
+        .back-icon {
+          svg {
+            display: block;
+            width: 32px;
+            height: 32px;
+            fill: #488aff;
+          }
+        }
+
+        span {
+          position: relative;
+          left: -6px;
+          font-size: 17px;
+        }
+
+        // &:hover, &:active {
+        //   color: #f65a5f;
+        // }
+      }
+    }
+
+    &.home-navigation {
+      // top: 0;
+      left: auto;
+      right: 0;
+
+      a {
+        width: 44px;
+        height: 44px;
+        color: inherit;
+        text-decoration: none;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
+
   h2 {
     font-size: 17px;
     font-weight: bold;

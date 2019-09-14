@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { changeName, requestChangeName } from '../../../../Actions/Actions/Setting'
-import { setTitle } from '../../../../Actions/Actions/Header'
+import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
 import './Name.css'
 
@@ -15,16 +15,21 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   changeName: (name) => dispatch(changeName(name)),
   requestChangeName: () => dispatch(requestChangeName()),
-  setTitle: (title) => dispatch(setTitle(title))
+  setTitle: (title) => dispatch(setTitle(title)),
+  setBack: (back) => dispatch(setBack(back))
 })
 
 const Name = ({
   loading, name, err,
-  changeName, requestChangeName, setTitle
+  changeName, requestChangeName, setTitle, setBack
 }) => {
 
   useEffect(() => {
     setTitle('名前の変更')
+    setBack('/setting')
+    return () => {
+      setBack(false)
+    }
   }, [])
 
   return (

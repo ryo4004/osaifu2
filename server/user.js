@@ -113,6 +113,16 @@ function authentication (session, callback) {
   })
 }
 
+function updateName (user, name, callback) {
+  const newUser = {
+    ...user,
+    name
+  }
+  updateUser(newUser, (updateUserError) => {
+    return callback(updateUserError, newUser)
+  })
+}
+
 module.exports = {
   addUser, login, authentication
 }

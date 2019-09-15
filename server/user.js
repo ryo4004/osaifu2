@@ -128,10 +128,10 @@ function authentication (session, callback) {
   })
 }
 
-function updateName (user, name, callback) {
+function updateUsername (user, username, callback) {
   const newUser = {
     ...user,
-    name
+    name: username
   }
   updateUser(newUser, (updateUserError) => {
     return callback(updateUserError, newUser)
@@ -139,5 +139,5 @@ function updateName (user, name, callback) {
 }
 
 module.exports = {
-  addUser, login, deleteSession, authentication, updateName
+  addUser, login, deleteSession, authentication, updateUsername
 }

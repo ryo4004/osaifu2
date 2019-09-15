@@ -110,12 +110,12 @@ app.post('/delete', (req, res) => {
   })
 })
 
-app.post('/setting/name', (req, res) => {
-  const { session, name } = req.body
-  console.log(lib.time() + '/setting/name')
+app.post('/setting/username', (req, res) => {
+  const { session, username } = req.body
+  console.log(lib.time() + '/setting/username')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    libUser.updateName(user, name, (updateNameError, newUser) => {
+    libUser.updateUsername(user, username, (updateNameError, newUser) => {
       return res.json({user: newUser, err: updateNameError})
     })
   })

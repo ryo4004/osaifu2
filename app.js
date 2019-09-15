@@ -11,7 +11,7 @@ app.use('/signup', express.static(client))
 app.use('/payment', express.static(client))
 app.use('/list', express.static(client))
 app.use('/setting', express.static(client))
-app.use('/setting/name', express.static(client))
+app.use('/setting/username', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')

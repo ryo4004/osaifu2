@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { changeName, requestChangeName } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
-import './Name.css'
+import './Username.css'
 
 const mapStateToProps = (state) => ({
   loading: state.setting.loading,
@@ -19,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
   setBack: (back) => dispatch(setBack(back))
 })
 
-const Name = ({
+const Username = ({
   loading, name, err,
   changeName, requestChangeName, setTitle, setBack
 }) => {
@@ -42,4 +42,4 @@ const Name = ({
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Name)
+export default connect(mapStateToProps, mapDispatchToProps)(Username)

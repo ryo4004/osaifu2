@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Home from './Home/Home'
-import Name from './Name/Name'
+import Username from './Username/Username'
 
 import './Setting.css'
 
@@ -18,7 +18,7 @@ const Setting = ({}) => {
       <div className='contents-inner'>
         <Switch>
           <Route path='/setting' exact component={Home} />
-          <Route path='/setting/name' component={Name} />
+          <Route path='/setting/username' component={Username} />
         </Switch>
       </div>
     </div>

@@ -72,7 +72,7 @@ const Home = ({
       {showUser()}
       {showStatus()}
       <ul>
-        <li><Link to='/setting/name'><span>名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
+        <li><Link to='/setting/username'><span>名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
       </ul>
       <ul>
         <li><button onClick={() => logout()}>ログアウト</button></li>

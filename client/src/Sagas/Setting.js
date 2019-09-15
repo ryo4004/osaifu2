@@ -3,21 +3,21 @@ import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Setting'
 import { post } from '../Library/Request'
 
-import { loading, setError } from '../Actions/Actions/Login'
+import { loading, setError } from '../Actions/Actions/Setting'
 import { setUser } from '../Actions/Actions/Session'
 
 import * as lib from '../Library/Library'
 
-function* runRequestChangeName () {
+function* runRequestChangeUsername () {
   const state = yield select()
-  if (!state.setting.name) return yield put(setError({type: 'blankTextbox'}))
+  if (!state.setting.username) return yield put(setError({type: 'blankTextbox'}))
   yield put(loading(true))
   yield put(setError(false))
   const send = {
     session: lib.getSession(),
-    name: state.setting.name
+    username: state.setting.username
   }
-  const res = yield call(() => post('/setting/name', send))
+  const res = yield call(() => post('/setting/username', send))
   yield put(loading(false))
   if (res.body.err) {
     yield put(setError(res.body.err))
@@ -28,5 +28,5 @@ function* runRequestChangeName () {
 }
 
 export default function* watchRequestLogin () {
-  yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_NAME, runRequestChangeName)
+  yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_USERNAME, runRequestChangeUsername)
 }

@@ -2,7 +2,7 @@ import * as ActionType from '../Actions/Constants/Setting'
 
 const initialState = {
   loading: false,
-  name: '',
+  username: '',
   err: false
 }
 
@@ -13,10 +13,10 @@ export default function settingReducer (state = initialState, action) {
         ...state,
         loading: action.payload.loading
       }
-    case ActionType.SETTING_CHANGE_NAME:
+    case ActionType.SETTING_CHANGE_USERNAME:
       return {
         ...state,
-        name: action.payload.name
+        username: action.payload.username
       }
     case ActionType.SETTING_SET_ERROR:
       return {

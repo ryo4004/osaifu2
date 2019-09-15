@@ -5,13 +5,13 @@ export const loading = (loading) => ({
   payload: { loading }
 })
 
-export const changeName = (name) => ({
-  type: ActionType.SETTING_CHANGE_NAME,
-  payload: { name }
+export const changeUsername = (username) => ({
+  type: ActionType.SETTING_CHANGE_USERNAME,
+  payload: { username }
 })
 
-export const requestChangeName = () => ({
-  type: ActionType.SETTING_REQUEST_CHANGE_NAME
+export const requestChangeUsername = () => ({
+  type: ActionType.SETTING_REQUEST_CHANGE_USERNAME
 })
 
 export const setError = (err) => ({

@@ -1,27 +1,27 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { changeName, requestChangeName } from '../../../../Actions/Actions/Setting'
+import { changeUsername, requestChangeUsername } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
 import './Username.css'
 
 const mapStateToProps = (state) => ({
   loading: state.setting.loading,
-  name: state.setting.name,
+  username: state.setting.username,
   err: state.setting.err
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  changeName: (name) => dispatch(changeName(name)),
-  requestChangeName: () => dispatch(requestChangeName()),
+  changeUsername: (name) => dispatch(changeUsername(name)),
+  requestChangeUsername: () => dispatch(requestChangeUsername()),
   setTitle: (title) => dispatch(setTitle(title)),
   setBack: (back) => dispatch(setBack(back))
 })
 
 const Username = ({
-  loading, name, err,
-  changeName, requestChangeName, setTitle, setBack
+  loading, username, err,
+  changeUsername, requestChangeUsername, setTitle, setBack
 }) => {
 
   useEffect(() => {
@@ -35,8 +35,8 @@ const Username = ({
   return (
     <div className='setting-name'>
       <div className='form'>
-        <input value={name} onChange={(e) => changeName(e.target.value)} />
-        <button onClick={() => requestChangeName()}>送信</button>
+        <input value={username} onChange={(e) => changeUsername(e.target.value)} />
+        <button onClick={() => requestChangeUsername()}>送信</button>
       </div>
     </div>
   )

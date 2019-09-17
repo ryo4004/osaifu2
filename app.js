@@ -12,6 +12,7 @@ app.use('/payment', express.static(client))
 app.use('/list', express.static(client))
 app.use('/setting', express.static(client))
 app.use('/setting/username', express.static(client))
+app.use('/setting/othername', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')
@@ -115,8 +116,19 @@ app.post('/setting/username', (req, res) => {
   console.log(lib.time() + '/setting/username')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    libUser.updateUsername(user, username, (updateNameError, newUser) => {
-      return res.json({user: newUser, err: updateNameError})
+    libUser.updateUsername(user, username, (updateUsernameError, newUser) => {
+      return res.json({user: newUser, err: updateUsernameError})
+    })
+  })
+})
+
+app.post('/setting/othername', (req, res) => {
+  const { session, othername } = req.body
+  console.log(lib.time() + '/setting/othername')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libUser.updateOthername(user, othername, (updateOthernameError, newUser) => {
+      return res.json({user: newUser, err: updateOthernameError})
     })
   })
 })

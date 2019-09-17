@@ -19,7 +19,8 @@ async function addUser (userdata, callback) {
     userid: userdata.userid,
     passwordHash: lib.getHash(userdata.password),
     userKey: lib.getHash(uuidv1().split('-').join('')),
-    name: userdata.userid,
+    username: userdata.userid,
+    othername: 'あいて',
     clientList: [{
       agent: userdata.userAgent,
       id: userdata.clientid,
@@ -131,7 +132,17 @@ function authentication (session, callback) {
 function updateUsername (user, username, callback) {
   const newUser = {
     ...user,
-    name: username
+    username
+  }
+  updateUser(newUser, (updateUserError) => {
+    return callback(updateUserError, newUser)
+  })
+}
+
+function updateOthername (user, othername, callback) {
+  const newUser = {
+    ...user,
+    othername
   }
   updateUser(newUser, (updateUserError) => {
     return callback(updateUserError, newUser)
@@ -139,5 +150,5 @@ function updateUsername (user, username, callback) {
 }
 
 module.exports = {
-  addUser, login, deleteSession, authentication, updateUsername
+  addUser, login, deleteSession, authentication, updateUsername, updateOthername
 }

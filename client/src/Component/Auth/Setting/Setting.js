@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 
 import Home from './Home/Home'
 import Username from './Username/Username'
+import Othername from './Othername/Othername'
 
 import './Setting.css'
 
@@ -19,6 +20,7 @@ const Setting = ({}) => {
         <Switch>
           <Route path='/setting' exact component={Home} />
           <Route path='/setting/username' component={Username} />
+          <Route path='/setting/othername' component={Othername} />
         </Switch>
       </div>
     </div>

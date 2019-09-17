@@ -52,7 +52,8 @@ const Home = ({
     return (
       <div className='user'>
         <div><label>ID</label><span>{user.userid}</span></div>
-        <div><label>表示名</label><span>{user.name}</span></div>
+        <div><label>表示名</label><span>{user.username}</span></div>
+        <div><label>あいて</label><span>{user.othername}</span></div>
       </div>
     )
   }
@@ -73,6 +74,7 @@ const Home = ({
       {showStatus()}
       <ul>
         <li><Link to='/setting/username'><span>名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
+        <li><Link to='/setting/othername'><span>相手の名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
       </ul>
       <ul>
         <li><button onClick={() => logout()}>ログアウト</button></li>

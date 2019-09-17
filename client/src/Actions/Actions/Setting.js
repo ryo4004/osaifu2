@@ -23,6 +23,20 @@ export const requestChangeOthername = () => ({
   type: ActionType.SETTING_REQUEST_CHANGE_OTHERNAME
 })
 
+export const changeOldPassword = (oldPassword) => ({
+  type: ActionType.SETTING_CHANGE_OLD_PASSWORD,
+  payload: { oldPassword }
+})
+
+export const changeNewPassword = (newPassword) => ({
+  type: ActionType.SETTING_CHANGE_NEW_PASSWORD,
+  payload: { newPassword }
+})
+
+export const requestChangePassword = () => ({
+  type: ActionType.SETTING_REQUEST_CHANGE_PASSWORD
+})
+
 export const setError = (err) => ({
   type: ActionType.SETTING_SET_ERROR,
   payload: { err }

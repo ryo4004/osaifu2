@@ -4,6 +4,8 @@ const initialState = {
   loading: false,
   username: '',
   othername: '',
+  oldPassword: '',
+  newPassword: '',
   err: false
 }
 
@@ -23,6 +25,16 @@ export default function settingReducer (state = initialState, action) {
       return {
         ...state,
         othername: action.payload.othername
+      }
+    case ActionType.SETTING_CHANGE_OLD_PASSWORD:
+      return {
+        ...state,
+        oldPassword: action.payload.oldPassword
+      }
+    case ActionType.SETTING_CHANGE_NEW_PASSWORD:
+      return {
+        ...state,
+        newPassword: action.payload.newPassword
       }
     case ActionType.SETTING_SET_ERROR:
       return {

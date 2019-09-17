@@ -13,6 +13,7 @@ app.use('/list', express.static(client))
 app.use('/setting', express.static(client))
 app.use('/setting/username', express.static(client))
 app.use('/setting/othername', express.static(client))
+app.use('/setting/password', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')

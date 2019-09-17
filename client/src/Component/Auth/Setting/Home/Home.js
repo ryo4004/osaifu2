@@ -75,6 +75,7 @@ const Home = ({
       <ul>
         <li><Link to='/setting/username'><span>名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
         <li><Link to='/setting/othername'><span>相手の名前の変更</span><i className='fas fa-chevron-right'></i></Link></li>
+        <li><Link to='/setting/password'><span>パスワードの変更</span><i className='fas fa-chevron-right'></i></Link></li>
       </ul>
       <ul>
         <li><button onClick={() => logout()}>ログアウト</button></li>

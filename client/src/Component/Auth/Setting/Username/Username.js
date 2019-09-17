@@ -9,24 +9,26 @@ import './Username.css'
 const mapStateToProps = (state) => ({
   loading: state.setting.loading,
   username: state.setting.username,
-  err: state.setting.err
+  err: state.setting.err,
+  user: state.session.user
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  changeUsername: (name) => dispatch(changeUsername(name)),
+  changeUsername: (username) => dispatch(changeUsername(username)),
   requestChangeUsername: () => dispatch(requestChangeUsername()),
   setTitle: (title) => dispatch(setTitle(title)),
   setBack: (back) => dispatch(setBack(back))
 })
 
 const Username = ({
-  loading, username, err,
+  loading, username, err, user,
   changeUsername, requestChangeUsername, setTitle, setBack
 }) => {
 
   useEffect(() => {
     setTitle('名前の変更')
     setBack('/setting')
+    user && changeUsername(user.username)
     return () => {
       setBack(false)
     }

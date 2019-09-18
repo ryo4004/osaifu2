@@ -6,6 +6,7 @@ const initialState = {
   othername: '',
   oldPassword: '',
   newPassword: '',
+  osaifuname: '',
   err: false
 }
 
@@ -35,6 +36,11 @@ export default function settingReducer (state = initialState, action) {
       return {
         ...state,
         newPassword: action.payload.newPassword
+      }
+    case ActionType.SETTING_CHANGE_OSAIFUNAME:
+      return {
+        ...state,
+        osaifuname: action.payload.osaifuname
       }
     case ActionType.SETTING_SET_ERROR:
       return {

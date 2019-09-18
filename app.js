@@ -14,6 +14,7 @@ app.use('/setting', express.static(client))
 app.use('/setting/username', express.static(client))
 app.use('/setting/othername', express.static(client))
 app.use('/setting/password', express.static(client))
+app.use('/setting/osaifuname', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')
@@ -145,5 +146,15 @@ app.post('/setting/password', (req, res) => {
   })
 })
 
+app.post('/setting/osaifuname', (req, res) => {
+  const { session, osaifuname } = req.body
+  console.log(lib.time() + '/setting/osaifuname')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.updateOsaifuname(user, osaifuname, (updateUsernameError, status) => {
+      return res.json({status, err: updateUsernameError})
+    })
+  })
+})
 
 app.listen(3000)

@@ -23,7 +23,7 @@ function* runRequestChangeUsername () {
     yield put(setError(res.body.err))
   } else {
     yield put(setUser(res.body.user))
-    yield put(replace('/setting'))  
+    yield put(replace('/setting'))
   }
 }
 
@@ -42,7 +42,7 @@ function* runRequestChangeOthername () {
     yield put(setError(res.body.err))
   } else {
     yield put(setUser(res.body.user))
-    yield put(replace('/setting'))  
+    yield put(replace('/setting'))
   }
 }
 
@@ -62,7 +62,26 @@ function* runRequestChangePassword () {
     yield put(setError(res.body.err))
   } else {
     yield put(setUser(res.body.user))
-    yield put(replace('/setting'))  
+    yield put(replace('/setting'))
+  }
+}
+
+function* runRequestChangeOsaifuname () {
+  const state = yield select()
+  if (!state.setting.osaifuname) return yield put(setError({type: 'blankTextbox'}))
+  yield put(loading(true))
+  yield put(setError(false))
+  const send = {
+    session: lib.getSession(),
+    osaifuname: state.setting.osaifuname
+  }
+  const res = yield call(() => post('/setting/osaifuname', send))
+  yield put(loading(false))
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setUser(res.body.user))
+    yield put(replace('/setting'))
   }
 }
 
@@ -70,4 +89,5 @@ export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_USERNAME, runRequestChangeUsername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OTHERNAME, runRequestChangeOthername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_PASSWORD, runRequestChangePassword)
+  yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME, runRequestChangeOsaifuname)
 }

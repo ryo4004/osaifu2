@@ -37,6 +37,15 @@ export const requestChangePassword = () => ({
   type: ActionType.SETTING_REQUEST_CHANGE_PASSWORD
 })
 
+export const changeOsaifuname = (osaifuname) => ({
+  type: ActionType.SETTING_CHANGE_OSAIFUNAME,
+  payload: { osaifuname }
+})
+
+export const requestChangeOsaifuname = () => ({
+  type: ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME
+})
+
 export const setError = (err) => ({
   type: ActionType.SETTING_SET_ERROR,
   payload: { err }

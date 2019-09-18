@@ -75,6 +75,12 @@ const Home = ({
       {showUser()}
       {showStatus()}
       <div className='list-label'>
+        <label>おさいふの設定</label>
+      </div>
+      <ul>
+        <li><Link to='/setting/osaifuname'><span>おさいふ名の変更</span><Forward /></Link></li>
+      </ul>
+      <div className='list-label'>
         <label>アカウント設定</label>
       </div>
       <ul>

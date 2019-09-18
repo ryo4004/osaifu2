@@ -39,6 +39,7 @@ function createDB (user, name, callback) {
     const docs = {
       status: true,
       dbKey: uuidv1().split('-').join(''),
+      rate: 50,
       host: user.userKey,
       client: false,
       name
@@ -60,7 +61,6 @@ function createOsaifuDB (dbkey) {
 
 function addPayment (user, payment, callback) {
   getDBStatus(user, (getDBStatusError, dbStatus) => {
-    console.log(dbStatus)
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
     const osaifuDB = createOsaifuDB(dbStatus.dbKey)

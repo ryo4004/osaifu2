@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
-import Back from '../../../Icons/Back'
+import Back from '../../../../Library/Icons/Back'
 
 import './Header.css'
 

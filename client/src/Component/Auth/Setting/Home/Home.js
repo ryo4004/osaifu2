@@ -6,7 +6,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import { requestLogout } from '../../../../Actions/Actions/Session'
 import { setTitle } from '../../../../Actions/Actions/Header'
 
-import Forward from '../../../Icons/Forward'
+import Forward from '../../../../Library/Icons/Forward'
 
 import './Home.css'
 

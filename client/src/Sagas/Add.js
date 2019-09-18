@@ -4,7 +4,7 @@ import * as ActionType from '../Actions/Constants/Add'
 import { post } from '../Library/Request'
 
 import { loading, setModal, setError } from '../Actions/Actions/Add'
-import { setUser } from '../Actions/Actions/Session'
+import { setStatus } from '../Actions/Actions/Status'
 
 import * as lib from '../Library/Library'
 
@@ -24,6 +24,7 @@ function* runRequest () {
     yield put(setError(res.body.err))
   } else {
     yield put(setModal(false))
+    yield put(setStatus(res.body.status))
   }
 }
 

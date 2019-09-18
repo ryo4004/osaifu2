@@ -3,7 +3,7 @@ import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Login'
 import { post } from '../Library/Request'
 
-import { loading, requestLogin, setError } from '../Actions/Actions/Login'
+import { loading, changeUserid, changePassword, setError } from '../Actions/Actions/Login'
 import { setUser } from '../Actions/Actions/Session'
 
 import * as lib from '../Library/Library'
@@ -22,9 +22,12 @@ function* runRequestLogin () {
   }
   const res = yield call(() => post('/login', send))
   yield put(loading(false))
+  yield put(changeUserid(''))
+  yield put(changePassword(''))
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
+    yield put(setError(false))
     yield put(setUser(res.body.user))
     yield call(() => lib.updateToken(res.body.token))
     yield call(() => lib.updateUserid(res.body.user.userid))

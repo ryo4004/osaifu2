@@ -35,9 +35,10 @@ const Othername = ({
   }, [])
 
   return (
-    <div className='setting-name'>
+    <div className='setting-othername'>
       <div className='form'>
-        <input value={othername} onChange={(e) => changeOthername(e.target.value)} />
+      <label>相手の表示名</label>
+        <input type='text' value={othername} onChange={(e) => changeOthername(e.target.value)} />
         <button onClick={() => requestChangeOthername()}>送信</button>
       </div>
     </div>

@@ -37,7 +37,9 @@ const Password = ({
   return (
     <div className='setting-password'>
       <div className='form'>
+        <label>古いパスワード</label>
         <input type='password' value={oldPassword} onChange={(e) => changeOldPassword(e.target.value)} />
+        <label>新しいパスワード</label>
         <input type='password' value={newPassword} onChange={(e) => changeNewPassword(e.target.value)} />
         <button onClick={() => requestChangePassword()}>送信</button>
       </div>

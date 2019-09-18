@@ -35,9 +35,10 @@ const Username = ({
   }, [])
 
   return (
-    <div className='setting-name'>
+    <div className='setting-username'>
       <div className='form'>
-        <input value={username} onChange={(e) => changeUsername(e.target.value)} />
+        <label>表示名</label>
+        <input type='text' value={username} onChange={(e) => changeUsername(e.target.value)} />
         <button onClick={() => requestChangeUsername()}>送信</button>
       </div>
     </div>

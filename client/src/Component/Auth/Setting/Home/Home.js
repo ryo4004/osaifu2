@@ -61,11 +61,12 @@ const Home = ({
   }
 
   const showStatus = () => {
-    if (!status) return false
+    if (!status || !user) return false
+    const osaifuStatus = user.userKey === status.host ? 'host' : 'client'
     return (
       <div className='status'>
         <div><label>おさいふ名</label><span>{status.name}</span></div>
-        <div><label>おさいふの状態</label><span>{status.user === 'host' ? 'host' : 'client'}</span></div>
+        <div><label>おさいふの状態</label><span>{osaifuStatus}</span></div>
       </div>
     )
   }

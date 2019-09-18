@@ -6,6 +6,7 @@ import { post } from '../Library/Request'
 import { loading, setError } from '../Actions/Actions/Setting'
 import { setUser } from '../Actions/Actions/Session'
 
+import { setStatus } from '../Actions/Actions/Status'
 import * as lib from '../Library/Library'
 
 function* runRequestChangeUsername () {
@@ -80,7 +81,7 @@ function* runRequestChangeOsaifuname () {
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
-    yield put(setUser(res.body.user))
+    yield put(setStatus(res.body.status))
     yield put(replace('/setting'))
   }
 }

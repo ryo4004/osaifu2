@@ -2,7 +2,7 @@ import * as ActionType from '../Actions/Constants/Status'
 
 const initialState = {
   loading: false,
-  status: null,
+  status: false,
   err: false
 }
 

@@ -10,6 +10,7 @@
       color: #333;
 
       label {
+        font-size: .9rem;
         color: #666;
       }
 
@@ -20,9 +21,21 @@
     }
   }
 
+  .list-label {
+    max-width: 600px;
+    margin: 12px auto 8px;
+
+    label {
+      display: block;
+      margin: 0 8px;
+      font-size: .9rem;
+      color: #333;
+    }
+  }
+  
   ul {
     max-width: 600px;
-    margin: 16px auto 0;
+    margin: 0 auto 16px;
     border-top: .55px solid #c8c7cc;
 
     li {
@@ -33,7 +46,7 @@
         color: #333;
         cursor: pointer;
 
-        padding: 0 12px;
+        padding: 0 0 0 12px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -51,9 +64,12 @@
           font-size: 1rem;
         }
 
-        i {
-          color: #666;
-          font-size: 1.2rem;
+        svg {
+          display: block;
+          width: 20px;
+          height: 20px;
+          padding-right: 10px;
+          fill: #c8c7cc;
         }
       }
 

@@ -19,10 +19,10 @@ function getDBStatus (user, callback) {
       if (host === null && client === null) return callback({type: 'notFound', fatal: false}, null)
       if (host) {
         if (!host.status) return callback({type: 'statusError', fatal: false}, null)
-        return callback(null, {dbStatus: host.status, dbKey: host.dbKey, name: host.name, user: 'host'})
+        return callback(null, {...host})
       } else if (client) {
         if (!client.status) return callback({type: 'clientDisabled', fatal: false}, null)
-        return callback(null, {dbStatus: client.status, dbKey: client.dbKey, name: client.name, user: 'client'})
+        return callback(null, {...client})
       } else if (host === null) {
         return callback({type: 'hostNotFound', fatal: false}, null)
       } else if (client === null) {
@@ -60,6 +60,7 @@ function createOsaifuDB (dbkey) {
 
 function addPayment (user, payment, callback) {
   getDBStatus(user, (getDBStatusError, dbStatus) => {
+    console.log(dbStatus)
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
     const osaifuDB = createOsaifuDB(dbStatus.dbKey)
@@ -95,6 +96,28 @@ function deletePayment (user, id, callback) {
   })
 }
 
+function updateStatus (status, callback) {
+  listDB.update({ _id: status._id }, status, {}, (err, num) => {
+    if (err) return callback({type: 'updateStatusNotFound', fatal: true})
+    if (num === 0) return callback({type: 'updateStatusError', fatal: true})
+    callback(null)
+  })
+}
+
+function updateOsaifuname (user, osaifuname, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
+    const newDBStatus = {
+      ...dbStatus,
+      name: osaifuname
+    }
+    updateStatus(newDBStatus, (updateStatusError) => {
+      return callback(updateStatusError, {...newDBStatus})
+    })
+  })
+}
+
 module.exports = {
-  getDBStatus, createDB, addPayment, getList, deletePayment
+  getDBStatus, createDB, addPayment, getList, deletePayment, updateOsaifuname
 }

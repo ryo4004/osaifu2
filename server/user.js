@@ -149,6 +149,19 @@ function updateOthername (user, othername, callback) {
   })
 }
 
+function updatePassword (user, oldPassword, newPassword, callback) {
+  const oldHash = lib.getHash(oldPassword)
+  const newHash = lib.getHash(newPassword)
+  if (user.passwordHash !== oldHash) return callback({type: 'oldPasswordWrong', fatal: false}, null)
+  const newUser = {
+    ...user,
+    passwordHash: newHash
+  }
+  updateUser(newUser, (updateUserError) => {
+    return callback(updateUserError, newUser)
+  })
+}
+
 module.exports = {
-  addUser, login, deleteSession, authentication, updateUsername, updateOthername
+  addUser, login, deleteSession, authentication, updateUsername, updateOthername, updatePassword
 }

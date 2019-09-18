@@ -134,4 +134,16 @@ app.post('/setting/othername', (req, res) => {
   })
 })
 
+app.post('/setting/password', (req, res) => {
+  const { session, oldPassword, newPassword } = req.body
+  console.log(lib.time() + '/setting/password')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libUser.updatePassword(user, oldPassword, newPassword, (updatePasswordError, newUser) => {
+      return res.json({user: newUser, err: updatePasswordError})
+    })
+  })
+})
+
+
 app.listen(3000)

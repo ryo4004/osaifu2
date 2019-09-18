@@ -102,9 +102,9 @@ function getUser (userid, callback) {
 
 function updateUser (user, callback) {
   userDB.update({userid: user.userid}, user, {}, (err, num) => {
-    if (err) return callback({type: 'updateUserNotFound', fatal: true}, null)
-    if (num === 0) return callback({type: 'updateUserError', fatal: true}, null)
-    callback(null, user)
+    if (err) return callback({type: 'updateUserNotFound', fatal: true})
+    if (num === 0) return callback({type: 'updateUserError', fatal: true})
+    callback(null)
   })
 }
 

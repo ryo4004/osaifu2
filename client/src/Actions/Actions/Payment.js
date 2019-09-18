@@ -35,21 +35,6 @@ export const setOtherPayment = (otherPayment) => ({
   payload: { otherPayment }
 })
 
-export const setRate = (rate) => ({
-  type: ActionType.PAYMENT_SET_RATE,
-  payload: { rate }
-})
-
-export const setSelfCharge = (selfCharge) => ({
-  type: ActionType.PAYMENT_SET_SELF_CHARGE,
-  payload: { selfCharge }
-})
-
-export const setOtherCharge = (otherCharge) => ({
-  type: ActionType.PAYMENT_SET_OTHER_CHARGE,
-  payload: { otherCharge }
-})
-
 export const setMemo = (memo) => ({
   type: ActionType.PAYMENT_SET_MEMO,
   payload: { memo }

@@ -8,9 +8,6 @@ const initialState = {
   paymentCheck: false,
   selfPayment: '',
   otherPayment: '',
-  rate: 50,
-  selfCharge: '',
-  otherCharge: '',
   memo: '',
   err: false
 }
@@ -51,21 +48,6 @@ export default function paymentReducer (state = initialState, action) {
       return {
         ...state,
         otherPayment: action.payload.otherPayment
-      }
-    case ActionType.PAYMENT_SET_RATE:
-      return {
-        ...state,
-        rate: action.payload.rate
-      }
-    case ActionType.PAYMENT_SET_SELF_CHARGE:
-      return {
-        ...state,
-        selfCharge: action.payload.selfCharge
-      }
-    case ActionType.PAYMENT_SET_OTHER_CHARGE:
-      return {
-        ...state,
-        otherCharge: action.payload.otherCharge
       }
     case ActionType.PAYMENT_SET_MEMO:
       return {

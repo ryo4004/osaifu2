@@ -34,8 +34,11 @@ const Add = ({
         <header><h2>新しいおさいふの作成</h2></header>
         <div className='contents'>
           <div className='contents-inner-modal'>
-            <input type='text' value={name} onChange={(e) => changeName(e.target.value)} placeholder='おさいふの名前' />
-            <button onClick={() => requestCreateOsaifu()}>設定</button>
+            <div className='form'>
+              <label>おさいふの名前</label>
+              <input type='text' value={name} onChange={(e) => changeName(e.target.value)} placeholder='おさいふの名前' />
+              <button onClick={() => requestCreateOsaifu()}>設定</button>
+            </div>
           </div>
         </div>
       </div>

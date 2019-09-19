@@ -34,11 +34,15 @@ const Othername = ({
     }
   }, [])
 
+  const keyPress = (e) => {
+    if (e.which === 13) requestChangeOthername()
+  }
+
   return (
     <div className='setting-othername'>
       <div className='form'>
       <label>相手の表示名</label>
-        <input type='text' value={othername} onChange={(e) => changeOthername(e.target.value)} />
+        <input type='text' value={othername} onChange={(e) => changeOthername(e.target.value)} onKeyPress={(e) => keyPress(e)} />
         <button onClick={() => requestChangeOthername()}>送信</button>
       </div>
     </div>

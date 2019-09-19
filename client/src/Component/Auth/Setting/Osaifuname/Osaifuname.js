@@ -34,11 +34,15 @@ const Osaifuname = ({
     }
   }, [])
 
+  const keyPress = (e) => {
+    if (e.which === 13) requestChangeOsaifuname()
+  }
+
   return (
     <div className='setting-osaifuname'>
       <div className='form'>
         <label>表示名</label>
-        <input type='text' value={osaifuname} onChange={(e) => changeOsaifuname(e.target.value)} />
+        <input type='text' value={osaifuname} onChange={(e) => changeOsaifuname(e.target.value)} onKeyPress={(e) => keyPress(e)} />
         <button onClick={() => requestChangeOsaifuname()}>送信</button>
       </div>
     </div>

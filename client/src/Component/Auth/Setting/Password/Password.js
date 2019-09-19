@@ -34,13 +34,17 @@ const Password = ({
     }
   }, [])
 
+  const keyPress = (e) => {
+    if (e.which === 13) requestChangePassword()
+  }
+
   return (
     <div className='setting-password'>
       <div className='form'>
         <label>古いパスワード</label>
-        <input type='password' value={oldPassword} onChange={(e) => changeOldPassword(e.target.value)} />
+        <input type='password' value={oldPassword} onChange={(e) => changeOldPassword(e.target.value)} onKeyPress={(e) => keyPress(e)} />
         <label>新しいパスワード</label>
-        <input type='password' value={newPassword} onChange={(e) => changeNewPassword(e.target.value)} />
+        <input type='password' value={newPassword} onChange={(e) => changeNewPassword(e.target.value)} onKeyPress={(e) => keyPress(e)} />
         <button onClick={() => requestChangePassword()}>送信</button>
       </div>
     </div>

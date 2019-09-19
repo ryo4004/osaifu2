@@ -34,11 +34,15 @@ const Username = ({
     }
   }, [])
 
+  const keyPress = (e) => {
+    if (e.which === 13) requestChangeUsername()
+  }
+
   return (
     <div className='setting-username'>
       <div className='form'>
         <label>表示名</label>
-        <input type='text' value={username} onChange={(e) => changeUsername(e.target.value)} />
+        <input type='text' value={username} onChange={(e) => changeUsername(e.target.value)} onKeyPress={(e) => keyPress(e)} />
         <button onClick={() => requestChangeUsername()}>送信</button>
       </div>
     </div>

@@ -20,6 +20,7 @@ app.use('/setting/connect', express.static(client))
 const lib = require('./server/library')
 const libUser = require('./server/user')
 const libList = require('./server/list')
+const libConnect = require('./server/connect')
 
 app.post('/signup', (req, res) => {
   const { userid, password, clientid, userAgent, version } = req.body
@@ -154,6 +155,17 @@ app.post('/setting/osaifuname', (req, res) => {
     if (authError) return res.json({err: authError})
     libList.updateOsaifuname(user, osaifuname, (updateUsernameError, status) => {
       return res.json({status, err: updateUsernameError})
+    })
+  })
+})
+
+app.post('/setting/connect', (req, res) => {
+  const { session, oldPass } = req.body
+  console.log(lib.time() + '/setting/connect')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libConnect.newConnect(user, oldPass, (updateUsernameError, pass) => {
+      return res.json({pass, err: updateUsernameError})
     })
   })
 })

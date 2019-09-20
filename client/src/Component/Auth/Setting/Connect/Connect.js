@@ -35,9 +35,8 @@ const Connect = ({
 
   const showConnectPass = () => {
     if (!connectPass) return false
-    console.warn(connectPass)
     return (
-      <div>
+      <div className='connect-pass'>
         <div>{connectPass.connectPass}</div>
         <div>{lib.unixDateTime(connectPass.expire)}</div>
       </div>
@@ -45,7 +44,7 @@ const Connect = ({
   }
 
   return (
-    <div className='setting-username'>
+    <div className='setting-connect'>
       <div className='form'>
         <label>おさいふを共有します</label>
         <button onClick={() => requestConnectPass()}>コード取得</button>

@@ -7,6 +7,7 @@ import Username from './Username/Username'
 import Othername from './Othername/Othername'
 import Password from './Password/Password'
 import Osaifuname from './Osaifuname/Osaifuname'
+import Connect from './Connect/Connect'
 
 import './Setting.css'
 
@@ -25,6 +26,7 @@ const Setting = ({}) => {
           <Route path='/setting/othername' component={Othername} />
           <Route path='/setting/password' component={Password} />
           <Route path='/setting/osaifuname' component={Osaifuname} />
+          <Route path='/setting/connect' component={Connect} />
         </Switch>
       </div>
     </div>

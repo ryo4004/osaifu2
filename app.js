@@ -15,6 +15,7 @@ app.use('/setting/username', express.static(client))
 app.use('/setting/othername', express.static(client))
 app.use('/setting/password', express.static(client))
 app.use('/setting/osaifuname', express.static(client))
+app.use('/setting/connect', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')

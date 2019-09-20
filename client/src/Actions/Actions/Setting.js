@@ -46,6 +46,15 @@ export const requestChangeOsaifuname = () => ({
   type: ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME
 })
 
+export const requestConnectPass = () => ({
+  type: ActionType.SETTING_REQUEST_CONNECT_PASS
+})
+
+export const setConnectPass = (connectPass) => ({
+  type: ActionType.SETTING_SET_CONNECT_PASS,
+  payload: { connectPass }
+})
+
 export const setError = (err) => ({
   type: ActionType.SETTING_SET_ERROR,
   payload: { err }

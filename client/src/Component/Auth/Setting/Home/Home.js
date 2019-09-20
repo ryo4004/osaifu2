@@ -78,6 +78,12 @@ const Home = ({
       {showUser()}
       {showStatus()}
       <div className='list-label'>
+        <label>おさいふ共有設定</label>
+      </div>
+      <ul>
+        <li><Link to='/setting/connect'><span>おさいふを共有する</span><Forward /></Link></li>
+      </ul>
+      <div className='list-label'>
         <label>おさいふの設定</label>
       </div>
       <ul>

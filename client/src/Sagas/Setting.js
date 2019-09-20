@@ -3,7 +3,7 @@ import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Setting'
 import { post } from '../Library/Request'
 
-import { loading, setError } from '../Actions/Actions/Setting'
+import { loading, setConnectPass, setError } from '../Actions/Actions/Setting'
 import { setUser } from '../Actions/Actions/Session'
 
 import { setStatus } from '../Actions/Actions/Status'
@@ -86,9 +86,27 @@ function* runRequestChangeOsaifuname () {
   }
 }
 
+function* runRequestConnectPass () {
+  const state = yield select()
+  yield put(loading(true))
+  yield put(setError(false))
+  const send = {
+    session: lib.getSession(),
+    oldPass: state.setting.connectPass
+  }
+  const res = yield call(() => post('/setting/connect', send))
+  yield put(loading(false))
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setConnectPass(res.body.pass))
+  }
+}
+
 export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_USERNAME, runRequestChangeUsername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OTHERNAME, runRequestChangeOthername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_PASSWORD, runRequestChangePassword)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME, runRequestChangeOsaifuname)
+  yield takeLatest(ActionType.SETTING_REQUEST_CONNECT_PASS, runRequestConnectPass)
 }

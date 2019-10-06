@@ -3,7 +3,9 @@ import * as ActionType from '../Actions/Constants/Add'
 const initialState = {
   loading: false,
   modal: false,
+  mode: true,
   name: '',
+  pass: '',
   err: false
 }
 
@@ -19,10 +21,20 @@ export default function addReducer (state = initialState, action) {
         ...state,
         modal: action.payload.modal
       }
+    case ActionType.ADD_SET_MODE:
+      return {
+        ...state,
+        mode: action.payload.mode
+      }
     case ActionType.ADD_CHANGE_NAME:
       return {
         ...state,
         name: action.payload.name
+      }
+    case ActionType.ADD_CHANGE_PASS:
+      return {
+        ...state,
+        pass: action.payload.pass
       }
     case ActionType.ADD_SET_ERROR:
       return {

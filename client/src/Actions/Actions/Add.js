@@ -10,9 +10,19 @@ export const setModal = (modal) => ({
   payload: { modal }
 })
 
+export const setMode = (mode) => ({
+  type: ActionType.ADD_SET_MODE,
+  payload: { mode }
+})
+
 export const changeName = (name) => ({
   type: ActionType.ADD_CHANGE_NAME,
   payload: { name }
+})
+
+export const changePass = (pass) => ({
+  type: ActionType.ADD_CHANGE_PASS,
+  payload: { pass }
 })
 
 export const requestCreateOsaifu = () => ({

@@ -14,6 +14,7 @@ import paymentReducer from '../Payment'
 import listReducer from '../List'
 import detailReducer from '../Detail'
 import settingReducer from '../Setting'
+import tutorialReducer from '../Tutorial'
 
 export default (history) => combineReducers({
   session: sessionReducer,
@@ -29,6 +30,7 @@ export default (history) => combineReducers({
   list: listReducer,
   detail: detailReducer,
   setting: settingReducer,
+  tutorial: tutorialReducer,
 
   // The key must be router
   router: connectRouter(history)

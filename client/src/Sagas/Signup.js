@@ -6,6 +6,7 @@ import { post } from '../Library/Request'
 
 import { loading, changeUserid, changePassword, setError } from '../Actions/Actions/Signup'
 import { setUser } from '../Actions/Actions/Session'
+import { setModal } from '../Actions/Actions/Tutorial'
 
 import * as lib from '../Library/Library'
 
@@ -33,6 +34,7 @@ function* runRequestSignup () {
     yield call(() => lib.updateToken(res.body.token))
     yield call(() => lib.updateUserid(res.body.user.userid))
     yield put(replace('/payment'))
+    yield put(setModal(true))
   }
 }
 

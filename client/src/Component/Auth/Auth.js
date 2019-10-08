@@ -11,7 +11,6 @@ import Setting from './Setting/Setting'
 import Header from './Component/Header/Header'
 import Navigation from './Component/Navigation/Navigation'
 
-import Add from './Add/Add'
 import Detail from './Detail/Detail'
 import Tutorial from './Tutorial/Tutorial'
 
@@ -44,7 +43,6 @@ const Auth = ({
         </Switch>
       </div>
       <Navigation />
-      <Add />
       <Detail />
       <Tutorial />
     </React.Fragment>

@@ -5,7 +5,6 @@ import * as ActionType from '../Actions/Constants/Status'
 import { post } from '../Library/Request'
 
 import { loading, setStatus, setError } from '../Actions/Actions/Status'
-import { setModal } from '../Actions/Actions/Add'
 
 import * as lib from '../Library/Library'
 
@@ -14,12 +13,10 @@ function* runRequestStatus () {
   const send = {session: lib.getSession()}
   const res = yield call(() => post('/status', send))
   yield put(loading(false))
+  console.warn(res)
   if (res.body.err) {
     yield put(setStatus(null))
     yield put(setError(res.body.err))
-    if (!res.body.err.fatal) {
-      yield put(setModal(true))
-    }
   } else {
     yield put(setStatus(res.body.status))
   }

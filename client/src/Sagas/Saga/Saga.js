@@ -4,7 +4,6 @@ import Login from '../Login'
 import Signup from '../Signup'
 import Session from '../Session'
 import Status from '../Status'
-import Add from '../Add'
 import Payment from '../Payment'
 import List from '../List'
 import Detail from '../Detail'
@@ -17,7 +16,6 @@ export default function* rootSaga () {
     fork(Signup),
     fork(Session),
     fork(Status),
-    fork(Add),
     fork(Payment),
     fork(List),
     fork(Detail),

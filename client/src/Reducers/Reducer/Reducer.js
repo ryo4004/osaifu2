@@ -9,7 +9,6 @@ import loginReducer from '../Login'
 import signupReducer from '../Signup'
 
 import headerReducer from '../Header'
-import addReducer from '../Add'
 import paymentReducer from '../Payment'
 import listReducer from '../List'
 import detailReducer from '../Detail'
@@ -25,7 +24,6 @@ export default (history) => combineReducers({
   signup: signupReducer,
 
   header: headerReducer,
-  add: addReducer,
   payment: paymentReducer,
   list: listReducer,
   detail: detailReducer,

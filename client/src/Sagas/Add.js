@@ -13,11 +13,9 @@ function* runRequest () {
   if (!state.add.name) return yield put(setError({type: 'blankName'}))
   yield put(loading(true))
   yield put(setError(false))
-  const send = state.add.mode ? {
+  const send = {
     session: lib.getSession(),
     name: state.add.name
-  } : {
-    pass
   }
   const res = yield call(() => post('/adddb', send))
   console.log('add', res)

@@ -32,7 +32,7 @@ function getDBStatus (user, callback) {
   })
 }
 
-function createDB (user, name, callback) {
+function createDB (user, callback) {
   getDBStatus(user, (getDBStatusError, dbStatus) => {
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (dbStatus) return callback({type:'alreadyCreated', fatal: false}, null)
@@ -42,7 +42,7 @@ function createDB (user, name, callback) {
       rate: 50,
       host: user.userKey,
       client: false,
-      name
+      name: user.username
     }
     listDB.insert(docs, (err, newdoc) => {
       if (err) return callback({type: 'DBError', fatal: true}, null)

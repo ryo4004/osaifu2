@@ -27,9 +27,12 @@ app.post('/signup', (req, res) => {
   console.log(lib.time() + '/signup', userid, version)
   if (!userid) return res.json({status: false, err: {type: 'blankUserid'}})
   if (!password) return res.json({status: false, err: {type: 'blankPassword'}})
-  libUser.addUser({userid, password, clientid, userAgent}, (err, user) => {
-    console.log(lib.time() + (err ? 'Signup NG' : 'Signup OK'))
-    return res.json({user, err, token: lib.getToken(clientid, user)})
+  libUser.addUser({userid, password, clientid, userAgent}, (addUserError, user) => {
+    console.log(lib.time() + (addUserError ? 'Signup NG' : 'Signup OK'))
+    if (addUserError) return res.json({err: addUserError})
+    libList.createDB(user, (createDBError, status) => {
+      return res.json({user, token: lib.getToken(clientid, user), status, err: createDBError})
+    })
   })
 })
 
@@ -67,17 +70,6 @@ app.post('/status', (req, res) => {
     if (authError) return res.json({err: authError})
     libList.getDBStatus(user, (getDBStatusError, status) => {
       return res.json({status, err: getDBStatusError})
-    })
-  })
-})
-
-app.post('/adddb', (req, res) => {
-  const { session, name } = req.body
-  console.log(lib.time() + '/adddb', name)
-  libUser.authentication(session, (authError, user) => {
-    if (authError) return res.json({err: authError})
-    libList.createDB(user, name, (createDBError, status) => {
-      return res.json({status, err: createDBError})
     })
   })
 })

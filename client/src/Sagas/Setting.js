@@ -92,9 +92,26 @@ function* runRequestConnectPass () {
   yield put(setError(false))
   const send = {
     session: lib.getSession(),
-    oldPass: state.setting.connectPass
+    oldPass: state.setting.connectPassStatus.connectPass
   }
-  const res = yield call(() => post('/setting/connect', send))
+  const res = yield call(() => post('/setting/connect/pass', send))
+  yield put(loading(false))
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setConnectPassStatus(res.body.pass))
+  }
+}
+
+function* runRequestConnect () {
+  const state = yield select()
+  yield put(loading(true))
+  yield put(setError(false))
+  const send = {
+    session: lib.getSession(),
+    connectPass: state.setting.connectPass
+  }
+  const res = yield call(() => post('/setting/connect/add', send))
   yield put(loading(false))
   if (res.body.err) {
     yield put(setError(res.body.err))
@@ -109,4 +126,5 @@ export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_PASSWORD, runRequestChangePassword)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME, runRequestChangeOsaifuname)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT_PASS, runRequestConnectPass)
+  yield takeLatest(ActionType.SETTING_REQUEST_CONNECT, runRequestConnect)
 }

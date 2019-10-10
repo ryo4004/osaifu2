@@ -1,4 +1,29 @@
 .setting-connect {
+
+  .switch {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+
+    div {
+      width: 50%;
+      padding: 8px 0;
+      border-bottom: 2px solid transparent;
+      text-align: center;
+      cursor: pointer;
+
+      &:hover {
+        background: rgba(243,115,53,.2);
+      }
+
+      &.active {
+        background: rgba(243,115,53,.1);
+        border-bottom: 2px solid rgba(243,115,53,.8);
+      }
+    }
+  }
+
   .connect-pass {
     margin: 0 8px;
   }

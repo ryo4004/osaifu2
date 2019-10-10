@@ -9,7 +9,7 @@ import './Connect.css'
 
 const mapStateToProps = (state) => ({
   loading: state.setting.loading,
-  connectPass: state.setting.connectPass,
+  connectPassStatus: state.setting.connectPassStatus,
   err: state.setting.err,
   user: state.session.user
 })
@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Connect = ({
-  loading, connectPass, err, user,
+  loading, connectPassStatus, err, user,
   requestConnectPass, setTitle, setBack
 }) => {
 
@@ -34,11 +34,11 @@ const Connect = ({
   }, [])
 
   const showConnectPass = () => {
-    if (!connectPass) return false
+    if (!connectPassStatus) return false
     return (
       <div className='connect-pass'>
-        <div>{connectPass.connectPass}</div>
-        <div>{lib.unixDateTime(connectPass.expire)}</div>
+        <div>{connectPassStatus.connectPass}</div>
+        <div>{lib.unixDateTime(connectPassStatus.expire)}</div>
       </div>
     )
   }

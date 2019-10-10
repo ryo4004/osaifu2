@@ -3,7 +3,7 @@ import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Setting'
 import { post } from '../Library/Request'
 
-import { loading, setConnectPass, setError } from '../Actions/Actions/Setting'
+import { loading, setConnectPassStatus, setError } from '../Actions/Actions/Setting'
 import { setUser } from '../Actions/Actions/Session'
 
 import { setStatus } from '../Actions/Actions/Status'
@@ -99,7 +99,7 @@ function* runRequestConnectPass () {
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
-    yield put(setConnectPass(res.body.pass))
+    yield put(setConnectPassStatus(res.body.pass))
   }
 }
 

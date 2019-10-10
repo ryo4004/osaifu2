@@ -7,7 +7,9 @@ const initialState = {
   oldPassword: '',
   newPassword: '',
   osaifuname: '',
-  connectPass: false,
+  connectMode: true,
+  connectPassStatus: false,
+  connectPass: '',
   err: false
 }
 
@@ -43,7 +45,17 @@ export default function settingReducer (state = initialState, action) {
         ...state,
         osaifuname: action.payload.osaifuname
       }
-    case ActionType.SETTING_SET_CONNECT_PASS:
+    case ActionType.SETTING_SET_CONNECT_MODE:
+      return {
+        ...state,
+        connectMode: action.payload.connectMode
+      }
+    case ActionType.SETTING_SET_CONNECT_PASS_STATUS:
+      return {
+        ...state,
+        connectPassStatus: action.payload.connectPassStatus
+      }
+    case ActionType.SETTING_CHANGE_CONNECT_PASS:
       return {
         ...state,
         connectPass: action.payload.connectPass

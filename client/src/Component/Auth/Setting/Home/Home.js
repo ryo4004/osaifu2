@@ -62,7 +62,7 @@ const Home = ({
 
   const showStatus = () => {
     if (!status || !user) return false
-    const osaifuStatus = user.userKey === status.host ? 'host' : 'client'
+    const osaifuStatus = status.type === 'solo' ? 'ひとりで使用' : (user.userKey === status.createUser ? 'host' : 'client')
     const rate = parseInt(status.rate)
     return (
       <div className='status'>

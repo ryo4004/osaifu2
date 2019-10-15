@@ -116,7 +116,8 @@ function* runRequestConnect () {
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
-    yield put(setConnectPassStatus(res.body.pass))
+    yield put(setStatus(res.body.status))
+    yield put(replace('/setting'))
   }
 }
 

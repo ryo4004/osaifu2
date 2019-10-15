@@ -74,8 +74,8 @@ const Connect = ({
   return (
     <div className='setting-connect'>
       <div className='switch'>
-        <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>誘う</div>
-        <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>誘われる</div>
+        <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>コード発行</div>
+        <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>コード入力</div>
       </div>
       {showForm()}
       {showConnectPass()}

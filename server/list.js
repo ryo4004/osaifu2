@@ -57,11 +57,10 @@ function createDuoDB (user, hostUserKey, callback) {
       ...dbStatus,
       status: false
     }
-    console.log(newDBStatus)
     updateStatus(newDBStatus, (updateStatusError) => {
       if (updateStatusError) return callback(updateStatusError)
       // hostの情報を更新
-      getDBStatus({userKey: hostUserKey}, (getHostDBStatusError, hostDBStatus) => {
+      getDBStatus({userKey: hostUserKey, userid: 'host [temp]'}, (getHostDBStatusError, hostDBStatus) => {
         if (getHostDBStatusError && getHostDBStatusError.fatal) return callback(getHostDBStatusError, null)
         if (hostDBStatus.type !== 'solo') return callback({type:'alreadyCreated', fatal: false}, null)
         // hostのDBを更新
@@ -69,11 +68,10 @@ function createDuoDB (user, hostUserKey, callback) {
           ...hostDBStatus,
           status: false
         }
-        console.log(newHostDBStatus)
         updateStatus(newHostDBStatus, (updateHostStatusError) => {
           if (updateHostStatusError) return callback(updateHostStatusError)
           // 新しいDBを作成
-          const newDB = {
+          const newDuoDBStatus = {
             status: true,
             type: 'duo',
             createUser: hostUserKey,
@@ -83,12 +81,55 @@ function createDuoDB (user, hostUserKey, callback) {
             client: user.userKey,
             name: 'おさいふ'
           }
-          listDB.insert(newDB, (err, newdoc) => {
-            if (err) return callback({type: 'DBError', fatal: true}, null)
-            callback(null, newDB)
+          listDB.insert(newDuoDBStatus, (insertError, newdoc) => {
+            if (insertError) return callback({type: 'DBError', fatal: true}, null)
+            osaifuIntegration(hostDBStatus.dbKey, dbStatus.dbKey, newDuoDBStatus.dbKey, (integrationError, count) => {
+              if (integrationError) return callback({type: 'DBError', fatal: true}, null)
+              callback(null, newDuoDBStatus)
+            })
           })
         })
       })
+    })
+  })
+}
+
+function osaifuIntegration (hostKey, clientKey, duoKey, callback) {
+  const hostOsaifuDB = createOsaifuDB(hostKey)
+  const clientOsaifuDB = createOsaifuDB(clientKey)
+  const duoOsaifuDB = createOsaifuDB(duoKey)
+  hostOsaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec((hostFindError, hostList) => {
+    if (hostFindError) return callback({type: 'DBError', fatal: true}, null)
+    clientOsaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec(async (clientFindError, clientList) => {
+      if (clientFindError) return callback({type: 'DBError', fatal: true}, null)
+      await insertData(hostList, duoOsaifuDB)
+      await insertData(clientList, duoOsaifuDB)
+      console.log('integration end')
+      callback(null, 1)
+    })
+  })
+}
+
+async function insertData (list, db) {
+  const insert = (paymentData) => {
+    return new Promise((resolve) => {
+      db.insert(paymentData, () => {
+        resolve()
+      })  
+    })
+  }
+  for (let i = 0; i < list.length; i++) {
+    await insert(list[i])
+  }
+  console.log('end', list)
+}
+
+function checkRegs (userid) {
+  return new Promise((resolve) => {
+    authDB.findOne({userid}, (userError, userResult) => {
+      if (userError) return resolve({type: 'DBError'})
+      if (userResult) return resolve({type: 'alreadySignuped'})
+      return userResult ? resolve(true) : resolve(false)
     })
   })
 }

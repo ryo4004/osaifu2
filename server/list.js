@@ -12,22 +12,16 @@ const listDB = new NeDB({
 
 function getDBStatus (user, callback) {
   console.log('[listDB] getDBStatus: ' + user.userid)
-  listDB.findOne({'host': user.userKey}, (hostError, host) => {
-    if (hostError) return callback({type: 'hostDBError', fatal: true}, null)
-    listDB.findOne({'client': user.userKey}, (clientError, client) => {
-      if (clientError) return callback({type: 'clientDBError', fatal: true}, null)
-      if (host === null && client === null) return callback({type: 'notFound', fatal: false}, null)
-      if (host) {
-        if (!host.status) return callback({type: 'statusError', fatal: false}, null)
-        return callback(null, {...host})
-      } else if (client) {
-        if (!client.status) return callback({type: 'clientDisabled', fatal: false}, null)
-        return callback(null, {...client})
-      } else if (host === null) {
-        return callback({type: 'hostNotFound', fatal: false}, null)
-      } else if (client === null) {
-        return callback({type: 'clientNotFound', fatal: false}, null)
-      }
+  listDB.findOne({createUser: user.userKey, type: 'solo', status: true}, (soloError, solo) => {
+    if (soloError) return callback({type: 'soloError', fatal: true}, null)
+    if (solo) return callback(null, {...solo})
+    listDB.findOne({host: user.userKey, type: 'duo', status: true}, (hostError, host) => {
+      listDB.findOne({client: user.userKey, type: 'duo', status: true}, (clientError, client) => {
+        if (hostError || clientError) return callback({type: 'duoError', fatal: true}, null)
+        if (host) return callback(null, {...host})
+        if (client) return callback(null, {...client})
+        return callback({type: 'dbClosed', fatal: false}, null)
+      })
     })
   })
 }
@@ -36,17 +30,65 @@ function createDB (user, callback) {
   getDBStatus(user, (getDBStatusError, dbStatus) => {
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (dbStatus) return callback({type:'alreadyCreated', fatal: false}, null)
-    const docs = {
+    const newDB = {
       status: true,
+      type: 'solo',
+      createUser: user.userKey,
       dbKey: uuidv1().split('-').join(''),
       rate: 50,
-      host: user.userKey,
+      host: false,
       client: false,
       name: user.username
     }
-    listDB.insert(docs, (err, newdoc) => {
+    listDB.insert(newDB, (err, newdoc) => {
       if (err) return callback({type: 'DBError', fatal: true}, null)
-      callback(null, newdoc)
+      callback(null, newDB)
+    })
+  })
+}
+
+function createDuoDB (user, hostUserKey, callback) {
+  // clientが呼び出しをするので先にclientを更新
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (dbStatus.type !== 'solo') return callback({type:'alreadyCreated', fatal: false}, null)
+    // clientのDBを更新
+    const newDBStatus = {
+      ...dbStatus,
+      status: false
+    }
+    console.log(newDBStatus)
+    updateStatus(newDBStatus, (updateStatusError) => {
+      if (updateStatusError) return callback(updateStatusError)
+      // hostの情報を更新
+      getDBStatus({userKey: hostUserKey}, (getHostDBStatusError, hostDBStatus) => {
+        if (getHostDBStatusError && getHostDBStatusError.fatal) return callback(getHostDBStatusError, null)
+        if (hostDBStatus.type !== 'solo') return callback({type:'alreadyCreated', fatal: false}, null)
+        // hostのDBを更新
+        const newHostDBStatus = {
+          ...hostDBStatus,
+          status: false
+        }
+        console.log(newHostDBStatus)
+        updateStatus(newHostDBStatus, (updateHostStatusError) => {
+          if (updateHostStatusError) return callback(updateHostStatusError)
+          // 新しいDBを作成
+          const newDB = {
+            status: true,
+            type: 'duo',
+            createUser: hostUserKey,
+            dbKey: uuidv1().split('-').join(''),
+            rate: 50,
+            host: hostUserKey,
+            client: user.userKey,
+            name: 'おさいふ'
+          }
+          listDB.insert(newDB, (err, newdoc) => {
+            if (err) return callback({type: 'DBError', fatal: true}, null)
+            callback(null, newDB)
+          })
+        })
+      })
     })
   })
 }
@@ -119,5 +161,5 @@ function updateOsaifuname (user, osaifuname, callback) {
 }
 
 module.exports = {
-  getDBStatus, createDB, addPayment, getList, deletePayment, updateOsaifuname
+  getDBStatus, createDB, createDuoDB, addPayment, getList, deletePayment, updateOsaifuname
 }

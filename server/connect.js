@@ -8,10 +8,11 @@ const connectDB = new NeDB({
   autoload: true
 })
 
-function newConnect (user, oldPass, callback) {
+function newConnect (user, callback) {
   const expire = (new Date()).setHours((new Date()).getHours() + 24)
   const connectPass = lib.getRandomString(12)
   const docs = {
+    status: true,
     expire,
     connectPass,
     userKey: user.userKey
@@ -33,9 +34,33 @@ function newConnect (user, oldPass, callback) {
       })
     }
   })
+}
 
+function getConnect (user, connectPass, callback) {
+  console.log(lib.time() + '[connect] getConnect: ' + connectPass)
+  connectDB.findOne({connectPass}, (findError, connect) => {
+    if (findError) return callback({type: 'DBError', fatal: true}, null)
+    if (!connect) return callback({type: 'keyNotFound', fatal: false}, null)
+    if (!connect.status) return callback({type: 'keyAlreadyUsed', fatal: false}, null)
+    if (connect.userKey === user.userKey) return callback({type: 'notAvailableBySelf', fatal: false}, null)
+    console.log('time: ', connect.expire, (new Date()).getTime())
+    if (connect.expire < (new Date()).getTime()) return callback({type: 'keyExpired', fatal: false}, null)
+    connectDB.remove({connectPass}, {}, (err, num) => {
+      if (err) return callback({type: 'DBError', fatal: true})
+      return callback(null, connect.userKey)
+    })
+  })
+}
+
+function removeKey (connectPass, callback) {
+  if (!connectPass) return callback(null)
+  console.log(lib.time() + '[connect] disableKey: ' + connectPass)
+  connectDB.remove({connectPass}, {}, (err, num) => {
+    if (err) return callback({type: 'DBError', fatal: true})
+    return callback(null)
+  })
 }
 
 module.exports = {
-  newConnect
+  newConnect, getConnect
 }

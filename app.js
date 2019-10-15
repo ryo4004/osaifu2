@@ -151,15 +151,31 @@ app.post('/setting/osaifuname', (req, res) => {
   })
 })
 
-app.post('/setting/connect', (req, res) => {
+app.post('/setting/connect/pass', (req, res) => {
   const { session, oldPass } = req.body
-  console.log(lib.time() + '/setting/connect')
+  console.log(lib.time() + '/setting/connect/pass')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    libConnect.newConnect(user, oldPass, (updateUsernameError, pass) => {
+    libConnect.newConnect(user, (updateUsernameError, pass) => {
       return res.json({pass, err: updateUsernameError})
     })
   })
 })
+
+app.post('/setting/connect/add', (req, res) => {
+  const { session, connectPass } = req.body
+  console.log(lib.time() + '/setting/connect/add', connectPass)
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libConnect.getConnect(user, connectPass, (connectError, hostUserKey) => {
+      if (connectError) return res.json({err: connectError})
+      console.log(lib.time() + '/setting/connect/add', hostUserKey)
+      libList.createDuoDB(user, hostUserKey, (createDBError, status) => {
+        return res.json({status, err: createDBError})
+      })
+    })
+  })
+})
+
 
 app.listen(3000)

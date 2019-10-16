@@ -27,7 +27,12 @@ const mapStateToProps = (state) => ({
   selfPayment: state.payment.selfPayment,
   otherPayment: state.payment.otherPayment,
   memo: state.payment.memo,
-  err: state.payment.err
+  err: state.payment.err,
+
+  sessionLoading: state.session.loading,
+  user: state.session.user,
+  statusLoading: state.status.loading,
+  status: state.status.status
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -44,7 +49,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Payment = ({
-  loading, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err,
+  loading, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, sessionLoading, user, statusLoading, status,
   setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
 }) => {
 
@@ -164,9 +169,9 @@ const Payment = ({
   }
 
   const dateClass = useDate ? ' use' : ''
-
   const inputClass = payment ? 'input' : 'empty'
-
+  const selfName = user ? user.username : ''
+  const otherName = status ? status.othername : ''
   const buttonLabel = loading ? '読み込み中' : '登録'
 
   return (
@@ -207,7 +212,7 @@ const Payment = ({
           <div className='each-payment'>
             <label>支払分担</label>
             <div>
-              <label>あなた</label>
+              <label>{selfName}</label>
               <div className='payment-check'>
                 <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
                 <label htmlFor='self' className='self'>全額</label>
@@ -225,7 +230,7 @@ const Payment = ({
               </div>
             </div>
             <div>
-              <label>あいて</label>
+              <label>{otherName}</label>
               <div className='payment-check'>
                 <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
                 <label htmlFor='other' className='other'>全額</label>

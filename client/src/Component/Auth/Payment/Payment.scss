@@ -3,6 +3,10 @@
     max-width: 600px;
     margin: 0 auto;
 
+    input:invalid {
+      box-shadow: none;
+    }
+
     .date {
       display: flex;
       align-items: center;
@@ -144,9 +148,9 @@
         display: flex;
         align-items: center;
         margin: 0;
-  
+
         label {
-          padding-left: 16px;
+          padding: 0 8px 0 16px;
           white-space: nowrap;
           color: #333;
         }
@@ -182,7 +186,7 @@
             color: #333;
             font-size: 1.1rem;
           }
-  
+
           input[type="text"] {
             flex-grow: 2;
             width: 100%;
@@ -191,7 +195,7 @@
             border: 0;
             font-size: 1.6rem;
             text-align: right;
-  
+
             &:placeholder-shown, &::-webkit-input-placeholder {
               color: #333;
             }

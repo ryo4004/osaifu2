@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { confirmAlert } from 'react-confirm-alert'
 
 import { requestLogout } from '../../../../Actions/Actions/Session'
+import { requestStatus } from '../../../../Actions/Actions/Status'
 import { setTitle } from '../../../../Actions/Actions/Header'
 
 import Forward from '../../../../Library/Icons/Forward'
@@ -17,16 +18,18 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   requestLogout: () => dispatch(requestLogout()),
+  requestStatus: () => dispatch(requestStatus()),
   setTitle: (title) => dispatch(setTitle(title))
 })
 
 const Home = ({
   user, status,
-  requestLogout, setTitle
+  requestLogout, requestStatus, setTitle
 }) => {
 
   useEffect(() => {
     setTitle('設定')
+    requestStatus()
   }, [])
 
   const logout = () => {
@@ -62,12 +65,12 @@ const Home = ({
 
   const showStatus = () => {
     if (!status || !user) return false
-    const osaifuStatus = status.type === 'solo' ? 'ひとりで使用' : (user.userKey === status.createUser ? 'host' : 'client')
+    const osaifuStatus = status.type === 'solo' ? '未使用' : (user.userKey === status.host ? 'ペアリング(host)' : 'ペアリング(client)')
     const rate = parseInt(status.rate)
     return (
       <div className='status'>
         <div><label>おさいふ名</label><span>{status.name}</span></div>
-        <div><label>おさいふの状態</label><span>{osaifuStatus}</span></div>
+        <div><label>ペアリング</label><span>{osaifuStatus}</span></div>
         <div><label>負担割合</label><span>{rate}%</span></div>
       </div>
     )

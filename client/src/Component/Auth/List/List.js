@@ -29,6 +29,9 @@ const List = ({
   useEffect(() => {
     setTitle('履歴')
     requestList()
+    return () => {
+      setModal(false)
+    }
   }, [])
 
   const openModal = (content) => {
@@ -38,6 +41,7 @@ const List = ({
 
   const showList = () => {
     if (!list) return
+    if (list.length === 0) return <div className='no-data'>記録がありません</div>
     return (
       <ul>
         {list.map((each, i) => {

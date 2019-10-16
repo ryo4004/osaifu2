@@ -1,5 +1,12 @@
 .list {
 
+  .no-data {
+    margin: 16px 0;
+    text-align: center;
+    font-size: .9rem;
+    color: #666;
+  }
+
   ul {
     max-width: 600px;
     margin: 0 auto;

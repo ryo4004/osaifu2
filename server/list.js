@@ -105,7 +105,13 @@ function osaifuIntegration (hostKey, clientKey, duoKey, callback) {
       if (clientFindError) return callback({type: 'DBError', fatal: true})
       await insertData(hostList, duoOsaifuDB, 'host')
       await insertData(clientList, duoOsaifuDB, 'client')
-      callback(null)
+      hostOsaifuDB.remove({}, {multi: true}, (hostRemoveError, hostRemoveNum) => {
+        if (hostRemoveError) return callback({type: 'DBError', fatal: true})
+        clientOsaifuDB.remove({}, {multi: true}, (clientRemoveError, clientRemoveNUm) => {
+          if (clientRemoveError) return callback({type: 'DBError', fatal: true})
+          callback(null)
+        })
+      })
     })
   })
 }

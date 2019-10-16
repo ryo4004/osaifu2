@@ -69,7 +69,16 @@ app.post('/status', (req, res) => {
     console.log(lib.time() + '/status ' + (authError ? 'NG' : 'OK'))
     if (authError) return res.json({err: authError})
     libList.getDBStatus(user, (getDBStatusError, status) => {
-      return res.json({status, err: getDBStatusError})
+      if (status.type === 'solo') {
+        const newStatus = {...status, othername: user.othername}
+        return res.json({status: newStatus, err: getDBStatusError})
+      } else {
+        const requestName = status.host === user.userKey ? status.client : status.host
+        libUser.getUsername(requestName, (getUsernameError, othername) => {
+          const newStatus = {...status, othername}
+          return res.json({status: newStatus, err: getUsernameError})
+        })  
+      }
     })
   })
 })

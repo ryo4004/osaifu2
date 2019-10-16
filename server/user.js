@@ -49,7 +49,7 @@ function login (userdata, callback) {
         token,
         lastLogin
       } : client
-    }) : 
+    }) :
     user.clientList.concat({
       agent: userdata.userAgent,
       id: userdata.clientid,
@@ -162,6 +162,21 @@ function updatePassword (user, oldPassword, newPassword, callback) {
   })
 }
 
+// //status から呼び出し
+function getUsername (userKey, callback) {
+  getUserByUserKey(userKey, (getUserError, user) => {
+    callback(getUserError, user.username)
+  })
+}
+
+function getUserByUserKey (userKey, callback) {
+  userDB.findOne({ userKey }, (err, user) => {
+    if (err) return callback({type: 'DBError', fatal: true}, null)
+    if (user === null) return callback({type: 'userNotFound', fatal: false}, null)
+    callback(null, user)
+  })
+}
+
 module.exports = {
-  addUser, login, deleteSession, authentication, updateUsername, updateOthername, updatePassword
+  addUser, login, deleteSession, authentication, updateUsername, updateOthername, updatePassword, getUsername
 }

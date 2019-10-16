@@ -28,15 +28,25 @@ const Detail = ({
 
   const showContent = () => {
     if (!content) return false
+    const date = content.useDate === 'true' ? lib.unixDateTime(content.paymentDate) : lib.unixDateTime(content.sendDate)
+    const day = date.split('T')[0]
+    const time = content.useDate === 'true' ? false : <span className='time'>{date.split('T')[1].split(':')[0] + ':' + date.split('T')[1].split(':')[1]}</span>
+    const selfName = user ? user.username : ''
+    const otherName = status ? status.othername : ''
     const selfType = status.type === 'solo' ? 'hostPayment' : (status.host === user.userKey ? 'hostPayment' : 'clientPayment')
     const otherType = status.type === 'solo' ? 'clientPayment' : (status.host === user.userKey ? 'clientPayment' : 'hostPayment')
     return (
       <div>
+        <div className='date'><div><span>{day.replace(/-/g, '/')}</span>{time}</div></div>
         <div className='payment'>{lib.addSeparator(Number(content.payment))}<span>円</span></div>
-        <div className='self-payment'><label>host</label>{lib.addSeparator(Number(content[selfType]))}<span>円</span></div>
-        <div className='other-payment'><label>client</label>{lib.addSeparator(Number(content[otherType]))}<span>円</span></div>
-        <div>{content.createdAt}</div>
-        <div>{lib.unixDateTime(content.paymentDate)}</div>
+        <div className='each-payment'>
+          <div><div className='self-payment'><label>{selfName}</label><div>{lib.addSeparator(Number(content[selfType]))}<span>円</span></div></div></div>
+          <div><div className='other-payment'><label>{otherName}</label><div>{lib.addSeparator(Number(content[otherType]))}<span>円</span></div></div></div>
+        </div>
+        <div className='debug'>
+          <div>{content.createdAt}</div>
+          <div>{lib.unixDateTime(content.paymentDate)}</div>
+        </div>
         <button onClick={() => requestDelete(content._id)}>削除</button>
       </div>
     )

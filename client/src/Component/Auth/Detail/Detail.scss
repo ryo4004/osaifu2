@@ -65,10 +65,15 @@
 
         .payment {
           font-size: 1.6rem;
+        }
 
-          span {
-            font-size: 1rem;
-          }
+        span {
+          font-size: .8em;
+        }
+
+        label {
+          display: inline-block;
+          min-width: 50px;
         }
 
         button {

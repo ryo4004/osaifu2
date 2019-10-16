@@ -12,7 +12,8 @@ const mapStateToProps = (state) => ({
   content: state.detail.content,
   err: state.detail.err,
 
-  user: state.session.user
+  user: state.session.user,
+  status: state.status.status
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -21,17 +22,19 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Detail = ({
-  modal, content, err,
+  modal, content, err, user, status,
   setModal, requestDelete
 }) => {
 
   const showContent = () => {
     if (!content) return false
+    const selfType = status.type === 'solo' ? 'hostPayment' : (status.host === user.userKey ? 'hostPayment' : 'clientPayment')
+    const otherType = status.type === 'solo' ? 'clientPayment' : (status.host === user.userKey ? 'clientPayment' : 'hostPayment')
     return (
       <div>
-        <div className='payment'>{lib.addSeparator(content.payment)}<span>円</span></div>
-        <div className='self-payment'>{lib.addSeparator(content.selfPayment)}<span>円</span></div>
-        <div className='other-payment'>{lib.addSeparator(content.otherPayment)}<span>円</span></div>
+        <div className='payment'>{lib.addSeparator(Number(content.payment))}<span>円</span></div>
+        <div className='self-payment'><label>host</label>{lib.addSeparator(Number(content[selfType]))}<span>円</span></div>
+        <div className='other-payment'><label>client</label>{lib.addSeparator(Number(content[otherType]))}<span>円</span></div>
         <div>{content.createdAt}</div>
         <div>{lib.unixDateTime(content.paymentDate)}</div>
         <button onClick={() => requestDelete(content._id)}>削除</button>

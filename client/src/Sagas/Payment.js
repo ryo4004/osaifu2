@@ -14,8 +14,8 @@ function* runRequest () {
   const date = state.payment.date.split('-')
   const payment = {
     payment: state.payment.payment,
-    selfPayment: state.payment.selfPayment,
-    otherPayment: state.payment.otherPayment,
+    hostPayment: state.status.status.type === 'solo' ? state.payment.selfPayment : (state.status.status.host === state.session.user.userKey ? state.payment.selfPayment : state.payment.otherPayment),
+    clientPayment: state.status.status.type === 'solo' ? state.payment.otherPayment : (state.status.status.host === state.session.user.userKey ? state.payment.otherPayment : state.payment.selfPayment),
     memo: state.payment.memo,
     useDate: state.payment.useDate,
     paymentDate: (new Date(date[0], date[1] - 1, date[2]).getTime()),

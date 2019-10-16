@@ -83,7 +83,8 @@ function createDuoDB (user, hostUserKey, callback) {
           }
           listDB.insert(newDuoDBStatus, (insertError, newdoc) => {
             if (insertError) return callback({type: 'DBError', fatal: true}, null)
-            osaifuIntegration(hostDBStatus.dbKey, dbStatus.dbKey, newDuoDBStatus.dbKey, (integrationError, count) => {
+            // それぞれのおさいふを統合
+            osaifuIntegration(hostDBStatus.dbKey, dbStatus.dbKey, newDuoDBStatus.dbKey, (integrationError) => {
               if (integrationError) return callback({type: 'DBError', fatal: true}, null)
               callback(null, newDuoDBStatus)
             })
@@ -99,21 +100,28 @@ function osaifuIntegration (hostKey, clientKey, duoKey, callback) {
   const clientOsaifuDB = createOsaifuDB(clientKey)
   const duoOsaifuDB = createOsaifuDB(duoKey)
   hostOsaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec((hostFindError, hostList) => {
-    if (hostFindError) return callback({type: 'DBError', fatal: true}, null)
+    if (hostFindError) return callback({type: 'DBError', fatal: true})
     clientOsaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec(async (clientFindError, clientList) => {
-      if (clientFindError) return callback({type: 'DBError', fatal: true}, null)
-      await insertData(hostList, duoOsaifuDB)
-      await insertData(clientList, duoOsaifuDB)
-      console.log('integration end')
-      callback(null, 1)
+      if (clientFindError) return callback({type: 'DBError', fatal: true})
+      await insertData(hostList, duoOsaifuDB, 'host')
+      await insertData(clientList, duoOsaifuDB, 'client')
+      callback(null)
     })
   })
 }
 
-async function insertData (list, db) {
+async function insertData (list, db, type) {
   const insert = (paymentData) => {
     return new Promise((resolve) => {
-      db.insert(paymentData, () => {
+      // clientのときは反転して記録
+      const newPayment = type === 'client' ? {
+        ...paymentData,
+        hostPayment: paymentData.clientPayment,
+        clientPayment: paymentData.hostPayment
+      } : {
+        ...paymentData
+      }
+      db.insert(newPayment, () => {
         resolve()
       })  
     })
@@ -121,7 +129,6 @@ async function insertData (list, db) {
   for (let i = 0; i < list.length; i++) {
     await insert(list[i])
   }
-  console.log('end', list)
 }
 
 function checkRegs (userid) {

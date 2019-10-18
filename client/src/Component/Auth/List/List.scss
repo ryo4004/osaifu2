@@ -7,6 +7,9 @@
   }
 
   .summary {
+    max-width: 600px;
+    margin: 0 auto;
+    
     & > div {
       margin: 0 8px;
 

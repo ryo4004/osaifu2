@@ -69,7 +69,7 @@ const List = ({
         <div><label>{selfName}の負担</label><div>{charge[selfType + 'Charge']}<span>円</span></div></div>
         <div><label>{otherName}の負担</label><div>{charge[otherType + 'Charge']}<span>円</span></div></div>
         {showRate()}
-        <div><label>計</label><div>{summary[selfType + 'Sum'] - charge[otherType + 'Charge']}<span>円</span></div></div>
+        <div><label>計</label><div>{lib.getSymbol(summary[selfType + 'Sum'] - charge[otherType + 'Charge']) + Math.abs(summary[selfType + 'Sum'] - charge[otherType + 'Charge'])}<span>円</span></div></div>
       </div>
     )
   }

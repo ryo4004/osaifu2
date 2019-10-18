@@ -11,7 +11,12 @@ import './List.css'
 
 const mapStateToProps = (state) => ({
   loading: state.list.loading,
-  list: state.list.list
+  list: state.list.list,
+  calcList: state.list.calcList,
+  summary: state.list.summary,
+
+  user: state.session.user,
+  status: state.status.status,
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -22,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const List = ({
-  loading, list,
+  loading, list, calcList, summary, user, status,
   requestList, setTitle, setModal, setContent
 }) => {
 
@@ -39,27 +44,66 @@ const List = ({
     setModal(true)
   }
 
-  const showList = () => {
-    if (!list) return
-    if (list.length === 0) return <div className='no-data'>記録がありません</div>
+  const showLoading = () => {
+    if (loading) return <div className='loading'>読み込み中...</div>
+  }
+
+  const showSummary = () => {
+    if (!summary) return
+    const showRate = () => {
+      if (status && user) return <div><label>負担率</label><div>{user.userKey === status.host ? status.rate : (100 - parseInt(status.rate))}<span>%</span></div></div>
+    }
+    const selfName = user ? user.username : ''
+    const otherName = status ? status.othername : ''
+    const selfType = status.type === 'solo' ? 'host' : (status.host === user.userKey ? 'host' : 'client')
+    const otherType = status.type === 'solo' ? 'client' : (status.host === user.userKey ? 'client' : 'host')
+    const charge = {
+      hostCharge: summary.paymentSum * (parseFloat(status.rate) * 0.01),
+      clientCharge: summary.paymentSum * ((100.0 - parseFloat(status.rate)) * 0.01)
+    }
     return (
-      <ul>
-        {list.map((each, i) => {
-          const date = (each.useDate ? lib.unixDateTime(each.paymentDate) : each.createdAt).split('T')[0].replace(/-/g, '/')
-          return (
-            <li key={'list' + i} onClick={() => openModal(each)}>
-              <div className='date'>{date}</div>
-              <div className='payment'>{lib.addSeparator(parseInt(each.payment))}<span>円</span></div>
-            </li>
-          )
+      <div className='summary'>
+        <div><label>支払計</label><div>{summary.paymentSum}<span>円</span></div></div>
+        <div><label>{selfName}の支払計</label><div>{summary[selfType + 'Sum']}<span>円</span></div></div>
+        <div><label>{otherName}の支払計</label><div>{summary[otherType + 'Sum']}<span>円</span></div></div>
+        <div><label>{selfName}の負担</label><div>{charge[selfType + 'Charge']}<span>円</span></div></div>
+        <div><label>{otherName}の負担</label><div>{charge[otherType + 'Charge']}<span>円</span></div></div>
+        {showRate()}
+        <div><label>計</label><div>{summary[selfType + 'Sum'] - charge[otherType + 'Charge']}<span>円</span></div></div>
+      </div>
+    )
+  }
+
+  const showList = () => {
+    if (!calcList) return
+    if (calcList.size === 0) return <div className='no-data'>記録がありません</div>
+    return (
+      <ol className='list'>
+        {Array.from(calcList.keys()).map((eachDay, i) => {
+          let paymentSum = 0, hostSum = 0, clientSum = 0
+          const listEachDay = calcList.get(eachDay).map((eachPayment, j) => {
+            const date = eachPayment.useDate === 'true' ? false : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
+            paymentSum += parseInt(eachPayment.payment)
+            hostSum += parseInt(eachPayment.hostPayment)
+            clientSum += parseInt(eachPayment.clientPayment)
+            return (
+              <li key={'list' + i + j} onClick={() => openModal(eachPayment)} onTouchStart={() => {}}>
+                {date}
+                <div className='payment'>{lib.addSeparator(parseInt(eachPayment.payment))}<span>円</span></div>
+              </li>
+            )
+          })
+          return <details key={'day-' + i}><summary><div><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
         })}
-      </ul>
+      </ol>
     )
   }
 
   return (
     <div className='list contents'>
       <div className='contents-inner'>
+        {showLoading()}
+        {showSummary()}
         {showList()}
       </div>
     </div>

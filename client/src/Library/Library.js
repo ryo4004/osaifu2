@@ -42,7 +42,7 @@ export function unixDate (timestamp) {
   var year = d.getFullYear()
   var month = d.getMonth() + 1
   var day = d.getDate()
-  return(year + '/' + month + '/' + day)
+  return(year + '-' + month + '-' + day)
 }
 
 export function unixTime (timestamp) {

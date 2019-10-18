@@ -3,6 +3,8 @@ import * as ActionType from '../Actions/Constants/List'
 const initialState = {
   loading: false,
   list: [],
+  calcList: false,
+  summary: false,
   err: false
 }
 
@@ -17,6 +19,16 @@ export default function listReducer (state = initialState, action) {
       return {
         ...state,
         list: action.payload.list
+      }
+    case ActionType.LIST_SET_CALC_LIST:
+      return {
+        ...state,
+        calcList: action.payload.calcList
+      }
+    case ActionType.LIST_SET_SUMMARY:
+      return {
+        ...state,
+        summary: action.payload.summary
       }
     case ActionType.LIST_SET_ERROR:
       return {

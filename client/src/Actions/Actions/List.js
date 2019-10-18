@@ -14,6 +14,16 @@ export const setList = (list) => ({
   payload: { list }
 })
 
+export const setCalcList = (calcList) => ({
+  type: ActionType.LIST_SET_CALC_LIST,
+  payload: { calcList }
+})
+
+export const setSummary = (summary) => ({
+  type: ActionType.LIST_SET_SUMMARY,
+  payload: { summary }
+})
+
 export const setError = (err) => ({
   type: ActionType.LIST_SET_ERROR,
   payload: { err }

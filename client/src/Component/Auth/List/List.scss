@@ -1,5 +1,36 @@
 .list {
 
+  .loading {
+    position: absolute;
+    display: inline-block;
+    font-size: .8rem;
+  }
+
+  .summary {
+    & > div {
+      margin: 0 8px;
+
+      display: flex;
+      align-items: center;
+
+      label {
+        font-size: .9rem;
+        color: #666;
+      }
+
+      & > div {
+        flex: 2;
+        text-align: right;
+        font-size: 1.4rem;
+
+        span {
+          padding-left: .2em;
+          font-size: .8em;
+        }
+      }
+    }
+  }
+
   .no-data {
     margin: 16px 0;
     text-align: center;
@@ -7,34 +38,81 @@
     color: #666;
   }
 
-  ul {
+  ol.list {
     max-width: 600px;
     margin: 0 auto;
 
-    li {
-      padding: 8px;
+    details {
 
-      display: flex;
-      align-items: baseline;
-      cursor: pointer;
+      summary {
+        display: block;
 
-      &:hover {
-        background: #eee;
+        // div で囲むのは iOS Safari 対策
+        & > div {
+          padding: 6px 8px;
+          min-height: 40px;
+          display: flex;
+          align-items: center;
+
+          .date {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #eee;
+            font-size: .9rem;
+          }
+
+          & > div {
+            flex: 2;
+            text-align: right;
+
+            span {
+              padding-left: .2em;
+              font-size: .8em;
+            }
+          }
+        }
+
+        &:hover {
+          background: #eee;
+        }
       }
 
-      .date {
-        font-size: .8rem;
-        color: #666;
+      summary::-webkit-details-marker {
+        display: none;
       }
 
-      .payment {
-        flex: 2;
-        text-align: right;
-        font-size: 1.6rem;
+      ol {
 
-        span {
-          padding-left: 6px;
-          font-size: 1.1rem;
+        li {
+          padding: 8px;
+
+          display: flex;
+          align-items: center;
+          cursor: pointer;
+
+          &:hover {
+            background: #eee;
+          }
+
+          .date {
+            padding: 2px 6px;
+            border-radius: 6px;
+            background: #eee;
+            font-size: .8rem;
+            color: #666;
+          }
+
+          .payment {
+            flex: 2;
+            text-align: right;
+            font-size: 1.6rem;
+
+            span {
+              padding-left: .2em;
+              font-size: .8em;
+            }
+          }
         }
       }
     }

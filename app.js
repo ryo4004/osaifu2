@@ -155,8 +155,19 @@ app.post('/setting/osaifuname', (req, res) => {
   console.log(lib.time() + '/setting/osaifuname')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    libList.updateOsaifuname(user, osaifuname, (updateUsernameError, status) => {
-      return res.json({status, err: updateUsernameError})
+    libList.updateOsaifuname(user, osaifuname, (updateOsaifunameError, status) => {
+      return res.json({status, err: updateOsaifunameError})
+    })
+  })
+})
+
+app.post('/setting/rate', (req, res) => {
+  const { session, rate } = req.body
+  console.log(lib.time() + '/setting/rate')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.updateRate(user, rate, (updateRateError, status) => {
+      return res.json({status, err: updateRateError})
     })
   })
 })

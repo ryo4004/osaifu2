@@ -137,16 +137,6 @@ async function insertData (list, db, type) {
   }
 }
 
-function checkRegs (userid) {
-  return new Promise((resolve) => {
-    authDB.findOne({userid}, (userError, userResult) => {
-      if (userError) return resolve({type: 'DBError'})
-      if (userResult) return resolve({type: 'alreadySignuped'})
-      return userResult ? resolve(true) : resolve(false)
-    })
-  })
-}
-
 function createOsaifuDB (dbkey) {
   return new NeDB({
     filename: path.join(__dirname, 'osaifu/' + dbkey + '.db'),
@@ -214,6 +204,21 @@ function updateOsaifuname (user, osaifuname, callback) {
   })
 }
 
+function updateRate (user, rate, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (!dbStatus) return callback({type:'dbNotFound', fatal: false}, null)
+    const newDBStatus = {
+      ...dbStatus,
+      rate
+    }
+    updateStatus(newDBStatus, (updateStatusError) => {
+      return callback(updateStatusError, {...newDBStatus})
+    })
+  })
+}
+
+
 module.exports = {
-  getDBStatus, createDB, createDuoDB, addPayment, getList, deletePayment, updateOsaifuname
+  getDBStatus, createDB, createDuoDB, addPayment, getList, deletePayment, updateOsaifuname, updateRate
 }

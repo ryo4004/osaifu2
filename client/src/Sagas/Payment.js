@@ -29,7 +29,6 @@ function* runRequest () {
   }
   console.log(send)
   const res = yield call(() => post('/payment', send))
-  yield put(loading(false))
   console.warn(res)
   if (res.body.err) {
     yield put(setError(res.body.err))
@@ -42,6 +41,7 @@ function* runRequest () {
     yield put(setOtherPayment(''))
     yield put(setMemo(''))
   }
+  yield put(loading(false))
 }
 
 export default function* watchRequestSession () {

@@ -50,6 +50,16 @@ export const requestChangeOsaifuname = () => ({
   type: ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME
 })
 
+// Rate
+export const changeRate = (rate) => ({
+  type: ActionType.SETTING_CHANGE_RATE,
+  payload: { rate }
+})
+
+export const requestChangeRate = () => ({
+  type: ActionType.SETTING_REQUEST_CHANGE_RATE
+})
+
 // Connect
 export const setConnectMode = (connectMode) => ({
   type: ActionType.SETTING_SET_CONNECT_MODE,

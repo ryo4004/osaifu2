@@ -66,7 +66,7 @@ const Home = ({
   const showStatus = () => {
     if (!status || !user) return false
     const osaifuStatus = status.type === 'solo' ? '未使用' : (user.userKey === status.host ? 'ペアリング(host)' : 'ペアリング(client)')
-    const rate = parseInt(status.rate)
+    const rate = status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))
     return (
       <div className='status'>
         <div><label>おさいふ名</label><span>{status.name}</span></div>
@@ -91,6 +91,7 @@ const Home = ({
       </div>
       <ul>
         <li><Link to='/setting/osaifuname'><span>おさいふ名の変更</span><Forward /></Link></li>
+        <li><Link to='/setting/rate'><span>負担率の変更</span><Forward /></Link></li>
       </ul>
       <div className='list-label'>
         <label>アカウント設定</label>

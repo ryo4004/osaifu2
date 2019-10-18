@@ -7,6 +7,7 @@ const initialState = {
   oldPassword: '',
   newPassword: '',
   osaifuname: '',
+  rate: '',
   connectMode: true,
   connectPassStatus: false,
   connectPass: '',
@@ -44,6 +45,11 @@ export default function settingReducer (state = initialState, action) {
       return {
         ...state,
         osaifuname: action.payload.osaifuname
+      }
+    case ActionType.SETTING_CHANGE_RATE:
+      return {
+        ...state,
+        rate: action.payload.rate
       }
     case ActionType.SETTING_SET_CONNECT_MODE:
       return {

@@ -55,3 +55,12 @@ export function unixTime (timestamp) {
 export function addSeparator (num) {
   return num.toLocaleString()
 }
+
+export function getSymbol (value) {
+  if (value > 0) {
+    return '+'
+  } else if (value < 0) {
+    return '-'
+  }
+  return ''
+}

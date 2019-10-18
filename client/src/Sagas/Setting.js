@@ -86,6 +86,27 @@ function* runRequestChangeOsaifuname () {
   }
 }
 
+function* runRequestChangeRate () {
+  const state = yield select()
+  console.warn({state})
+  if (!state.setting.rate) return yield put(setError({type: 'blankTextbox'}))
+  console.log('send: ',state.status.status.type === 'solo' ? state.setting.rate : (state.status.status.host === state.session.user.userKey ? state.setting.rate : (100 - parseInt(state.setting.rate))))
+  yield put(loading(true))
+  yield put(setError(false))
+  const send = {
+    session: lib.getSession(),
+    rate: state.status.status.type === 'solo' ? state.setting.rate : (state.status.status.host === state.session.user.userKey ? state.setting.rate : (100 - parseInt(state.setting.rate)))
+  }
+  const res = yield call(() => post('/setting/rate', send))
+  yield put(loading(false))
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(setStatus(res.body.status))
+    yield put(replace('/setting'))
+  }
+}
+
 function* runRequestConnectPass () {
   const state = yield select()
   yield put(loading(true))
@@ -126,6 +147,7 @@ export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OTHERNAME, runRequestChangeOthername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_PASSWORD, runRequestChangePassword)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME, runRequestChangeOsaifuname)
+  yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_RATE, runRequestChangeRate)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT_PASS, runRequestConnectPass)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT, runRequestConnect)
 }

@@ -62,7 +62,7 @@ const Connect = ({
   }
 
   const showConnectPass = () => {
-    if (!connectPassStatus) return false
+    if (!connectPassStatus || !connectMode) return false
     return (
       <div className='connect-pass'>
         <div>{connectPassStatus.connectPass}</div>

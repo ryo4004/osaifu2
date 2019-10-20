@@ -47,8 +47,71 @@ function createDB (user, callback) {
   })
 }
 
+function getOldDBStatus (user, callback) {
+  console.log('[listDB] getOldDBStatus: ' + user.userid)
+  listDB.findOne({createUser: user.userKey, type: 'solo', status: false}, (soloError, solo) => {
+    if (soloError) return callback({type: 'soloError', fatal: false}, null)
+    if (solo) return callback(null, {...solo})
+  })
+}
+
+function removeDuoDB (user, callback) {
+  getDBStatus(user, (getDBStatusError, dbStatus) => {
+    if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
+    if (dbStatus.type === 'solo') return callback({type: 'soloDB', fatal: false}, null)
+    const selfType = user.userKey === dbStatus.host ? 'host' : 'client'
+    const otherType = selfType === 'host' ? 'client' : 'host'
+    const newDBStatus = {
+      ...dbStatus,
+      status: false
+    }
+    updateStatus(newDBStatus, (updateStatusError) => {
+      if (updateStatusError) return callback(updateStatusError, null)
+      getOldDBStatus(user, (getSelfOldDBStatusError, oldSelfDBStatus) => {
+        if (getSelfOldDBStatusError && getSelfOldDBStatusError.fatal) return callback(getSelfOldDBStatusError, null)
+        const newSelfDBStatus = {
+          ...oldSelfDBStatus,
+          status: true
+        }
+        updateStatus(newSelfDBStatus, (updateSelfStatusError) => {
+          if (updateSelfStatusError) return callback(updateSelfStatusError, null)
+          getOldDBStatus({userKey: dbStatus[otherType], userid: 'other [temp] ' + otherType}, (getOtherOldDBStatusError, otherOldDBStatus) => {
+            if (getOtherOldDBStatusError && getOtherOldDBStatusError.fatal) return callback(getOtherOldDBStatusError, null)
+            const newOtherDBStatus = {
+              ...otherOldDBStatus,
+              status: true
+            }
+            updateStatus(newOtherDBStatus, (updateOtherStatusError) => {
+              if (updateOtherStatusError) return callback(updateOtherStatusError, null)
+              osaifuDivide(newDBStatus.dbKey, newSelfDBStatus.dbKey, newOtherDBStatus.dbKey, selfType, otherType, (divideError) => {
+                if (divideError) return callback({type: 'DBError', fatal: true}, null)
+                callback(null, newSelfDBStatus)
+              })
+            })
+          })
+        })
+      })
+    })
+  })
+}
+
+function osaifuDivide (duoKey, selfKey, otherKey, selfType, otherType, callback) {
+  const duoOsaifuDB = createOsaifuDB(duoKey)
+  const selfOsaifuDB = createOsaifuDB(selfKey)
+  const otherOsaifuDB = createOsaifuDB(otherKey)
+  duoOsaifuDB.find({}).sort({paymentDate: -1, createdAt: -1}).exec(async (duoFindError, duoList) => {
+    if (duoFindError) return callback({type: 'DBError', fatal: true})
+    await insertData(duoList, selfOsaifuDB, selfType)
+    await insertData(duoList, otherOsaifuDB, otherType)
+    duoOsaifuDB.remove({}, {multi: true}, (duoRemoveError, duoRemoveNum) => {
+      if (duoRemoveError) return callback({type: 'DBError', fatal: true})
+      callback(null)
+    })
+  })
+}
+
 function createDuoDB (user, hostUserKey, callback) {
-  // clientが呼び出しをするので先にclientを更新
+  // clientがこの関数を呼び出すので先にclientを更新
   getDBStatus(user, (getDBStatusError, dbStatus) => {
     if (getDBStatusError && getDBStatusError.fatal) return callback(getDBStatusError, null)
     if (dbStatus.type !== 'solo') return callback({type:'alreadyCreated', fatal: false}, null)
@@ -220,5 +283,5 @@ function updateRate (user, rate, callback) {
 
 
 module.exports = {
-  getDBStatus, createDB, createDuoDB, addPayment, getList, deletePayment, updateOsaifuname, updateRate
+  getDBStatus, createDB, createDuoDB, removeDuoDB, addPayment, getList, deletePayment, updateOsaifuname, updateRate
 }

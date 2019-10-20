@@ -198,5 +198,16 @@ app.post('/setting/connect/add', (req, res) => {
   })
 })
 
+app.post('/setting/connect/remove', (req, res) => {
+  const { session } = req.body
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    console.log(lib.time() + '/setting/connect/remove')
+    libList.removeDuoDB(user, (removeDBError, status) => {
+      console.log(lib.time() + '/setting/connect/remove complete')
+      return res.json({status, err: removeDBError})
+    })
+  })
+})
 
 app.listen(3000)

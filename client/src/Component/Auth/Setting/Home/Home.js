@@ -12,6 +12,7 @@ import Forward from '../../../../Library/Icons/Forward'
 import './Home.css'
 
 const mapStateToProps = (state) => ({
+  loading: state.setting.loading,
   user: state.session.user,
   status: state.status.status
 })
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Home = ({
-  user, status,
+  loading, user, status,
   requestLogout, requestStatus, setTitle
 }) => {
 
@@ -76,15 +77,20 @@ const Home = ({
     )
   }
 
+  const showLoading = () => {
+    if (loading) return <div className='loading'>読み込み中...</div>
+  }
+
   return (
     <div className='setting-home'>
+      {showLoading()}
       {showUser()}
       {showStatus()}
       <div className='list-label'>
         <label>おさいふ共有設定</label>
       </div>
       <ul>
-        <li><Link to='/setting/connect'><span>おさいふを共有する</span><Forward /></Link></li>
+        <li><Link to='/setting/connect'><span>{status && (status.type === 'solo' ? 'おさいふを共有する' : '共有を解除する')}</span><Forward /></Link></li>
       </ul>
       <div className='list-label'>
         <label>おさいふの設定</label>

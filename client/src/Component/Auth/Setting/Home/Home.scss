@@ -1,4 +1,11 @@
 .setting-home {
+
+  .loading {
+    position: absolute;
+    display: inline-block;
+    font-size: .8rem;
+  }
+
   .user, .status {
     max-width: 600px;
     margin: 8px auto;

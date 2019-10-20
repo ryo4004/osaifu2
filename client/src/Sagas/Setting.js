@@ -142,6 +142,20 @@ function* runRequestConnect () {
   }
 }
 
+function* runRequestDisconnect () {
+  yield put(loading(true))
+  yield put(setError(false))
+  const send = { session: lib.getSession() }
+  const res = yield call(() => post('/setting/connect/remove', send))
+  yield put(loading(false))
+  console.warn('request', res)
+  if (res.body.err) {
+    yield put(setError(res.body.err))
+  } else {
+    yield put(replace('/setting'))
+  }
+}
+
 export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_USERNAME, runRequestChangeUsername)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OTHERNAME, runRequestChangeOthername)
@@ -150,4 +164,5 @@ export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_RATE, runRequestChangeRate)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT_PASS, runRequestConnectPass)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT, runRequestConnect)
+  yield takeLatest(ActionType.SETTING_REQUEST_DISCONNECT, runRequestDisconnect)
 }

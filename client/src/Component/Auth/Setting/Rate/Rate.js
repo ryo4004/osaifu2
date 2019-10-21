@@ -49,6 +49,10 @@ const Rate = ({
 
   return (
     <div className='setting-rate'>
+      <div className='text'>
+        <p>負担率は、支払った合計額のうち自分が負担する割合です。</p>
+        <p>2人で支払ったお金をのうち、どの程度負担するかを設定します。</p>
+      </div>
       <div className='form'>
         <label>{selfName}の負担率</label>
         <input type='text' value={rate} onChange={(e) => updateRate(e.target.value)} onKeyPress={(e) => keyPress(e)} pattern='\d*' />

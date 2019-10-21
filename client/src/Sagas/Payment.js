@@ -34,7 +34,7 @@ function* runRequest () {
     yield put(setError(res.body.err))
   } else {
     console.log({payment})
-    yield put(showToast(payment.payment + '円 記録しました'))
+    yield put(showToast(state.status.status.name + 'に ' + payment.payment + '円 記録しました'))
     yield put(setPayment(''))
     yield put(setPaymentCheck(false))
     yield put(setSelfPayment(''))

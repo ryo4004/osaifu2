@@ -1,7 +1,19 @@
 .setting {
+  max-width: 600px;
+  margin: 0 auto;
+
+  .text {
+    margin: 8px;
+    padding: 8px;
+    border: .55px solid #ccc;
+    border-radius: .25em;
+    font-size: .9rem;
+    color: #666;
+    background: #eee;
+  }
+
   .form {
-    max-width: 600px;
-    margin: 0 auto;
+    margin: 8px 0;
 
     label {
       display: block;

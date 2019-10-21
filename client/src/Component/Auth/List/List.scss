@@ -9,26 +9,63 @@
   .summary {
     max-width: 600px;
     margin: 0 auto;
-    
-    & > div {
-      margin: 0 8px;
 
-      display: flex;
-      align-items: center;
-
-      label {
-        font-size: .9rem;
-        color: #666;
+    details {
+      summary::-webkit-details-marker {
+        display: none;
       }
 
-      & > div {
-        flex: 2;
-        text-align: right;
-        font-size: 1.4rem;
+      summary {
+        cursor: pointer;
 
-        span {
-          padding-left: .2em;
-          font-size: .8em;
+        & > div {
+          margin: 0 8px;
+            
+          display: flex;
+          align-items: center;
+
+          label {
+            font-size: .9rem;
+            color: #666;
+          }
+    
+          & > div {
+            flex: 2;
+            text-align: right;
+            font-size: 1.4rem;
+    
+            span {
+              padding-left: .2em;
+              font-size: .8em;
+            }
+          }
+        }
+
+        &:hover {
+          background: #eee;
+        }
+      }
+      
+      & > div {
+        margin: 0 8px;
+  
+        display: flex;
+        align-items: center;
+  
+        label {
+          font-size: .9rem;
+          color: #666;
+        }
+  
+        & > div {
+          flex: 2;
+          text-align: right;
+          font-size: 1.4rem;
+  
+          span {
+            padding-left: .2em;
+            font-size: .8em;
+          }
         }
       }
     }
@@ -49,6 +86,7 @@
 
       summary {
         display: block;
+        cursor: pointer;
 
         // div で囲むのは iOS Safari 対策
         & > div {

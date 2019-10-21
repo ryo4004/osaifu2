@@ -63,13 +63,15 @@ const List = ({
     }
     return (
       <div className='summary'>
-        <div><label>支払計</label><div>{summary.paymentSum}<span>円</span></div></div>
-        <div><label>{selfName}の支払計</label><div>{summary[selfType + 'Sum']}<span>円</span></div></div>
-        <div><label>{otherName}の支払計</label><div>{summary[otherType + 'Sum']}<span>円</span></div></div>
-        <div><label>{selfName}の負担</label><div>{charge[selfType + 'Charge']}<span>円</span></div></div>
-        <div><label>{otherName}の負担</label><div>{charge[otherType + 'Charge']}<span>円</span></div></div>
-        {showRate()}
-        <div><label>計</label><div>{lib.getSymbol(summary[selfType + 'Sum'] - charge[otherType + 'Charge']) + Math.abs(summary[selfType + 'Sum'] - charge[otherType + 'Charge'])}<span>円</span></div></div>
+        <details>
+          <summary><div><label>計</label><div>{lib.getSymbol(summary[selfType + 'Sum'] - charge[otherType + 'Charge']) + Math.abs(summary[selfType + 'Sum'] - charge[otherType + 'Charge'])}<span>円</span></div></div></summary>
+          <div><label>支払計</label><div>{summary.paymentSum}<span>円</span></div></div>
+          <div><label>{selfName}の支払計</label><div>{summary[selfType + 'Sum']}<span>円</span></div></div>
+          <div><label>{otherName}の支払計</label><div>{summary[otherType + 'Sum']}<span>円</span></div></div>
+          <div><label>{selfName}の負担</label><div>{charge[selfType + 'Charge']}<span>円</span></div></div>
+          <div><label>{otherName}の負担</label><div>{charge[otherType + 'Charge']}<span>円</span></div></div>
+          {showRate()}
+        </details>
       </div>
     )
   }

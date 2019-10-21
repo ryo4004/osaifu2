@@ -32,8 +32,8 @@ function time () {
 }
 
 function getRandomString (length){
-  const strong = length ? Math.pow(10,length+1) : 1000
-  return Math.floor(strong*Math.random()).toString(16)
+  const strong = Math.pow(10, length + 1)
+  return Math.floor(strong * Math.random()).toString(16)
 }
 
 module.exports = {

@@ -51,7 +51,7 @@ const Rate = ({
     <div className='setting-rate'>
       <div className='form'>
         <label>{selfName}の負担率</label>
-        <input type='text' value={rate} onChange={(e) => updateRate(e.target.value)} onKeyPress={(e) => keyPress(e)} />
+        <input type='text' value={rate} onChange={(e) => updateRate(e.target.value)} onKeyPress={(e) => keyPress(e)} pattern='\d*' />
         <button onClick={() => requestChangeRate()}>送信</button>
       </div>
     </div>

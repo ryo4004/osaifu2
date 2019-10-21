@@ -51,17 +51,28 @@ const Connect = ({
   const showForm = () => {
     if (connectMode) {
       return (
-        <div className='form'>
-          <label>おさいふを共有します</label>
-          <button onClick={() => requestConnectPass()}>コード取得</button>
+        <div>
+          <div className='text'>
+            <p>他のユーザーとおさいふを共有できます。</p>
+            <p>既に入力されている記録は合算されます。</p>
+            <p>共有する前であればパスの発行は何度でもできます。</p>
+          </div>
+          <div className='form'>
+            <button onClick={() => requestConnectPass()}>パス取得</button>
+          </div>
         </div>
       )
     } else {
       return (
-        <div className='form'>
-          <label>共有パスを入力してください</label>
-          <input type='text' value={connectPass} onChange={(e) => changeConnectPass(e.target.value)} onKeyPress={(e) => keyPress(e)} />
-          <button onClick={() => requestConnect()}>送信</button>
+        <div>
+          <div className='text'>
+            <p>共有するユーザーが発行したパスを入力してください。</p>
+          </div>
+          <div className='form'>
+            <label>共有パスを入力してください</label>
+            <input type='text' value={connectPass} onChange={(e) => changeConnectPass(e.target.value)} onKeyPress={(e) => keyPress(e)} />
+            <button onClick={() => requestConnect()}>送信</button>
+          </div>
         </div>
       )
     }
@@ -69,10 +80,11 @@ const Connect = ({
 
   const showConnectPass = () => {
     if (!connectPassStatus || !connectMode) return false
+    const expire = lib.unixDateTime(connectPassStatus.expire).split('T')[0].replace(/-/g, '/') + ' ' + lib.unixDateTime(connectPassStatus.expire).split('T')[1].split(':')[0] + ':' + lib.unixDateTime(connectPassStatus.expire).split('T')[1].split(':')[1]
     return (
       <div className='connect-pass'>
-        <div>{connectPassStatus.connectPass}</div>
-        <div>{lib.unixDateTime(connectPassStatus.expire)}</div>
+        <div className='pass'>{connectPassStatus.connectPass}</div>
+        <div className='expire'><label>有効期限(1日間)</label><div>{expire}まで</div></div>
       </div>
     )
   }
@@ -82,8 +94,8 @@ const Connect = ({
     return (
       <div className='solo-mode'>
         <div className='switch'>
-          <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>コード発行</div>
-          <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>コード入力</div>
+          <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>パス発行</div>
+          <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>パス入力</div>
         </div>
         {showForm()}
         {showConnectPass()}
@@ -95,6 +107,9 @@ const Connect = ({
     if (!disconnectMode) return
     return (
       <div className='duo-mode'>
+        <div className='text'>
+          <p>共有設定を解除するとお互いのおさいふに記録が残ります。</p>
+        </div>
         <div className='form'>
           <button onClick={() => requestDisconnect()}>解除する</button>
         </div>

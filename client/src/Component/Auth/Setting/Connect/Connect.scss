@@ -25,6 +25,29 @@
   }
 
   .connect-pass {
-    margin: 0 8px;
+    margin: 8px;
+    padding: 8px;
+    border: .55px solid #ccc;
+    border-radius: .25rem;
+    color: #333;
+
+    .pass {
+      font-size: 1.4rem;
+    }
+
+    .expire {
+      display: flex;
+      align-items: center;
+      font-size: .9rem;
+      
+      label {
+        color: #666;
+      }
+
+      & > div {
+        flex: 2;
+        text-align: right;
+      }
+    }
   }
 }

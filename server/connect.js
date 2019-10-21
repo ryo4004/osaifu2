@@ -10,7 +10,7 @@ const connectDB = new NeDB({
 
 function newConnect (user, callback) {
   const expire = (new Date()).setHours((new Date()).getHours() + 24)
-  const connectPass = lib.getRandomString(12)
+  const connectPass = lib.getRandomString(6)
   const docs = {
     status: true,
     expire,

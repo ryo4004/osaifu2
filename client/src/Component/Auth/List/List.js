@@ -51,25 +51,26 @@ const List = ({
   const showSummary = () => {
     if (!summary) return
     const showRate = () => {
-      if (status && user) return <div><label>負担率</label><div>{user.userKey === status.host ? status.rate : (100 - parseInt(status.rate))}<span>%</span></div></div>
+      if (status && user) return <div><label>負担率</label><div>{status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))}<span>%</span></div></div>
     }
     const selfName = user ? user.username : ''
     const otherName = status ? status.othername : ''
     const selfType = status.type === 'solo' ? 'host' : (status.host === user.userKey ? 'host' : 'client')
     const otherType = status.type === 'solo' ? 'client' : (status.host === user.userKey ? 'client' : 'host')
+    const hostCharge = Math.round(summary.payment * (parseFloat(status.rate) * 0.01))
     const charge = {
-      hostCharge: summary.paymentSum * (parseFloat(status.rate) * 0.01),
-      clientCharge: summary.paymentSum * ((100.0 - parseFloat(status.rate)) * 0.01)
+      host: hostCharge,
+      client: (summary.payment - hostCharge)
     }
     return (
       <div className='summary'>
         <details>
-          <summary><div><label>計</label><div>{lib.getSymbol(summary[selfType + 'Sum'] - charge[otherType + 'Charge']) + Math.abs(summary[selfType + 'Sum'] - charge[otherType + 'Charge'])}<span>円</span></div></div></summary>
-          <div><label>支払計</label><div>{summary.paymentSum}<span>円</span></div></div>
-          <div><label>{selfName}の支払計</label><div>{summary[selfType + 'Sum']}<span>円</span></div></div>
-          <div><label>{otherName}の支払計</label><div>{summary[otherType + 'Sum']}<span>円</span></div></div>
-          <div><label>{selfName}の負担</label><div>{charge[selfType + 'Charge']}<span>円</span></div></div>
-          <div><label>{otherName}の負担</label><div>{charge[otherType + 'Charge']}<span>円</span></div></div>
+          <summary><div><label></label><div>{lib.getSymbol(summary[selfType] - charge[otherType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[otherType]))}<span>円</span></div></div></summary>
+          <div><label>支払計</label><div>{lib.addSeparator(summary.payment)}<span>円</span></div></div>
+          <div><label>{selfName}の支払計</label><div>{lib.addSeparator(summary[selfType])}<span>円</span></div></div>
+          <div><label>{otherName}の支払計</label><div>{lib.addSeparator(summary[otherType])}<span>円</span></div></div>
+          <div><label>{selfName}の負担</label><div>{lib.addSeparator(charge[selfType])}<span>円</span></div></div>
+          <div><label>{otherName}の負担</label><div>{lib.addSeparator(charge[otherType])}<span>円</span></div></div>
           {showRate()}
         </details>
       </div>
@@ -106,6 +107,7 @@ const List = ({
       <div className='contents-inner'>
         {showLoading()}
         {showSummary()}
+        <label className='history'>履歴</label>
         {showList()}
       </div>
     </div>

@@ -11,38 +11,53 @@
     margin: 0 auto;
 
     details {
-      summary::-webkit-details-marker {
-        display: none;
+      margin: 8px;
+
+      &[open] {
+        background: rgba(243,115,53,.2);
+        border-radius: 0 0 .25rem .25rem;
+
+        & summary > div {
+          border-radius: .25rem .25rem 0 0;
+        }
       }
 
       summary {
-        cursor: pointer;
+        list-style: none;
+        
+        &::-webkit-details-marker {
+          display: none;
+        }
 
         & > div {
-          margin: 0 8px;
+          margin: 0;
+          padding: 8px 8px;
+          border-radius: .25rem;
+          background: rgba(243,115,53,.6);
+          cursor: pointer;
             
           display: flex;
           align-items: center;
+          
+          &:hover {
+            background: rgba(243,115,53,.7);
+          }
 
           label {
             font-size: .9rem;
-            color: #666;
+            color: #fff;
           }
     
           & > div {
             flex: 2;
             text-align: right;
-            font-size: 1.4rem;
+            font-size: 1.6rem;
     
             span {
               padding-left: .2em;
               font-size: .8em;
             }
           }
-        }
-
-        &:hover {
-          background: #eee;
         }
       }
       
@@ -60,7 +75,7 @@
         & > div {
           flex: 2;
           text-align: right;
-          font-size: 1.4rem;
+          font-size: 1.1rem;
   
           span {
             padding-left: .2em;
@@ -71,8 +86,15 @@
     }
   }
 
+  label.history {
+    display: block;
+    margin: 8px;
+    font-size: .9rem;
+    color: #333;
+  }
+
   .no-data {
-    margin: 16px 0;
+    margin: 32px 0;
     text-align: center;
     font-size: .9rem;
     color: #666;
@@ -84,9 +106,18 @@
 
     details {
 
+      &[open] {
+        background: #eee;
+      }
+
       summary {
         display: block;
         cursor: pointer;
+        list-style: none;
+        
+        &::-webkit-details-marker {
+          display: none;
+        }
 
         // div で囲むのは iOS Safari 対策
         & > div {
@@ -119,9 +150,6 @@
         }
       }
 
-      summary::-webkit-details-marker {
-        display: none;
-      }
 
       ol {
 
@@ -133,7 +161,7 @@
           cursor: pointer;
 
           &:hover {
-            background: #eee;
+            background: #ddd;
           }
 
           .date {

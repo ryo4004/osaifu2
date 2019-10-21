@@ -31,9 +31,8 @@ function* runRequestList () {
       hostSum += parseInt(each.hostPayment)
       clientSum += parseInt(each.clientPayment)
     })
-    console.warn(paymentSum, hostSum, clientSum)
     yield put(setCalcList(calcList))
-    yield put(setSummary({paymentSum, hostSum, clientSum}))
+    yield put(setSummary({payment: paymentSum, host: hostSum, client: clientSum}))
   }
   yield put(loading(false))
 }

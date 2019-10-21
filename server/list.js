@@ -61,6 +61,10 @@ function removeDuoDB (user, callback) {
     if (dbStatus.type === 'solo') return callback({type: 'soloDB', fatal: false}, null)
     const selfType = user.userKey === dbStatus.host ? 'host' : 'client'
     const otherType = selfType === 'host' ? 'client' : 'host'
+    const rate = {
+      host: dbStatus.rate,
+      client: (100 - parseInt(dbStatus.rate))
+    }
     const newDBStatus = {
       ...dbStatus,
       status: false
@@ -71,6 +75,7 @@ function removeDuoDB (user, callback) {
         if (getSelfOldDBStatusError && getSelfOldDBStatusError.fatal) return callback(getSelfOldDBStatusError, null)
         const newSelfDBStatus = {
           ...oldSelfDBStatus,
+          rate: rate[selfType],
           status: true
         }
         updateStatus(newSelfDBStatus, (updateSelfStatusError) => {
@@ -79,6 +84,7 @@ function removeDuoDB (user, callback) {
             if (getOtherOldDBStatusError && getOtherOldDBStatusError.fatal) return callback(getOtherOldDBStatusError, null)
             const newOtherDBStatus = {
               ...otherOldDBStatus,
+              rate: rate[otherType],
               status: true
             }
             updateStatus(newOtherDBStatus, (updateOtherStatusError) => {
@@ -139,7 +145,7 @@ function createDuoDB (user, hostUserKey, callback) {
             type: 'duo',
             createUser: hostUserKey,
             dbKey: uuidv1().split('-').join(''),
-            rate: 50,
+            rate: hostDBStatus.rate,
             host: hostUserKey,
             client: user.userKey,
             name: 'おさいふ'

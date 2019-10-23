@@ -1,6 +1,8 @@
 const path = require('path')
 const NeDB = require('nedb')
 
+const uuidv4 = require('uuid/v4')
+
 const lib = require('./library')
 
 const connectDB = new NeDB({
@@ -10,7 +12,7 @@ const connectDB = new NeDB({
 
 function newConnect (user, callback) {
   const expire = (new Date()).setHours((new Date()).getHours() + 24)
-  const connectPass = lib.getRandomString(6)
+  const connectPass = uuidv4().split('-')[0]
   const docs = {
     status: true,
     expire,

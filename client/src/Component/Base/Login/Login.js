@@ -27,10 +27,11 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Login = ({
   loading, userid, password, err,
-  changeUserid, changePassword, requestLogin
+  changeUserid, changePassword, requestLogin, setError
 }) => {
 
   useEffect(() => {
+    setError(false)
     return () => setError(false)
   }, [])
 
@@ -63,6 +64,8 @@ const Login = ({
     )
   }
 
+  const buttonLabel = loading ? '読み込み中' : 'ログイン'
+
   return (
     <div className='login'>
       <div>
@@ -70,7 +73,7 @@ const Login = ({
         <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} placeholder='ユーザ名' />
         <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} placeholder='パスワード' />
         {showError()}
-        <button onClick={() => requestLogin()}>ログイン</button>
+        <button onClick={() => requestLogin()}>{buttonLabel}</button>
         <div className='add-account'>アカウントの作成は<Link to='/signup'>こちら</Link></div>
       </div>
     </div>

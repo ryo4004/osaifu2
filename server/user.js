@@ -162,7 +162,7 @@ function updatePassword (user, oldPassword, newPassword, callback) {
   })
 }
 
-// //status から呼び出し
+// /status から呼び出し
 function getUsername (userKey, callback) {
   getUserByUserKey(userKey, (getUserError, user) => {
     callback(getUserError, user.username)

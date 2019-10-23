@@ -94,11 +94,6 @@ export const requestConnect = () => ({
   type: ActionType.SETTING_REQUEST_CONNECT
 })
 
-export const setDisconnectMode = (disconnectMode) => ({
-  type: ActionType.SETTING_SET_DISCONNECT_MODE,
-  payload: { disconnectMode }
-})
-
 export const requestDisconnect = () => ({
   type: ActionType.SETTING_REQUEST_DISCONNECT
 })

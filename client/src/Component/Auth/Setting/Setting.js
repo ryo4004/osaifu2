@@ -6,6 +6,7 @@ import Home from './Home/Home'
 import Osaifuname from './Osaifuname/Osaifuname'
 import Rate from './Rate/Rate'
 import Connect from './Connect/Connect'
+import Disconnect from './Disconnect/Disconnect'
 import Username from './Username/Username'
 import Othername from './Othername/Othername'
 import Password from './Password/Password'
@@ -27,6 +28,7 @@ const Setting = ({}) => {
           <Route path='/setting/osaifuname' component={Osaifuname} />
           <Route path='/setting/rate' component={Rate} />
           <Route path='/setting/connect' component={Connect} />
+          <Route path='/setting/disconnect' component={Disconnect} />
           <Route path='/setting/username' component={Username} />
           <Route path='/setting/othername' component={Othername} />
           <Route path='/setting/password' component={Password} />

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect, setError } from '../../../../Actions/Actions/Setting'
+import { setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setError } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
 import * as lib from '../../../../Library/Library'
@@ -12,10 +12,7 @@ const mapStateToProps = (state) => ({
   connectMode: state.setting.connectMode,
   connectPassStatus: state.setting.connectPassStatus,
   connectPass: state.setting.connectPass,
-  disconnectMode: state.setting.disconnectMode,
-  err: state.setting.err,
-  user: state.session.user,
-  status: state.status.status
+  err: state.setting.err
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,21 +20,18 @@ const mapDispatchToProps = (dispatch) => ({
   requestConnectPass: () => dispatch(requestConnectPass()),
   changeConnectPass: (connectPass) => dispatch(changeConnectPass(connectPass)),
   requestConnect: () => dispatch(requestConnect()),
-  setDisconnectMode: (disconnectMode) => dispatch(setDisconnectMode(disconnectMode)),
-  requestDisconnect: () => dispatch(requestDisconnect()),
   setTitle: (title) => dispatch(setTitle(title)),
   setBack: (back) => dispatch(setBack(back)),
   setError: (err) => dispatch(setError(err))
 })
 
 const Connect = ({
-  loading, connectMode, connectPassStatus, connectPass, disconnectMode, err, user, status,
-  setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect, setTitle, setBack, setError
+  loading, connectMode, connectPassStatus, connectPass, err,
+  setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setTitle, setBack, setError
 }) => {
 
   useEffect(() => {
     setConnectMode(true)
-    status && (status.type === 'solo' ? setDisconnectMode(false) : setDisconnectMode(true))
     setTitle('おさいふ共有設定')
     setBack('/setting')
     setError(false)
@@ -61,7 +55,7 @@ const Connect = ({
             <p>パスの発行は何度でもできます。</p>
           </div>
           <div className='form'>
-            <button onClick={() => requestConnectPass()}>パス取得</button>
+            <button onClick={() => requestConnectPass()}>{loading ? '読み込み中' : 'パス取得'}</button>
           </div>
         </div>
       )
@@ -75,7 +69,7 @@ const Connect = ({
             <label>共有パスを入力してください</label>
             <input type='text' value={connectPass} onChange={(e) => changeConnectPass(e.target.value)} onKeyPress={(e) => keyPress(e)} />
             {showError()}
-            <button onClick={() => requestConnect()}>送信</button>
+            <button onClick={() => requestConnect()}>{loading ? '読み込み中' : '送信'}</button>
           </div>
         </div>
       )
@@ -89,35 +83,6 @@ const Connect = ({
       <div className='connect-pass'>
         <div className='pass'>{connectPassStatus.connectPass}</div>
         <div className='expire'><label>有効期限(1日間)</label><div>{expire}まで</div></div>
-      </div>
-    )
-  }
-
-  const showSoloMode = () => {
-    if (disconnectMode) return
-    return (
-      <div className='solo-mode'>
-        <div className='switch'>
-          <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>パス発行</div>
-          <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>パス入力</div>
-        </div>
-        {showForm()}
-        {showConnectPass()}
-      </div>
-    )
-  }
-
-  const showDuoMode = () => {
-    if (!disconnectMode) return
-    return (
-      <div className='duo-mode'>
-        <div className='text'>
-          <p>共有設定を解除するとお互いのおさいふに記録が残ります。</p>
-        </div>
-        <div className='form'>
-          {showError()}
-          <button onClick={() => requestDisconnect()}>解除する</button>
-        </div>
       </div>
     )
   }
@@ -148,8 +113,12 @@ const Connect = ({
 
   return (
     <div className='setting-connect'>
-      {showSoloMode()}
-      {showDuoMode()}
+      <div className='switch'>
+        <div onClick={() => setConnectMode(true)} className={connectMode ? 'active' : ''}>パス発行</div>
+        <div onClick={() => setConnectMode(false)} className={connectMode ? '' : 'active'}>パス入力</div>
+      </div>
+      {showForm()}
+      {showConnectPass()}
     </div>
   )
 }

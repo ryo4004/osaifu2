@@ -12,7 +12,6 @@ const initialState = {
   connectMode: true,
   connectPassStatus: false,
   connectPass: '',
-  disconnectMode: false,
   err: false
 }
 
@@ -72,11 +71,6 @@ export default function settingReducer (state = initialState, action) {
       return {
         ...state,
         connectPass: action.payload.connectPass
-      }
-    case ActionType.SETTING_SET_DISCONNECT_MODE:
-      return {
-        ...state,
-        disconnectMode: action.payload.disconnectMode
       }
     case ActionType.SETTING_SET_ERROR:
       return {

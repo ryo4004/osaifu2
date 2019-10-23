@@ -82,7 +82,8 @@ const Home = ({
     if (loading) return <div className='loading'>読み込み中...</div>
   }
 
-  const othername = status ? (status.type === 'solo' ? <li><Link to='/setting/othername'><span>相手の名前の変更</span><Forward /></Link></li> : false) : false
+  const connect = status && (status.type === 'solo' ? <li><Link to='/setting/connect'><span>おさいふを共有する</span><Forward /></Link></li> : <li><Link to='/setting/disconnect'><span>共有を解除する</span><Forward /></Link></li>)
+  const othername = status && (status.type === 'solo' ? <li><Link to='/setting/othername'><span>相手の名前の変更</span><Forward /></Link></li> : false)
 
   return (
     <div className='setting-home'>
@@ -96,7 +97,7 @@ const Home = ({
         <label>おさいふ共有設定</label>
       </div>
       <ul>
-        <li><Link to='/setting/connect'><span>{status && (status.type === 'solo' ? 'おさいふを共有する' : '共有を解除する')}</span><Forward /></Link></li>
+        {connect}
       </ul>
       <div className='list-label'>
         <label>おさいふの設定</label>

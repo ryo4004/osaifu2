@@ -109,6 +109,7 @@ const Home = ({
         <li><Link to='/setting/username'><span>名前の変更</span><Forward /></Link></li>
         <li><Link to='/setting/othername'><span>相手の名前の変更</span><Forward /></Link></li>
         <li><Link to='/setting/password'><span>パスワードの変更</span><Forward /></Link></li>
+        <li><Link to='/setting/userdelete'><span>アカウントの削除</span><Forward /></Link></li>
       </ul>
       <ul>
         <li><button onClick={() => logout()}>ログアウト</button></li>

@@ -40,6 +40,16 @@ export const requestChangePassword = () => ({
   type: ActionType.SETTING_REQUEST_CHANGE_PASSWORD
 })
 
+// Userdelete
+export const changeDeletePassword = (deletePassword) => ({
+  type: ActionType.SETTING_CHANGE_DELETE_PASSWORD,
+  payload: { deletePassword }
+})
+
+export const requestUserdelete = () => ({
+  type: ActionType.SETTING_REQUEST_USERDELETE
+})
+
 // Osaifuname
 export const changeOsaifuname = (osaifuname) => ({
   type: ActionType.SETTING_CHANGE_OSAIFUNAME,

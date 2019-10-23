@@ -23,7 +23,6 @@ function* runRequestSession () {
 }
 
 function* runRequestLogout () {
-  console.warn('requestLogout')
   yield put(loading(true))
   const send = {session: lib.getSession()}
   yield call(() => post('/logout', send))

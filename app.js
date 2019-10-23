@@ -11,12 +11,13 @@ app.use('/signup', express.static(client))
 app.use('/payment', express.static(client))
 app.use('/list', express.static(client))
 app.use('/setting', express.static(client))
-app.use('/setting/username', express.static(client))
-app.use('/setting/othername', express.static(client))
-app.use('/setting/password', express.static(client))
 app.use('/setting/osaifuname', express.static(client))
 app.use('/setting/rate', express.static(client))
 app.use('/setting/connect', express.static(client))
+app.use('/setting/username', express.static(client))
+app.use('/setting/othername', express.static(client))
+app.use('/setting/password', express.static(client))
+app.use('/setting/userdelete', express.static(client))
 
 const lib = require('./server/library')
 const libUser = require('./server/user')
@@ -200,11 +201,10 @@ app.post('/setting/connect/add', (req, res) => {
 
 app.post('/setting/connect/remove', (req, res) => {
   const { session } = req.body
+  console.log(lib.time() + '/setting/connect/remove')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
-    console.log(lib.time() + '/setting/connect/remove')
     libList.removeDuoDB(user, (removeDBError, status) => {
-      console.log(lib.time() + '/setting/connect/remove complete')
       return res.json({status, err: removeDBError})
     })
   })

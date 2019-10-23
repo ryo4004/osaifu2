@@ -173,6 +173,7 @@ const Payment = ({
   const inputClass = payment ? 'input' : 'empty'
   const selfName = user ? user.username : ''
   const otherName = status ? status.othername : ''
+  const inputDisabled = payment ? false : true
   const buttonLabel = loading ? '読み込み中' : '登録'
 
   return (
@@ -226,6 +227,7 @@ const Payment = ({
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'
                   placeholder='0'
+                  disabled={inputDisabled}
                 />
                 <span>円</span>
               </div>
@@ -244,6 +246,7 @@ const Payment = ({
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'
                   placeholder='0'
+                  disabled={inputDisabled}
                 />
                 <span>円</span>
               </div>

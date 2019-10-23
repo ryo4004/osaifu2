@@ -199,6 +199,19 @@
             &:placeholder-shown, &::-webkit-input-placeholder {
               color: #333;
             }
+
+            &[disabled] {
+              background: #fff;
+              color: #ccc;
+
+              &:placeholder-shown, &::-webkit-input-placeholder {
+                color: #ccc;
+              }
+
+              & + span {
+                color: #ccc;
+              }
+            }
           }
         }
       }

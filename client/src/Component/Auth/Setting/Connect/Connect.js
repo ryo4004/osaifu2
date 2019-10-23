@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect } from '../../../../Actions/Actions/Setting'
+import { setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect, setError } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
 import * as lib from '../../../../Library/Library'
@@ -26,12 +26,13 @@ const mapDispatchToProps = (dispatch) => ({
   setDisconnectMode: (disconnectMode) => dispatch(setDisconnectMode(disconnectMode)),
   requestDisconnect: () => dispatch(requestDisconnect()),
   setTitle: (title) => dispatch(setTitle(title)),
-  setBack: (back) => dispatch(setBack(back))
+  setBack: (back) => dispatch(setBack(back)),
+  setError: (err) => dispatch(setError(err))
 })
 
 const Connect = ({
   loading, connectMode, connectPassStatus, connectPass, disconnectMode, err, user, status,
-  setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect, setTitle, setBack
+  setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setDisconnectMode, requestDisconnect, setTitle, setBack, setError
 }) => {
 
   useEffect(() => {
@@ -39,8 +40,10 @@ const Connect = ({
     status && (status.type === 'solo' ? setDisconnectMode(false) : setDisconnectMode(true))
     setTitle('おさいふ共有設定')
     setBack('/setting')
+    setError(false)
     return () => {
       setBack(false)
+      setError(false)
     }
   }, [])
 
@@ -55,7 +58,7 @@ const Connect = ({
           <div className='text'>
             <p>他のユーザーとおさいふを共有できます。</p>
             <p>既に入力されている記録は合算されます。</p>
-            <p>共有する前であればパスの発行は何度でもできます。</p>
+            <p>パスの発行は何度でもできます。</p>
           </div>
           <div className='form'>
             <button onClick={() => requestConnectPass()}>パス取得</button>
@@ -71,6 +74,7 @@ const Connect = ({
           <div className='form'>
             <label>共有パスを入力してください</label>
             <input type='text' value={connectPass} onChange={(e) => changeConnectPass(e.target.value)} onKeyPress={(e) => keyPress(e)} />
+            {showError()}
             <button onClick={() => requestConnect()}>送信</button>
           </div>
         </div>
@@ -111,11 +115,36 @@ const Connect = ({
           <p>共有設定を解除するとお互いのおさいふに記録が残ります。</p>
         </div>
         <div className='form'>
+          {showError()}
           <button onClick={() => requestDisconnect()}>解除する</button>
         </div>
       </div>
     )
   }
+
+  const showError = () => {
+    if (!err) return false
+    let message
+    switch (err.type) {
+      // Local Error
+      case 'blankTextbox':
+        message = '入力を確認してください'
+        break
+      // Server Error
+      case 'keyNotFound':
+        message = 'パスがみつかりません'
+        break
+      case 'DBError':
+        message = 'データベースエラー'
+        break
+      default:
+        message = 'error: ' + err.type
+    }
+    return (
+      <div className='err'>{message}</div>
+    )
+  }
+
 
   return (
     <div className='setting-connect'>

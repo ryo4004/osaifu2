@@ -67,12 +67,13 @@ const Home = ({
   }
   
   const showUser = () => {
-    if (!user) return false
+    if (!status || !user) return false
+    const othername = status.type === 'solo' ? <div><label>相手の名前</label><span>{user.othername}</span></div> : false
     return (
       <div className='user'>
         <div><label>ID</label><span>{user.userid}</span></div>
         <div><label>名前</label><span>{user.username}</span></div>
-        <div><label>相手の名前</label><span>{user.othername}</span></div>
+        {othername}
       </div>
     )
   }
@@ -80,6 +81,8 @@ const Home = ({
   const showLoading = () => {
     if (loading) return <div className='loading'>読み込み中...</div>
   }
+
+  const othername = status ? (status.type === 'solo' ? <li><Link to='/setting/othername'><span>相手の名前の変更</span><Forward /></Link></li> : false) : false
 
   return (
     <div className='setting-home'>
@@ -107,7 +110,7 @@ const Home = ({
       </div>
       <ul>
         <li><Link to='/setting/username'><span>名前の変更</span><Forward /></Link></li>
-        <li><Link to='/setting/othername'><span>相手の名前の変更</span><Forward /></Link></li>
+        {othername}
         <li><Link to='/setting/password'><span>パスワードの変更</span><Forward /></Link></li>
         <li><Link to='/setting/userdelete'><span>アカウントの削除</span><Forward /></Link></li>
       </ul>

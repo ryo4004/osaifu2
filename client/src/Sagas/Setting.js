@@ -66,6 +66,7 @@ function* runRequestConnectPass () {
 
 function* runRequestConnect () {
   const state = yield select()
+  if (!state.setting.connectPass) return yield put(setError({type: 'blankTextbox'}))
   yield put(loading(true))
   yield put(setError(false))
   const send = {

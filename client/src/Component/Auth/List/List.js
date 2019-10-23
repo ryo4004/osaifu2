@@ -65,7 +65,7 @@ const List = ({
     return (
       <div className='summary'>
         <details>
-          <summary><div><label></label><div>{lib.getSymbol(summary[selfType] - charge[otherType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[otherType]))}<span>円</span></div></div></summary>
+          <summary><div><label></label><div>{lib.getSymbol(summary[selfType] - charge[selfType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[selfType]))}<span>円</span></div></div></summary>
           <div><label>支払計</label><div>{lib.addSeparator(summary.payment)}<span>円</span></div></div>
           <div><label>{selfName}の支払計</label><div>{lib.addSeparator(summary[selfType])}<span>円</span></div></div>
           <div><label>{otherName}の支払計</label><div>{lib.addSeparator(summary[otherType])}<span>円</span></div></div>

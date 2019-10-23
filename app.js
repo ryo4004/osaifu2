@@ -151,6 +151,27 @@ app.post('/setting/password', (req, res) => {
   })
 })
 
+app.post('/setting/userdelete', (req, res) => {
+  const { session, password } = req.body
+  console.log(lib.time() + '/setting/userdelete')
+  libUser.authentication(session, (authError, user) => {
+    if (authError) return res.json({err: authError})
+    libList.getDBStatus(user, (getDBStatusError, status) => {
+      if (status.type !== 'solo') {
+        libUser.removeUser(user, password, (removeError, removeResult) => {
+          return res.json({remove: removeResult, err: removeError})
+        })
+      } else {
+        libList.removeDuoDB(user, (removeDBError, status) => {
+          libUser.removeUser(user, password, (removeError, removeResult) => {
+            return res.json({remove: removeResult, err: removeError})
+          })
+        })
+      }
+    })
+  })
+})
+
 app.post('/setting/osaifuname', (req, res) => {
   const { session, osaifuname } = req.body
   console.log(lib.time() + '/setting/osaifuname')

@@ -177,6 +177,15 @@ function getUserByUserKey (userKey, callback) {
   })
 }
 
+function removeUser (user, password, callback) {
+  const hash = lib.getHash(password)
+  if (!user || user.passwordHash !== hash) return callback({type: 'passwordNotMatch', fatal: false}, null)
+  userDB.remove({userid: user.userid}, {}, (err, numRemoved) => {
+    if (err) return callback({type: 'DBError', fatal: true}, null)
+    callback(null, true)
+  })
+}
+
 module.exports = {
-  addUser, login, deleteSession, authentication, updateUsername, updateOthername, updatePassword, getUsername
+  addUser, login, deleteSession, authentication, updateUsername, updateOthername, updatePassword, getUsername, removeUser
 }

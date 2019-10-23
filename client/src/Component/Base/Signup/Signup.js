@@ -31,7 +31,7 @@ const Signup = ({
 }) => {
 
   useEffect(() => {
-    () => setError(false)
+    setError(false)
     return () => setError(false)
   }, [])
 
@@ -64,7 +64,7 @@ const Signup = ({
     )
   }
 
-  const showLoading = loading ? '読み込み中' : false
+  const buttonLabel = loading ? '読み込み中' : '登録する'
 
   return (
     <div className='signup'>
@@ -73,8 +73,7 @@ const Signup = ({
         <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} placeholder='ユーザ名' />
         <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} placeholder='パスワード' />
         {showError()}
-        <button onClick={() => requestSignup()}>登録する</button>
-        {showLoading}
+        <button onClick={() => requestSignup()}>{buttonLabel}</button>
         <div className='login-account'>作成済みの方は<Link to='/login'>こちら</Link></div>
       </div>
     </div>

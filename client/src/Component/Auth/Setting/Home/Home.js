@@ -53,26 +53,26 @@ const Home = ({
     })
   }
 
+  const showStatus = () => {
+    if (!status || !user) return false
+    const osaifuStatus = status.type === 'solo' ? <span>未使用</span> : (user.userKey === status.host ? <span>ペアリング<span>host</span></span> : <span>ペアリング<span>client</span></span>)
+    const rate = status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))
+    return (
+      <div className='osaifu'>
+        <div><label>おさいふ名</label><span>{status.name}</span></div>
+        <div><label>ペアリング</label><span>{osaifuStatus}</span></div>
+        <div><label>負担割合</label><span>{rate}%</span></div>
+      </div>
+    )
+  }
+  
   const showUser = () => {
     if (!user) return false
     return (
       <div className='user'>
         <div><label>ID</label><span>{user.userid}</span></div>
-        <div><label>表示名</label><span>{user.username}</span></div>
-        <div><label>あいて</label><span>{user.othername}</span></div>
-      </div>
-    )
-  }
-
-  const showStatus = () => {
-    if (!status || !user) return false
-    const osaifuStatus = status.type === 'solo' ? '未使用' : (user.userKey === status.host ? 'ペアリング(host)' : 'ペアリング(client)')
-    const rate = status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))
-    return (
-      <div className='status'>
-        <div><label>おさいふ名</label><span>{status.name}</span></div>
-        <div><label>ペアリング</label><span>{osaifuStatus}</span></div>
-        <div><label>負担割合</label><span>{rate}%</span></div>
+        <div><label>名前</label><span>{user.username}</span></div>
+        <div><label>相手の名前</label><span>{user.othername}</span></div>
       </div>
     )
   }
@@ -84,8 +84,11 @@ const Home = ({
   return (
     <div className='setting-home'>
       {showLoading()}
-      {showUser()}
-      {showStatus()}
+      <div className='status'>
+        <label>現在の状態</label>
+        {showStatus()}
+        {showUser()}
+      </div>
       <div className='list-label'>
         <label>おさいふ共有設定</label>
       </div>

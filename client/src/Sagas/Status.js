@@ -13,7 +13,6 @@ function* runRequestStatus () {
   const send = {session: lib.getSession()}
   const res = yield call(() => post('/status', send))
   yield put(loading(false))
-  console.warn(res)
   if (res.body.err) {
     yield put(setStatus(null))
     yield put(setError(res.body.err))

@@ -27,13 +27,10 @@ function* runRequest () {
     session: lib.getSession(),
     payment
   }
-  console.log(send)
   const res = yield call(() => post('/payment', send))
-  console.warn(res)
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
-    console.log({payment})
     yield put(showToast(state.status.status.name + 'に ' + payment.payment + '円 記録しました'))
     yield put(setPayment(''))
     yield put(setPaymentCheck(false))

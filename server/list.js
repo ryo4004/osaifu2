@@ -198,7 +198,7 @@ async function insertData (list, db, type) {
       }
       db.insert(newPayment, () => {
         resolve()
-      })  
+      })
     })
   }
   for (let i = 0; i < list.length; i++) {

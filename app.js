@@ -14,6 +14,7 @@ app.use('/setting', express.static(client))
 app.use('/setting/osaifuname', express.static(client))
 app.use('/setting/rate', express.static(client))
 app.use('/setting/connect', express.static(client))
+app.use('/setting/disconnect', express.static(client))
 app.use('/setting/username', express.static(client))
 app.use('/setting/othername', express.static(client))
 app.use('/setting/password', express.static(client))
@@ -23,6 +24,13 @@ const lib = require('./server/library')
 const libUser = require('./server/user')
 const libList = require('./server/list')
 const libConnect = require('./server/connect')
+
+CORSを許可する
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
 
 app.post('/signup', (req, res) => {
   const { userid, password, clientid, userAgent, version } = req.body
@@ -79,7 +87,7 @@ app.post('/status', (req, res) => {
         libUser.getUsername(requestName, (getUsernameError, othername) => {
           const newStatus = {...status, othername}
           return res.json({status: newStatus, err: getUsernameError})
-        })  
+        })
       }
     })
   })

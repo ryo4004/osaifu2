@@ -1,0 +1,4 @@
+{"payment":"600","hostPayment":"600","clientPayment":"0","memo":"","useDate":"false","paymentDate":"1571842800000","sendDate":"1571872377102","_id":"0MhUxFmLTnjuPVJj","createdAt":{"$$date":1571872375779},"updatedAt":{"$$date":1571872375779}}
+{"payment":"1000","hostPayment":"1000","clientPayment":"0","memo":"","useDate":"false","paymentDate":"1571842800000","sendDate":"1571846641667","_id":"GVwlkaZV0UtYpIA2","createdAt":{"$$date":1571846640677},"updatedAt":{"$$date":1571846640677}}
+{"payment":"1000","hostPayment":"0","clientPayment":"1000","memo":"","useDate":"false","paymentDate":"1571842800000","sendDate":"1571846519470","_id":"Gk9YwDXioUwkuMQX","createdAt":{"$$date":1571846518510},"updatedAt":{"$$date":1571846518510}}
+{"payment":"300","hostPayment":"300","clientPayment":"0","memo":"","useDate":"false","paymentDate":"1571842800000","sendDate":"1571872312147","_id":"jlqrRhW0kN7wHRCu","createdAt":{"$$date":1571872310849},"updatedAt":{"$$date":1571872310849}}

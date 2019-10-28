@@ -1,0 +1,26 @@
+.terms {
+  max-width: 600px;
+  margin: 0 auto;
+  color: #333;
+
+  h1 {
+    margin: 48px 0;
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+
+  ol {
+
+    li {
+      margin: 16px 0;
+      h2 {
+        margin: 0 0 8px;
+      }
+
+      p {
+        font-size: .9rem;
+        color: #666;
+      }
+    }
+  }
+}

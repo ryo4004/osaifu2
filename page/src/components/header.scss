@@ -1,0 +1,31 @@
+.img {
+  width: 50px;
+}
+
+header.header {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+
+  .frame {
+    margin: 12px;
+    
+    .title {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        width: 50px;
+      }
+      
+      h1 {
+        a {
+          margin-left: 12px;
+          text-decoration: none;
+          color: #333;
+        }
+      }
+    }
+  }
+}

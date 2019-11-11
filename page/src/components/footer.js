@@ -1,21 +1,13 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import React from 'react'
 
 import './footer.scss'
 
-const Footer = ({ siteTitle }) => (
-  <footer>
-    <small>&copy; {new Date().getFullYear()} akanewz</small>
+const Footer = () => (
+  <footer className='footer'>
+    <div className='frame'>
+      <small>&copy; {new Date().getFullYear()} おさいふ</small>
+    </div>
   </footer>
 )
-
-Footer.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Footer.defaultProps = {
-  siteTitle: '',
-}
 
 export default Footer

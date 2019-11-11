@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
   return (
     <React.Fragment>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div>
+      <div className='layout'>
         <main>{children}</main>
       </div>
       <Footer />

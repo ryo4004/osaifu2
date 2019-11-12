@@ -8,8 +8,9 @@ header.header {
   max-width: 800px;
   margin: 0 auto;
 
-  .frame {
+  .contents {
     margin: 12px;
+    display: flex;
     
     .title {
       display: flex;
@@ -24,6 +25,26 @@ header.header {
           margin-left: 12px;
           text-decoration: none;
           color: #333;
+        }
+      }
+    }
+
+    .start {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        padding: 6px 16px;
+        border-radius: .25rem;
+        color: #fff;
+        background: #f8ab86;
+        font-size: 14px;
+        font-weight: bold;
+
+        &:hover {
+          background: rgba(243,115,53,.8);
         }
       }
     }

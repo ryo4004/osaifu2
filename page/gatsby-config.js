@@ -10,7 +10,7 @@ module.exports = {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
-        path: `${__dirname}/src/images`,
+        path: `${__dirname}/src/images/asset`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -24,7 +24,7 @@ module.exports = {
         background_color: '#f8ab86',
         theme_color: '#f8ab86',
         display: 'minimal-ui',
-        icon: 'src/images/osaifu-icon.png', // This path is relative to the root of the site.
+        icon: 'src/images/asset/osaifu-icon.png', // This path is relative to the root of the site.
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

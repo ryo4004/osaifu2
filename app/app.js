@@ -25,7 +25,7 @@ const libUser = require('./server/user')
 const libList = require('./server/list')
 const libConnect = require('./server/connect')
 
-CORSを許可する
+// CORSを許可する
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')

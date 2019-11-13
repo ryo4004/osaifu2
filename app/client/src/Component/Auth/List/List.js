@@ -66,12 +66,14 @@ const List = ({
       <div className='summary'>
         <details>
           <summary><div><label></label><div>{lib.getSymbol(summary[selfType] - charge[selfType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[selfType]))}<span>円</span></div></div></summary>
-          <div><label>支払計</label><div>{lib.addSeparator(summary.payment)}<span>円</span></div></div>
-          <div><label>{selfName}の支払計</label><div>{lib.addSeparator(summary[selfType])}<span>円</span></div></div>
-          <div><label>{otherName}の支払計</label><div>{lib.addSeparator(summary[otherType])}<span>円</span></div></div>
-          <div><label>{selfName}の負担</label><div>{lib.addSeparator(charge[selfType])}<span>円</span></div></div>
-          <div><label>{otherName}の負担</label><div>{lib.addSeparator(charge[otherType])}<span>円</span></div></div>
-          {showRate()}
+          <div>
+            <div><label>支払計</label><div>{lib.addSeparator(summary.payment)}<span>円</span></div></div>
+            <div><label>{selfName}の支払計</label><div>{lib.addSeparator(summary[selfType])}<span>円</span></div></div>
+            <div><label>{otherName}の支払計</label><div>{lib.addSeparator(summary[otherType])}<span>円</span></div></div>
+            <div><label>{selfName}の負担</label><div>{lib.addSeparator(charge[selfType])}<span>円</span></div></div>
+            <div><label>{otherName}の負担</label><div>{lib.addSeparator(charge[otherType])}<span>円</span></div></div>
+            {showRate()}
+          </div>
         </details>
       </div>
     )
@@ -103,12 +105,14 @@ const List = ({
   }
 
   return (
-    <div className='list contents'>
+    <div className='contents'>
       <div className='contents-inner'>
-        {showLoading()}
-        {showSummary()}
-        <label className='history'>履歴</label>
-        {showList()}
+        <div className='list'>
+          {showLoading()}
+          {showSummary()}
+          <label className='history'>履歴</label>
+          {showList()}
+        </div>
       </div>
     </div>
   )

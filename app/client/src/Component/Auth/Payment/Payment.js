@@ -57,6 +57,11 @@ const Payment = ({
     setTitle('支払い')
     setError(false)
     resetDate()
+    setPayment('')
+    setPaymentCheck(false)
+    setSelfPayment('')
+    setOtherPayment('')
+    setMemo('')
   }, [])
   
   const resetDate = () => {
@@ -173,7 +178,7 @@ const Payment = ({
   const inputClass = payment ? 'input' : 'empty'
   const selfName = user ? user.username : ''
   const otherName = status ? status.othername : ''
-  const inputDisabled = payment ? false : true
+  const disabled = payment ? false : true
   const buttonLabel = loading ? '読み込み中' : '登録'
 
   return (
@@ -227,7 +232,7 @@ const Payment = ({
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'
                   placeholder='0'
-                  disabled={inputDisabled}
+                  disabled={disabled}
                 />
                 <span>円</span>
               </div>
@@ -246,7 +251,7 @@ const Payment = ({
                   onKeyPress={(e) => keyPress(e)}
                   pattern='\d*'
                   placeholder='0'
-                  disabled={inputDisabled}
+                  disabled={disabled}
                 />
                 <span>円</span>
               </div>
@@ -256,7 +261,7 @@ const Payment = ({
           {showError()}
 
           <div className='button'>
-            <button onClick={() => sendPayment()}>{buttonLabel}</button>
+            <button onClick={() => sendPayment()} disabled={disabled}>{buttonLabel}</button>
           </div>
 
         </div>

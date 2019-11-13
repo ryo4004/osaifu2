@@ -257,8 +257,8 @@
       }
 
       &:disabled {
-        color: #888;
-        background: #f8f8f8;
+        color: #fff;
+        background: rgba(243,115,53,.2);
         cursor: default;
       }
     }

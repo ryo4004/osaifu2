@@ -6,5 +6,5 @@
 bundle.js*
 
 # database
-server/database/*.db
-server/osaifu/*.db
+/server/database/*.db
+/server/osaifu/*.db

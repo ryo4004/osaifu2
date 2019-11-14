@@ -48,7 +48,7 @@ const IndexPage = () => {
           </div>
         </div>
         
-        <section className='features text' id='features'>
+        <section className='features-home text' id='features'>
           <h2>特徴</h2>
           <div className='first-feature feature'>
             <h3>お金のことで揉めない</h3>

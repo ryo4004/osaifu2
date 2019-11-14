@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react"
 
+import { Link } from 'gatsby'
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
@@ -17,7 +19,7 @@ const IndexPage = () => {
   }
 
   useEffect(() => {
-    const switchScreenshot = setInterval(changeScreenshot, 8000)
+    const switchScreenshot = setInterval(changeScreenshot, 10000)
     return () => clearInterval(switchScreenshot)
   })
 
@@ -46,12 +48,12 @@ const IndexPage = () => {
           </div>
         </div>
         
-        <section className='features'>
+        <section className='features text' id='features'>
           <h2>特徴</h2>
           <div className='first-feature feature'>
             <h3>お金のことで揉めない</h3>
             <p>
-              ふたりで過ごすためのお金をどちらがどれだけ負担するのか、たびたびもめることがあります。
+              ふたりで過ごすためのお金をどちらがどれだけ負担するのか、どう管理するのか考えるのはやっかいです。
               ふたりの価値観にもよりますが、割り勘にするのか、どこまで負担するのか。
               いっしょに暮らし始めると日用品や家賃など支払いも増え、清算するのもひと手間になってしまいます。
               おさいふはそんなふたりのためのお金の管理ツールです。

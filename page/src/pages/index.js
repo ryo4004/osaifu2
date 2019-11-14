@@ -28,7 +28,7 @@ const IndexPage = () => {
   }
 
   return (
-    <Layout>
+    <Layout index={true}>
       <SEO title="おさいふ" index={true} />
       <div className='index'>
         <div className='top'>

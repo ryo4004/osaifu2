@@ -6,7 +6,7 @@ import Image from '../images/component/osaifu-icon'
 
 import './header.scss'
 
-const Header = ({ siteTitle }) => (
+const Header = ({ siteTitle, index }) => (
   <header className='header'>
     <div className='contents'>
       <div className='title'>
@@ -18,9 +18,9 @@ const Header = ({ siteTitle }) => (
         </h1>
       </div>
       <div className='menu'>
-        <Link to='/#features'>特徴</Link>
+        {!index && <Link to='/'>ホーム</Link>}
+        <Link to='/features'>特徴</Link>
         <Link to='/guide'>ご利用方法</Link>
-        <Link to='/terms'>利用規約</Link>
         <a href='https://app.osaifu.zatsuzen.com' className='button'>はじめる</a>
       </div>
     </div>
@@ -29,10 +29,12 @@ const Header = ({ siteTitle }) => (
 
 Header.propTypes = {
   siteTitle: PropTypes.string,
+  index: PropTypes.bool
 }
 
 Header.defaultProps = {
   siteTitle: ``,
+  index: false
 }
 
 export default Header

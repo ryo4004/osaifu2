@@ -8,7 +8,7 @@ import './reset.scss'
 import './base.scss'
 import './layout.scss'
 
-const Layout = ({ children }) => {
+const Layout = ({ children, index }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -21,7 +21,7 @@ const Layout = ({ children }) => {
 
   return (
     <React.Fragment>
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header siteTitle={data.site.siteMetadata.title} index={index} />
       <div className='layout'>
         <main>{children}</main>
       </div>
@@ -32,6 +32,12 @@ const Layout = ({ children }) => {
 
 Layout.propTypes = {
   children: PropTypes.node.isRequired,
+  index: PropTypes.bool
+}
+
+Header.defaultProps = {
+  children: false,
+  index: false
 }
 
 export default Layout

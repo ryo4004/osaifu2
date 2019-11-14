@@ -17,8 +17,11 @@ const Header = ({ siteTitle }) => (
           <Link to="/">{siteTitle}</Link>
         </h1>
       </div>
-      <div className='start'>
-        <a href='https://app.osaifu.zatsuzen.com'>はじめる</a>
+      <div className='menu'>
+        <Link to='/#features'>特徴</Link>
+        <Link to='/guide'>ご利用方法</Link>
+        <Link to='/terms'>利用規約</Link>
+        <a href='https://app.osaifu.zatsuzen.com' className='button'>はじめる</a>
       </div>
     </div>
   </header>

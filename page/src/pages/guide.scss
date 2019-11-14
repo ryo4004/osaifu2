@@ -1,0 +1,75 @@
+.guide {
+
+  .title {
+    width: 100%;
+    padding: 96px 0;
+    background: #f8ab86;
+
+    & > div {
+      max-width: 600px;
+      margin: 0 auto;
+          
+      h1 {
+        margin: 0 12px;
+        font-size: 1.6rem;
+        font-weight: normal;
+      }
+    }
+  }
+
+  section {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #333;
+
+    a {
+      display: inline-block;
+      margin: 48px 12px 0;
+      color: #333;
+      text-decoration: none;
+      font-size: .9rem;
+      
+      &:hover {
+        text-decoration: underline;
+        color: #666;
+      }
+    }
+  
+    ol.main-guide {
+      margin: 48px 12px;
+      li {
+        font-size: 1rem;
+        color: #333;  
+      }
+    }
+  
+    h2 {
+      margin: 48px 12px 16px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      margin: 0 12px;
+    }
+  
+    ol {
+      margin: 0 12px;
+      list-style: decimal inside;
+  
+      li {
+        margin: 16px 0;
+        font-size: .9rem;
+        color: #666;
+  
+        h2 {
+          margin: 0 0 8px;
+        }
+  
+        p {
+          font-size: .9rem;
+          color: #666;
+        }
+      }
+    }
+  }
+}

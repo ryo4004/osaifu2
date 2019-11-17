@@ -10,12 +10,14 @@ const Header = ({ siteTitle, index }) => (
   <header className='header'>
     <div className='contents'>
       <div className='title'>
-        <div className='icon'>
-          <Image className='img' />
-        </div>
-        <h1>
-          <Link to="/">{siteTitle}</Link>
-        </h1>
+        <Link to="/">
+          <div className='icon'>
+            <Image className='img' />
+          </div>
+          <h1>
+            {siteTitle}
+          </h1>
+        </Link>
       </div>
       <div className='menu'>
         {!index && <Link to='/'>ホーム</Link>}

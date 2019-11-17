@@ -15,18 +15,25 @@ header.header {
     
     .title {
       margin: 12px 0;
-      display: flex;
-      align-items: center;
 
-      .icon {
-        width: 50px;
-      }
-      
-      h1 {
-        a {
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #333;
+
+        .icon {
+          width: 50px;
+        }
+        
+        h1 {
           margin: 0 12px;
-          text-decoration: none;
-          color: #333;
+        }
+        
+        &:hover {
+          h1 {
+            text-decoration: underline;
+          }
         }
       }
     }

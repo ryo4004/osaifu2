@@ -1,4 +1,4 @@
-.terms {
+.privacy {
   max-width: 600px;
   margin: 0 auto;
   color: #333;
@@ -13,6 +13,7 @@
     margin: 32px 12px 8px;
     padding: 16px 0 8px 0;
     border-top: 2px solid #eee;
+    font-size: .9rem;
     font-weight: bold;
   }
 
@@ -27,9 +28,32 @@
 
     li {
       font-size: .9rem;
+    }
 
-      & > ol {
-        list-style: lower-roman inside;
+    ol {
+      margin: 0 0 0 12px;
+      padding: 0 0 0 12px;
+      list-style: lower-roman;
+    }
+  }
+
+  ul {
+    margin: 0 12px;
+    list-style: disc inside;
+
+    li {
+      font-size: .9rem;
+    }
+  }
+
+  ol.third-list {
+    list-style: none;
+
+    & > li {
+      counter-increment: li;
+
+      &::before {
+        content: '3-' counter(li) '. ';
       }
     }
   }

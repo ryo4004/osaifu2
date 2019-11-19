@@ -1,2 +1,2 @@
 name: osaifu-page
-script: gatsby serve
+script: gatsby serve -p 9001

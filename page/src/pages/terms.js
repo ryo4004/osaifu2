@@ -142,6 +142,12 @@ const Terms = () => (
           <li>本規約またはサービス利用契約に起因し、または関連する一切の紛争については、新潟地方裁判所を第一審の専属的合意管轄裁判所とします。</li>
         </ol>
 
+        <div className='update'>
+          <ol>
+            <li>2019年11月18日制定</li>
+          </ol>
+        </div>
+
       </section>
     </div>
   </Layout>

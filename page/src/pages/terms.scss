@@ -13,6 +13,7 @@
     margin: 32px 12px 8px;
     padding: 16px 0 8px 0;
     border-top: 2px solid #eee;
+    font-size: .9rem;
     font-weight: bold;
   }
 
@@ -27,10 +28,21 @@
 
     li {
       font-size: .9rem;
+    }
 
-      & > ol {
-        list-style: lower-roman inside;
-      }
+    ol {
+      margin: 0 0 0 12px;
+      padding: 0 0 0 12px;
+      list-style: lower-roman;
+    }
+  }
+
+  ul {
+    margin: 0 12px;
+    list-style: disc inside;
+
+    li {
+      font-size: .9rem;
     }
   }
 
@@ -42,8 +54,24 @@
     }
   }
 
+  a.link-block {
+    display: block;
+  }
+
   span.code {
     margin: 0 6px;
     font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+  }
+
+  .update {
+    margin: 32px 12px 8px;
+    padding: 16px 0 8px 0;
+    border-top: 2px solid #eee;
+    font-size: .9rem;
+
+    ol {
+      margin: 0;
+      list-style: none;
+    }
   }
 }

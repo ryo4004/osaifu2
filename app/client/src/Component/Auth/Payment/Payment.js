@@ -261,7 +261,7 @@ const Payment = ({
           {showError()}
 
           <div className='button'>
-            <button onClick={() => sendPayment()} disabled={disabled}>{buttonLabel}</button>
+            <button onClick={() => sendPayment()} disabled={disabled} onTouchStart={() => {}}>{buttonLabel}</button>
           </div>
 
         </div>

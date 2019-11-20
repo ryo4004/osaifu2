@@ -73,7 +73,7 @@ const Login = ({
         <input type='text' value={userid} onChange={(e) => changeUserid(e.target.value)} placeholder='ユーザ名' />
         <input type='password' value={password} onChange={(e) => changePassword(e.target.value)} placeholder='パスワード' />
         {showError()}
-        <button onClick={() => requestLogin()}>{buttonLabel}</button>
+        <button onClick={() => requestLogin()} onTouchStart={() => {}}>{buttonLabel}</button>
         <div className='add-account'>アカウントの作成は<Link to='/signup'>こちら</Link></div>
       </div>
     </div>

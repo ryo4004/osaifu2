@@ -98,7 +98,7 @@ const List = ({
               </li>
             )
           })
-          return <details key={'day-' + i}><summary><div><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
+          return <details key={'day-' + i}><summary onTouchStart={() => {}}><div><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
         })}
       </ol>
     )

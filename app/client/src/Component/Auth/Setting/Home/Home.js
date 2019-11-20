@@ -116,7 +116,7 @@ const Home = ({
         <li><Link to='/setting/userdelete'><span>アカウントの削除</span><Forward /></Link></li>
       </ul>
       <ul>
-        <li><button onClick={() => logout()}>ログアウト</button></li>
+        <li><button onClick={() => logout()} onTouchStart={() => {}}>ログアウト</button></li>
       </ul>
     </div>
   )

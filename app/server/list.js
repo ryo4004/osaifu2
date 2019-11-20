@@ -38,7 +38,7 @@ function createDB (user, callback) {
       rate: 50,
       host: false,
       client: false,
-      name: user.username
+      name: user.username + ' のおさいふ'
     }
     listDB.insert(newDB, (err, newdoc) => {
       if (err) return callback({type: 'DBError', fatal: true}, null)
@@ -148,7 +148,7 @@ function createDuoDB (user, hostUserKey, callback) {
             rate: hostDBStatus.rate,
             host: hostUserKey,
             client: user.userKey,
-            name: 'おさいふ'
+            name: 'ふたりのおさいふ'
           }
           listDB.insert(newDuoDBStatus, (insertError, newdoc) => {
             if (insertError) return callback({type: 'DBError', fatal: true}, null)

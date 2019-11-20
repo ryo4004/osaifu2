@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { confirmAlert } from 'react-confirm-alert'
 
 import { setModal, requestDelete } from '../../../Actions/Actions/Detail'
 
@@ -26,6 +27,26 @@ const Detail = ({
   setModal, requestDelete
 }) => {
 
+  const showDelete = (id) => {
+    confirmAlert({
+      customUI: ({ onClose }) => {
+        return (
+          <div className='alert'>
+            <h1>この記録を削除しますか？</h1>
+            <p>この操作は取り消せません。</p>
+            <div className='button-group'>
+              <button onClick={onClose}>キャンセル</button>
+              <button onClick={() => {
+                requestDelete(id)
+                onClose()
+              }}>削除</button>
+            </div>
+          </div>
+        )
+      }
+    })
+  }
+
   const showContent = () => {
     if (!content) return false
     const date = content.useDate === 'true' ? lib.unixDateTime(content.paymentDate) : lib.unixDateTime(content.sendDate)
@@ -49,7 +70,7 @@ const Detail = ({
           {otherPayment}
         </div>
         <div className='button'>
-          <button onClick={() => requestDelete(content._id)}>削除</button>
+          <button onClick={() => showDelete(content._id)}>削除</button>
         </div>
       </div>
     )

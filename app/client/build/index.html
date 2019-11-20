@@ -4,11 +4,24 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1.0">
+  <meta name="apple-mobile-web-app-status-bar-style" content="#ffffff">
+  <meta name="apple-mobile-web-app-title" content="おさいふ">
+  <meta name="theme-color" content="#f8ab86">
+  <meta name="description" content="ふたりでつける家計簿アプリ">
   <title>おさいふ</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="shortcut icon" href="favicon.ico">
 </head>
 <body>
   <div id="root"></div>
   <script src="bundle.js"></script>
   <script src="https://kit.fontawesome.com/f0263c2083.js"></script>
+  <script>
+    window.addEventListener('load', () => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').then((registration) => {}).catch((err) => {})
+      }
+    })
+  </script>
 </body>
 </html>

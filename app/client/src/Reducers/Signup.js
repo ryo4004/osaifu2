@@ -4,6 +4,7 @@ const initialState = {
   loading: false,
   userid: '',
   password: '',
+  agreement: false,
   err: false
 }
 
@@ -23,6 +24,11 @@ export default function signupReducer (state = initialState, action) {
       return {
         ...state,
         password: action.payload.password
+      }
+    case ActionType.SIGNUP_CHANGE_AGREEMENT:
+      return {
+        ...state,
+        agreement: action.payload.agreement
       }
     case ActionType.SIGNUP_SET_ERROR:
       return {

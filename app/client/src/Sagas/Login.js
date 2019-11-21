@@ -22,12 +22,12 @@ function* runRequestLogin () {
   }
   const res = yield call(() => post('/login', send))
   yield put(loading(false))
-  yield put(changeUserid(''))
   yield put(changePassword(''))
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
     yield put(setError(false))
+    yield put(changeUserid(''))
     yield put(setUser(res.body.user))
     yield call(() => lib.updateToken(res.body.token))
     yield call(() => lib.updateUserid(res.body.user.userid))

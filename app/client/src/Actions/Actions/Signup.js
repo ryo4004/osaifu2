@@ -15,6 +15,11 @@ export const changePassword = (password) => ({
   payload: { password }
 })
 
+export const changeAgreement = (agreement) => ({
+  type: ActionType.SIGNUP_CHANGE_AGREEMENT,
+  payload: { agreement }
+})
+
 export const requestSignup = {
   request: () => ({
     type: ActionType.SIGNUP_REQUEST_SIGNUP_REQUEST

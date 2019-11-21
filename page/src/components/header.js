@@ -23,7 +23,7 @@ const Header = ({ siteTitle, index }) => (
         {!index && <Link to='/'>ホーム</Link>}
         <Link to='/features'>特徴</Link>
         <Link to='/guide'>ご利用方法</Link>
-        <a href='https://app.osaifu.zatsuzen.com' className='button'>はじめる</a>
+        <a href='https://app.osaifu.zatsuzen.com/signup' className='button'>はじめる</a>
       </div>
     </div>
   </header>

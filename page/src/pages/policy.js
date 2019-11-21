@@ -3,12 +3,12 @@ import React from "react"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-import './privacy.scss'
+import './policy.scss'
 
-const Privacy = () => (
+const Policy = () => (
   <Layout>
     <SEO title="個人情報保護方針" />
-    <div className='privacy'>
+    <div className='policy'>
       <section>
         <h1>個人情報保護方針</h1>
         <p>あかね(以下当社)は、当社の提供するサービス(以下本サービス)におけるユーザについての個人情報を含む利用者情報の取り扱いについて、以下のとおりプライバシーポリシー(以下本ポリシー)を定めます。</p>
@@ -115,4 +115,4 @@ const Privacy = () => (
   </Layout>
 )
 
-export default Privacy
+export default Policy

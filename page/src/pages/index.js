@@ -37,7 +37,7 @@ const IndexPage = () => {
               <div>
                 <h1>おさいふ</h1>
                 <p>ふたりでつける家計簿アプリ</p>
-                <a href='https://osaifu.zatsuzen.com'>使ってみる</a>
+                <a href='https://osaifu.zatsuzen.com/signup'>使ってみる</a>
               </div>
             </div>
             <div className='image'>

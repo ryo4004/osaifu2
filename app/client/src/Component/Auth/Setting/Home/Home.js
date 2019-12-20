@@ -57,7 +57,7 @@ const Home = ({
 
   const showStatus = () => {
     if (!status || !user) return false
-    const osaifuStatus = status.type === 'solo' ? <span>未使用</span> : (user.userKey === status.host ? <span>ペアリング<span>host</span></span> : <span>ペアリング<span>client</span></span>)
+    const osaifuStatus = status.type === 'solo' ? <span>オフ</span> : (user.userKey === status.host ? <span>ペアリング<span>host</span></span> : <span>ペアリング<span>client</span></span>)
     const rate = status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))
     return (
       <div className='osaifu'>

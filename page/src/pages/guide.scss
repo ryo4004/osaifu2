@@ -37,7 +37,11 @@
   
     ol.main-guide {
       margin: 48px 12px;
+
       li {
+        padding: 2px 6px;
+        border-radius: .25rem;
+        background: #eee;
         font-size: 1rem;
         color: #333;  
       }
@@ -70,6 +74,34 @@
           font-size: .9rem;
           color: #666;
         }
+      }
+    }
+
+    ul {
+      margin: 12px;
+
+      li {
+        margin: 0;
+        font-size: .9rem;
+        color: #333;
+      }
+    }
+
+    .screenshot {
+      position: relative;
+      margin: 8px 8px 16px;
+      padding: 8px;
+      border: .55px solid #ccc;
+      max-width: 320px;
+
+      .target {
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 60px;
+        top: 0px;
+        right: 0px;
+        background: rgba(0,0,0,.1);
       }
     }
   }

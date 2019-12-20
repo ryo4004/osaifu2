@@ -19,6 +19,7 @@ function SEO({ description, lang, meta, title, index }) {
             title
             description
             author
+            baseUrl
           }
         }
         cardImage: file(relativePath: { eq: "card.png" }) {
@@ -78,7 +79,7 @@ function SEO({ description, lang, meta, title, index }) {
         },
         {
           name: `og:image`,
-          content: cardImage.childImageSharp.fluid.src,
+          content: site.siteMetadata.baseUrl + cardImage.childImageSharp.fluid.src,
         },
       ].concat(meta)}
     />

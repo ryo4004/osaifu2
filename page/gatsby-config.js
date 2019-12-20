@@ -3,6 +3,7 @@ module.exports = {
     title: 'おさいふ',
     description: 'ふたりで記録する家計簿アプリ',
     author: '@akanewz',
+    baseUrl: 'https://osaifu.zatsuzen.com'
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

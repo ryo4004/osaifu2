@@ -67,15 +67,29 @@
         z-index: 13;
 
         .text {
-          p {
+          h2 {
             margin: 8px;
           }
-          
+
+          p {
+            margin: 8px;
+            font-size: .9rem;
+          }
+
+          a {
+            color: #0070c9;
+            text-decoration: none;
+    
+            &:hover {
+              text-decoration: underline;
+            }
+          }
+
           button {
             display: block;
             width: calc(100% - 16px);
             height: 44px;
-            margin: 8px;
+            margin: 16px 8px;
             padding: 6px 18px;
             border: none;
             border-radius: .25rem;

@@ -6,6 +6,7 @@ import { confirmAlert } from 'react-confirm-alert'
 import { requestLogout } from '../../../../Actions/Actions/Session'
 import { requestStatus } from '../../../../Actions/Actions/Status'
 import { setTitle } from '../../../../Actions/Actions/Header'
+import { setModal } from '../../../../Actions/Actions/Tutorial'
 
 import Forward from '../../../../Library/Icons/Forward'
 
@@ -20,12 +21,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   requestLogout: () => dispatch(requestLogout()),
   requestStatus: () => dispatch(requestStatus()),
-  setTitle: (title) => dispatch(setTitle(title))
+  setTitle: (title) => dispatch(setTitle(title)),
+  setModal: (modal) => dispatch(setModal(modal))
 })
 
 const Home = ({
   loading, user, status,
-  requestLogout, requestStatus, setTitle
+  requestLogout, requestStatus, setTitle, setModal
 }) => {
 
   useEffect(() => {
@@ -116,6 +118,7 @@ const Home = ({
         <li><Link to='/setting/userdelete'><span>アカウントの削除</span><Forward /></Link></li>
       </ul>
       <ul>
+        <li><button onClick={() => setModal(true)} onTouchStart={() => {}}>チュートリアルを開く</button></li>
         <li><button onClick={() => logout()} onTouchStart={() => {}}>ログアウト</button></li>
       </ul>
     </div>

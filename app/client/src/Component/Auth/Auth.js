@@ -37,12 +37,12 @@ const Auth = ({
       <div className='auth'>
         <Header />
         <Switch>
-          <Route path='/payment' component={Payment} />
           <Route path='/list' component={List} />
           <Route path='/setting' component={Setting} />
         </Switch>
       </div>
       <Navigation />
+      <Payment />
       <Detail />
       <Tutorial />
     </React.Fragment>

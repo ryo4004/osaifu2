@@ -1,5 +1,6 @@
 export const prefix = 'PAYMENT_'
 export const PAYMENT_LOADING = prefix + 'LOADING'
+export const PAYMENT_SET_MODAL = prefix + 'SET_MODAL'
 export const PAYMENT_SET_USE_DATE = prefix + 'SET_USE_DATE'
 export const PAYMENT_SET_DATE = prefix + 'SET_DATE'
 export const PAYMENT_SET_PAYMENT = prefix + 'SET_PAYMENT'

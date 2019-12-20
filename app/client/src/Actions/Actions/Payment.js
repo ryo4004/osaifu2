@@ -5,6 +5,11 @@ export const loading = (loading) => ({
   payload: { loading }
 })
 
+export const setModal = (modal) => ({
+  type: ActionType.PAYMENT_SET_MODAL,
+  payload: { modal }
+})
+
 export const setUseDate = (useDate) => ({
   type: ActionType.PAYMENT_SET_USE_DATE,
   payload: { useDate }

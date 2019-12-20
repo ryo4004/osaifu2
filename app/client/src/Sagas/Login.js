@@ -31,7 +31,7 @@ function* runRequestLogin () {
     yield put(setUser(res.body.user))
     yield call(() => lib.updateToken(res.body.token))
     yield call(() => lib.updateUserid(res.body.user.userid))
-    yield put(replace('/payment'))  
+    yield put(replace('/list'))  
   }
 }
 

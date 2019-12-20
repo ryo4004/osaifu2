@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import {
+  setModal,
   setUseDate,
   setDate,
   setPayment,
@@ -12,7 +13,6 @@ import {
   sendPayment,
   setError
 } from '../../../Actions/Actions/Payment'
-import { setTitle } from '../../../Actions/Actions/Header'
 
 import * as lib from '../../../Library/Library'
 
@@ -20,6 +20,7 @@ import './Payment.css'
 
 const mapStateToProps = (state) => ({
   loading: state.payment.loading,
+  modal: state.payment.modal,
   useDate: state.payment.useDate,
   date: state.payment.date,
   payment: state.payment.payment,
@@ -36,6 +37,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  setModal: (modal) => dispatch(setModal(modal)),
   setUseDate: (useDate) => dispatch(setUseDate(useDate)),
   setDate: (date) => dispatch(setDate(date)),
   setPayment: (payment) => dispatch(setPayment(payment)),
@@ -44,25 +46,27 @@ const mapDispatchToProps = (dispatch) => ({
   setOtherPayment: (otherPayment) => dispatch(setOtherPayment(otherPayment)),
   setMemo: (memo) => dispatch(setMemo(memo)),
   sendPayment: () => dispatch(sendPayment()),
-  setError: (err) => dispatch(setError(err)),
-  setTitle: (title) => dispatch(setTitle(title))
+  setError: (err) => dispatch(setError(err))
 })
 
 const Payment = ({
-  loading, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, sessionLoading, user, statusLoading, status,
-  setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
+  loading, modal, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, sessionLoading, user, statusLoading, status,
+  setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
 }) => {
 
   useEffect(() => {
-    setTitle('支払い')
-    setError(false)
-    resetDate()
-    setPayment('')
-    setPaymentCheck(false)
-    setSelfPayment('')
-    setOtherPayment('')
-    setMemo('')
-  }, [])
+    console.log('changed', modal)
+    if (modal) {
+      focus()
+    }
+    return () => {}
+  }, [modal])
+
+  let input = React.createRef()
+
+  function focus () {
+    input.current.focus()
+  }
   
   const resetDate = () => {
     const time = new Date()
@@ -174,6 +178,8 @@ const Payment = ({
     )
   }
 
+  const modalClass = modal ? ' open' : ' close'
+
   const dateClass = useDate ? ' use' : ''
   const inputClass = payment ? 'input' : 'empty'
   const selfName = user ? user.username : ''
@@ -181,91 +187,104 @@ const Payment = ({
   const disabled = payment ? false : true
   const buttonLabel = loading ? '読み込み中' : '登録'
 
+  const buttonEvent = payment ? () => sendPayment() : () => {}
+
   return (
     <div className='payment contents'>
-      <div className='contents-inner'>
-        <div className='form'>
-          <div className={'date' + dateClass}>
-            <label>日付</label>
-            <input type='date' value={date} onChange={(e) => updateDate(e.target.value)} />
-            {showUseDate()}
-          </div>
-          <div className='payment'>
-            <label className={inputClass}>支払額</label>
-            <div>
-              <input
-                type='text'
-                value={String(lib.addSeparator(payment))}
-                onChange={(e) => changeValue('payment',e.target.value)}
-                onKeyPress={(e) => keyPress(e)}
-                pattern='\d*'
-                placeholder='0'
-              />
-              <span>円</span>
-            </div>
-          </div>
-
-          <div className='memo'>
-            <label>メモ</label>
-            <input
-              type='text'
-              value={memo}
-              onChange={(e) => setMemo(e.target.value)}
-              onKeyPress={(e) => keyPress(e)}
-              placeholder='未入力'
-            />
-          </div>
-
-          <div className='each-payment'>
-            <label>支払分担</label>
-            <div>
-              <label>{selfName}</label>
-              <div className='payment-check'>
-                <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
-                <label htmlFor='self' className='self'>全額</label>
+      <div className={'modal-contents' + modalClass}>
+        <header>
+          <div className='cancel' onClick={() => setModal(false)}><label>キャンセル</label></div>
+          <h2>支払い</h2>
+          <div className={'add' + (disabled ? ' disable' : '')} onClick={buttonEvent}><label>登録</label></div>
+        </header>
+        <div className='contents'>
+          <div className='contents-inner-modal'>
+            <div className='form'>
+              <div className={'date' + dateClass}>
+                <label>日付</label>
+                <input type='date' value={date} onChange={(e) => updateDate(e.target.value)} />
+                {showUseDate()}
               </div>
-              <div className='self-payment'>
+              <div className='payment'>
+                <label className={inputClass}>支払額</label>
+                <div>
+                  <input
+                    ref={input}
+                    type='text'
+                    value={String(lib.addSeparator(payment))}
+                    onChange={(e) => changeValue('payment', e.target.value)}
+                    onKeyPress={(e) => keyPress(e)}
+                    pattern='\d*'
+                    placeholder='0'
+                  />
+                  <span>円</span>
+                </div>
+              </div>
+
+              <div className='memo'>
+                <label>メモ</label>
                 <input
                   type='text'
-                  value={String(lib.addSeparator(selfPayment))}
-                  onChange={(e) => changeValue('selfPayment', e.target.value)}
+                  value={memo}
+                  onChange={(e) => setMemo(e.target.value)}
                   onKeyPress={(e) => keyPress(e)}
-                  pattern='\d*'
-                  placeholder='0'
-                  disabled={disabled}
+                  placeholder='未入力'
                 />
-                <span>円</span>
               </div>
-            </div>
-            <div>
-              <label>{otherName}</label>
-              <div className='payment-check'>
-                <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
-                <label htmlFor='other' className='other'>全額</label>
+
+              <div className='each-payment'>
+                <label>支払分担</label>
+                <div>
+                  <label>{selfName}</label>
+                  <div className='payment-check'>
+                    <input type='radio' id='self' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'self'} />
+                    <label htmlFor='self' className='self'>全額</label>
+                  </div>
+                  <div className='self-payment'>
+                    <input
+                      type='text'
+                      value={String(lib.addSeparator(selfPayment))}
+                      onChange={(e) => changeValue('selfPayment', e.target.value)}
+                      onKeyPress={(e) => keyPress(e)}
+                      pattern='\d*'
+                      placeholder='0'
+                      disabled={disabled}
+                    />
+                    <span>円</span>
+                  </div>
+                </div>
+                <div>
+                  <label>{otherName}</label>
+                  <div className='payment-check'>
+                    <input type='radio' id='other' onChange={(e) => updateCheck(e)} checked={paymentCheck === 'other'} />
+                    <label htmlFor='other' className='other'>全額</label>
+                  </div>
+                  <div className='other-payment'>
+                    <input
+                      type='text'
+                      value={String(lib.addSeparator(otherPayment))}
+                      onChange={(e) => changeValue('otherPayment', e.target.value)}
+                      onKeyPress={(e) => keyPress(e)}
+                      pattern='\d*'
+                      placeholder='0'
+                      disabled={disabled}
+                    />
+                    <span>円</span>
+                  </div>
+                </div>
               </div>
-              <div className='other-payment'>
-                <input
-                  type='text'
-                  value={String(lib.addSeparator(otherPayment))}
-                  onChange={(e) => changeValue('otherPayment', e.target.value)}
-                  onKeyPress={(e) => keyPress(e)}
-                  pattern='\d*'
-                  placeholder='0'
-                  disabled={disabled}
-                />
-                <span>円</span>
+
+              {showError()}
+
+              <div className='button'>
+                <button onClick={() => sendPayment()} disabled={disabled} onTouchStart={() => {}}>{buttonLabel}</button>
               </div>
+
             </div>
           </div>
-
-          {showError()}
-
-          <div className='button'>
-            <button onClick={() => sendPayment()} disabled={disabled} onTouchStart={() => {}}>{buttonLabel}</button>
-          </div>
-
         </div>
       </div>
+      <div className={'modal-background' + modalClass}></div>
     </div>
   )
 }

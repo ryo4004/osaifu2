@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { requestList } from '../../../Actions/Actions/List'
-import { setTitle } from '../../../Actions/Actions/Header'
+import { setTitle, setAdd } from '../../../Actions/Actions/Header'
 import { setModal, setContent } from '../../../Actions/Actions/Detail'
 
 import * as lib from '../../../Library/Library'
@@ -22,20 +22,23 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   requestList: () => dispatch(requestList()),
   setTitle: (title) => dispatch(setTitle(title)),
+  setAdd: (add) => dispatch(setAdd(add)),
   setModal: (modal) => dispatch(setModal(modal)),
   setContent: (content) => dispatch(setContent(content))
 })
 
 const List = ({
   loading, list, calcList, summary, user, status,
-  requestList, setTitle, setModal, setContent
+  requestList, setTitle, setAdd, setModal, setContent
 }) => {
 
   useEffect(() => {
     setTitle('履歴')
+    setAdd(true)
     requestList()
     return () => {
       setModal(false)
+      setAdd(false)
     }
   }, [])
 

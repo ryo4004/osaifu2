@@ -4,7 +4,8 @@ import { replace } from 'connected-react-router'
 import * as ActionType from '../Actions/Constants/Payment'
 import { post } from '../Library/Request'
 
-import { loading, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setError } from '../Actions/Actions/Payment'
+import { loading, setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, setError } from '../Actions/Actions/Payment'
+import { requestList } from '../Actions/Actions/List'
 import { showToast } from '../Actions/Actions/Toast'
 
 import * as lib from '../Library/Library'
@@ -31,16 +32,33 @@ function* runRequest () {
   if (res.body.err) {
     yield put(setError(res.body.err))
   } else {
+    yield put(setModal(false))
     yield put(showToast(state.status.status.name + 'に ' + payment.payment + '円 記録しました'))
-    yield put(setPayment(''))
-    yield put(setPaymentCheck(false))
-    yield put(setSelfPayment(''))
-    yield put(setOtherPayment(''))
-    yield put(setMemo(''))
+    yield put(requestList())
+    yield call(() => resetPayment())
   }
   yield put(loading(false))
 }
 
+function* runModalToggle (action) {
+  if (action.payload.modal) {
+    yield call(() => resetPayment())
+  }
+}
+
+function* resetPayment () {
+  const time = new Date()
+  yield put(setDate(time.getFullYear() + '-' + ('00' + (time.getMonth() + 1)).slice(-2) + '-' + ('00' + time.getDate()).slice(-2)))
+  yield put(setUseDate(false))
+  yield put(setPayment(''))
+  yield put(setPaymentCheck(false))
+  yield put(setSelfPayment(''))
+  yield put(setOtherPayment(''))
+  yield put(setMemo(''))
+  yield put(setError(false))
+}
+
 export default function* watchRequestSession () {
   yield takeLatest(ActionType.PAYMENT_SEND_PAYMENT, runRequest)
+  yield takeLatest(ActionType.PAYMENT_SET_MODAL, runModalToggle)
 }

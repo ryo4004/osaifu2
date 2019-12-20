@@ -64,3 +64,12 @@ export function getSymbol (value) {
   }
   return ''
 }
+
+export function getJudgement (value) {
+  if (value > 0) {
+    return '多く払っています'
+  } else if (value < 0) {
+    return '足りないです'
+  }
+  return 'ちょうどよいです'
+}

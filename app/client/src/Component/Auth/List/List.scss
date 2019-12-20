@@ -22,6 +22,18 @@
         & summary > div {
           background: rgba(243,115,53,.7);
           border-radius: .25rem .25rem 0 0;
+
+          & > label {
+            svg {
+              &.open {
+                display: none;
+              }
+
+              &.close {
+                display: block;
+              }
+            }
+          }
         }
       }
 
@@ -47,20 +59,39 @@
           }
 
           label {
-            font-size: .9rem;
-            color: #fff;
+            svg {
+              width: 32px;
+              height: 32px;
+              fill: #fff;
+
+              &.open {
+                display: block;
+              }
+
+              &.close {
+                display: none;
+              }
+            }
           }
 
           & > div {
             flex: 2;
             text-align: right;
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #fff;
 
-            span {
-              padding-left: .2em;
-              font-size: .8em;
+            & > div {
+              font-size: 1.6rem;
+              font-weight: bold;
+              color: #fff;
+  
+              span {
+                padding-left: .2em;
+                font-size: .8em;
+              }
+            }
+
+            p {
+              font-size: .8rem;
+              color: #fff;
             }
           }
         }
@@ -117,6 +148,18 @@
 
       &[open] {
         background: #eee;
+
+        & > summary > div > label {
+          svg {
+            &.open {
+              display: none;
+            }
+
+            &.close {
+              display: block;
+            }
+          }
+        }
       }
 
       summary {
@@ -135,11 +178,26 @@
           display: flex;
           align-items: center;
 
+          label {
+            svg {
+              width: 24px;
+              height: 24px;
+              fill: #ccc;
+
+              &.open {
+                display: block;
+              }
+
+              &.close {
+                display: none;
+              }
+            }
+          }
+
           .date {
             display: inline-block;
-            padding: 2px 6px;
+            margin: 8px;
             border-radius: 6px;
-            background: #eee;
             font-size: .9rem;
           }
 
@@ -176,9 +234,9 @@
           .date {
             padding: 2px 6px;
             border-radius: 6px;
-            background: #eee;
+            background: #ddd;
             font-size: .8rem;
-            color: #666;
+            color: #333;
           }
 
           .payment {

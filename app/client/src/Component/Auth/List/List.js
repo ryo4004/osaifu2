@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
+import Open from '../../../Library/Icons/Open'
+import Close from '../../../Library/Icons/Close'
+
 import { requestList } from '../../../Actions/Actions/List'
 import { setTitle, setAdd } from '../../../Actions/Actions/Header'
 import { setModal, setContent } from '../../../Actions/Actions/Detail'
@@ -68,7 +71,15 @@ const List = ({
     return (
       <div className='summary'>
         <details>
-          <summary><div><label></label><div>{lib.getSymbol(summary[selfType] - charge[selfType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[selfType]))}<span>円</span></div></div></summary>
+          <summary>
+            <div>
+              <label><Open /><Close /></label>
+              <div>
+                <div>{lib.getSymbol(summary[selfType] - charge[selfType]) + lib.addSeparator(Math.abs(summary[selfType] - charge[selfType]))}<span>円</span></div>
+                <p>{lib.getJudgement(summary[selfType] - charge[selfType])}</p>
+              </div>
+            </div>
+          </summary>
           <div>
             <div><label>支払計</label><div>{lib.addSeparator(summary.payment)}<span>円</span></div></div>
             <div><label>{selfName}の支払計</label><div>{lib.addSeparator(summary[selfType])}<span>円</span></div></div>
@@ -90,7 +101,7 @@ const List = ({
         {Array.from(calcList.keys()).map((eachDay, i) => {
           let paymentSum = 0, hostSum = 0, clientSum = 0
           const listEachDay = calcList.get(eachDay).map((eachPayment, j) => {
-            const date = eachPayment.useDate === 'true' ? false : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
+            const date = eachPayment.useDate === 'true' ? <div className='date'>なし</div> : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
             paymentSum += parseInt(eachPayment.payment)
             hostSum += parseInt(eachPayment.hostPayment)
             clientSum += parseInt(eachPayment.clientPayment)
@@ -101,7 +112,7 @@ const List = ({
               </li>
             )
           })
-          return <details key={'day-' + i}><summary onTouchStart={() => {}}><div><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
+          return <details key={'day-' + i}><summary onTouchStart={() => {}}><div><label><Open /><Close /></label><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
         })}
       </ol>
     )

@@ -55,7 +55,7 @@ const List = ({
   }
 
   const showSummary = () => {
-    if (!summary) return
+    if (!summary || !user || !status) return
     const showRate = () => {
       if (status && user) return <div><label>負担率</label><div>{status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))}<span>%</span></div></div>
     }

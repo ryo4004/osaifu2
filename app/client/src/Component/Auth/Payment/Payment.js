@@ -55,7 +55,6 @@ const Payment = ({
 }) => {
 
   useEffect(() => {
-    console.log('changed', modal)
     if (modal) {
       focus()
     }

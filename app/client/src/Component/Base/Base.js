@@ -18,8 +18,6 @@ const mapDispatchToProps = () => ({})
 
 const Base = () => {
 
-  console.log(location)
-
   const link = location.pathname.match(/signup/i) ? <Link to='/login' className='button'>ログイン</Link> : <Link to='/signup' className='button'>アカウント作成</Link>
 
   return (

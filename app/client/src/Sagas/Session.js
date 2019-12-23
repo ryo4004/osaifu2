@@ -19,6 +19,7 @@ function* runRequestSession () {
     yield put(replace('/login'))
   } else {
     yield put(setUser(res.body.user))
+    yield put(replace('/list'))
   }
 }
 

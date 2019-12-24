@@ -57,12 +57,24 @@ const Home = ({
 
   const showStatus = () => {
     if (!status || !user) return false
-    const osaifuStatus = status.type === 'solo' ? <span>オフ</span> : (user.userKey === status.host ? <span>ペアリング<span>host</span></span> : <span>ペアリング<span>client</span></span>)
     const rate = status.type === 'solo' ? status.rate : (user.userKey === status.host ? status.rate : (100 - parseInt(status.rate)))
+    const showPair = () => {
+      const osaifuStatus = status.type === 'solo' ? <span>オフ</span> : (user.userKey === status.host ? <span>ペアリング<span>host</span></span> : <span>ペアリング<span>client</span></span>)
+      if (status.type === 'solo') return <div><label>ペアリング</label><span>{osaifuStatus}</span></div>
+      return (
+        <details>
+          <summary><div className='pair-summary'><label>ペアリング</label><span>{osaifuStatus}</span></div></summary>
+          <div className='pair'>
+            <div className='key'><span className={status.host === user.userKey ? 'self' : 'other'}>{status.host === user.userKey ? 'You' : 'Partner'}</span><span>{status.host.substr(0, 8)}</span></div>
+            <div className='key'><span className={status.client === user.userKey ? 'self' : 'other'}>{status.client === user.userKey ? 'You' : 'Partner'}</span><span>{status.client.substr(0, 8)}</span></div>
+          </div>
+        </details>
+      )
+    }
     return (
       <div className='osaifu'>
         <div><label>おさいふ名</label><span>{status.name}</span></div>
-        <div><label>ペアリング</label><span>{osaifuStatus}</span></div>
+        {showPair()}
         <div><label>負担割合</label><span>{rate}%</span></div>
       </div>
     )
@@ -74,6 +86,7 @@ const Home = ({
     return (
       <div className='user'>
         <div><label>ID</label><span>{user.userid}</span></div>
+        <div><label>Key</label><span>{user.userKey.substr(0, 8)}</span></div>
         <div><label>名前</label><span>{user.username}</span></div>
         {othername}
       </div>

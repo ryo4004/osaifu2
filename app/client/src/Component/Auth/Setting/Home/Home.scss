@@ -24,7 +24,7 @@
     .user, .osaifu {
       padding: 8px;
 
-      & > div {
+      & > div, div.pair-summary {
         display: flex;
         align-items: center;
         color: #333;
@@ -41,6 +41,44 @@
           span span {
             display: none;
           }
+        }
+      }
+    }
+
+    details {
+      summary {
+        list-style: none;
+
+        &::-webkit-details-marker {
+          display: none;
+        }
+      }
+    }
+
+    .pair {
+      display: flex;
+      justify-content: flex-end;
+
+      .key {
+        margin-left: 6px;
+        font-size: .8rem;
+
+        span:first-child {
+          padding: 2px 6px;
+          border: .55px solid #ccc;
+          border-radius: .25rem 0 0 .25rem;
+          color: #666;
+          background: #eee;
+        }
+
+        span:last-child {
+          padding: 2px 6px;
+          border-top: .55px solid #ccc;
+          border-left: 0;
+          border-right: .55px solid #ccc;
+          border-bottom: .55px solid #ccc;
+          border-radius: 0 .25rem .25rem 0;
+          font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
         }
       }
     }

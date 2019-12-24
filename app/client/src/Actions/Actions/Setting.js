@@ -80,6 +80,11 @@ export const requestConnectPass = () => ({
   type: ActionType.SETTING_REQUEST_CONNECT_PASS
 })
 
+export const requestCopy = (string) => ({
+  type: ActionType.SETTING_REQUEST_COPY,
+  payload: { string }
+})
+
 export const setConnectPassStatus = (connectPassStatus) => ({
   type: ActionType.SETTING_SET_CONNECT_PASS_STATUS,
   payload: { connectPassStatus }

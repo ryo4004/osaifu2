@@ -5,8 +5,8 @@ import { post } from '../Library/Request'
 
 import { loading, setConnectPassStatus, setError } from '../Actions/Actions/Setting'
 import { setUser } from '../Actions/Actions/Session'
-
 import { setStatus } from '../Actions/Actions/Status'
+import { showToast } from '../Actions/Actions/Toast'
 import * as lib from '../Library/Library'
 
 function* runRequestChangeOsaifuname () {
@@ -61,6 +61,13 @@ function* runRequestConnectPass () {
     yield put(setError(res.body.err))
   } else {
     yield put(setConnectPassStatus(res.body.pass))
+  }
+}
+
+function* runRequestCopy (action) {
+  if (action.payload.string) {
+    const res = yield call(() => lib.copy(action.payload.string))
+    if (res) yield put(showToast('コピーしました'))
   }
 }
 
@@ -179,6 +186,7 @@ export default function* watchRequestLogin () {
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_OSAIFUNAME, runRequestChangeOsaifuname)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_RATE, runRequestChangeRate)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT_PASS, runRequestConnectPass)
+  yield takeLatest(ActionType.SETTING_REQUEST_COPY, runRequestCopy)
   yield takeLatest(ActionType.SETTING_REQUEST_CONNECT, runRequestConnect)
   yield takeLatest(ActionType.SETTING_REQUEST_DISCONNECT, runRequestDisconnect)
   yield takeLatest(ActionType.SETTING_REQUEST_CHANGE_USERNAME, runRequestChangeUsername)

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
-import { setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setError } from '../../../../Actions/Actions/Setting'
+import { setConnectMode, requestConnectPass, requestCopy, changeConnectPass, requestConnect, setError } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
 import * as lib from '../../../../Library/Library'
@@ -18,6 +18,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   setConnectMode: (connectMode) => dispatch(setConnectMode(connectMode)),
   requestConnectPass: () => dispatch(requestConnectPass()),
+  requestCopy: (string) => dispatch(requestCopy(string)),
   changeConnectPass: (connectPass) => dispatch(changeConnectPass(connectPass)),
   requestConnect: () => dispatch(requestConnect()),
   setTitle: (title) => dispatch(setTitle(title)),
@@ -27,7 +28,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const Connect = ({
   loading, connectMode, connectPassStatus, connectPass, err,
-  setConnectMode, requestConnectPass, changeConnectPass, requestConnect, setTitle, setBack, setError
+  setConnectMode, requestConnectPass, requestCopy, changeConnectPass, requestConnect, setTitle, setBack, setError
 }) => {
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const Connect = ({
     const expire = lib.unixDateTime(connectPassStatus.expire).split('T')[0].replace(/-/g, '/') + ' ' + lib.unixDateTime(connectPassStatus.expire).split('T')[1].split(':')[0] + ':' + lib.unixDateTime(connectPassStatus.expire).split('T')[1].split(':')[1]
     return (
       <div className='connect-pass'>
-        <div className='pass'>{connectPassStatus.connectPass}</div>
+        <div className='pass'><span>{connectPassStatus.connectPass}</span><div onClick={() => requestCopy(connectPassStatus.connectPass)}><i className='far fa-copy'></i></div></div>
         <div className='expire'><label>有効期限(1日間)</label><div>{expire}まで</div></div>
       </div>
     )
@@ -98,6 +99,9 @@ const Connect = ({
       // Server Error
       case 'keyNotFound':
         message = 'パスがみつかりません'
+        break
+      case 'notAvailableBySelf':
+        message = '自分で発行したパスは使えません'
         break
       case 'DBError':
         message = 'データベースエラー'

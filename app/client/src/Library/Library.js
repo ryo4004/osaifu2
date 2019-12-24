@@ -73,3 +73,16 @@ export function getJudgement (value) {
   }
   return 'ちょうどよいです'
 }
+
+export function copy (string) {
+  const div = document.createElement('div')
+  const pre = document.createElement('pre')
+  pre.style.webkitUserSelect = 'auto'
+  pre.style.userSelect = 'auto'
+  div.appendChild(pre).textContent = string
+  document.body.appendChild(div)
+  document.getSelection().selectAllChildren(div)
+  const result = document.execCommand('copy')
+  document.body.removeChild(div)
+  return result
+}

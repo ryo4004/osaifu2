@@ -12,7 +12,7 @@
     padding-bottom: constant(safe-area-inset-bottom);
     padding-left: constant(safe-area-inset-left);
     padding-right: constant(safe-area-inset-right);
-  
+
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);
@@ -22,7 +22,7 @@
     -webkit-transform: translate3d(0,105%,0);
     transform: translate3d(0,105%,0);
     -webkit-overflow-scrolling: touch;
-    
+
     &.open {
       transition: transform .4s ease;
       -webkit-transform: translate3d(0,0%,0);
@@ -37,11 +37,11 @@
       border-bottom: .55px solid rgba(0,0,0,0.2);
       background: #fff;
       z-index: 14;
-    
+
       display: flex;
       justify-content: center;
       align-items: center;
-    
+
       h2 {
         font-size: 17px;
         font-weight: bold;
@@ -57,6 +57,16 @@
       display: block;
       margin: 44.547px 0 0;
       z-index: 12;
+
+      padding-top: constant(safe-area-inset-top);
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-left: constant(safe-area-inset-left);
+      padding-right: constant(safe-area-inset-right);
+
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
 
       .contents-inner-modal {
         height: 100%;
@@ -87,7 +97,7 @@
           a {
             color: #0070c9;
             text-decoration: none;
-    
+
             &:hover {
               text-decoration: underline;
             }
@@ -107,21 +117,21 @@
             cursor: pointer;
             outline: none;
             transition: all ease-in-out .2s;
-      
+
             &:focus {
               // box-shadow: 0 0 0 0.2rem rgba(243,115,53,.25);
             }
-      
+
             &:hover, &:active, &:focus {
               background: rgba(243,115,53,.8);
               transition: all ease-in-out .1s;
               color: #fff;
             }
-      
+
             &:active, &:focus {
               box-shadow: 0 0 0 0.2rem rgba(243,115,53,.25);
             }
-      
+
             &:disabled {
               color: #888;
               background: #f8f8f8;
@@ -147,7 +157,7 @@
     padding-bottom: constant(safe-area-inset-bottom);
     padding-left: constant(safe-area-inset-left);
     padding-right: constant(safe-area-inset-right);
-  
+
     padding-top: env(safe-area-inset-top);
     padding-bottom: env(safe-area-inset-bottom);
     padding-left: env(safe-area-inset-left);

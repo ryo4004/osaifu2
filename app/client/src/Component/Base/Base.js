@@ -22,23 +22,11 @@ const Base = () => {
 
   return (
     <div className='base'>
-      <div className='header-base'>
-        <header>
-          <div className='contents'>
-            <div className='title'>
-              <a href='https://osaifu.zatsuzen.com'>
-                <div className='icon'><Logo /></div><h1>おさいふ</h1>
-              </a>
-            </div>
-            <div className='menu'>
-              <a href='https://osaifu.zatsuzen.com'>ホーム</a>
-              {/* <a href='https://osaifu.zatsuzen.com/feature'>特徴</a> */}
-              <a href='https://osaifu.zatsuzen.com/guide'>ご利用方法</a>
-              {link}
-            </div>
-          </div>
-        </header>
-      </div>
+      <header>
+        <a href='https://osaifu.zatsuzen.com'>
+          <div className='icon'><Logo /></div><h1>おさいふ</h1>
+        </a>
+      </header>
       <Switch>
         <Route path='/login' component={Login} />
         <Route path='/signup' component={Signup} />

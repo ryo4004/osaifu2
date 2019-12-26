@@ -4,81 +4,31 @@
   width: 100%;
   min-height: 100vh;
 
-  .header-base {
-    background: #fff;
-  }
-
   header {
     display: block;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    background: #fff;
+    margin: 0 auto 12px;
+    padding: 48px 0 0;
 
-    .contents {
-      margin: 0 12px;
+    a {
       display: flex;
-      flex-wrap: wrap;
+      align-items: center;
+      flex-direction: column;
+      text-decoration: none;
+      color: #333;
 
-      .title {
-        margin: 12px 0;
-
-        a {
-          display: flex;
-          align-items: center;
-          text-decoration: none;
-          color: #333;
-
-          .icon {
-            width: 50px;
-            height: 50px;
-          }
-
-          h1 {
-            margin: 0 12px;
-          }
-
-          &:hover {
-            h1 {
-              text-decoration: underline;
-            }
-          }
-        }
+      .icon {
+        margin: 0 auto;
+        width: 100px;
+        height: 100px;
       }
 
-      .menu {
-        margin: 12px 0 12px auto;
+      h1 {
+        margin: 12px 12px 0;
+      }
 
-        display: flex;
-        align-items: center;
-
-        a {
-          text-decoration: none;
-          color: #333;
-          margin-right: 12px;
-          font-size: .9rem;
-
-          &:hover {
-            text-decoration: underline;
-            color: #666;
-          }
-        }
-
-        a.button {
-          text-decoration: none;
-          margin: 0;
-          padding: 8px 16px;
-          border: .55px solid #f8ab86;
-          border-radius: .25rem;
-          color: #f8ab86;
-          background: #fff;
-          font-size: 14px;
-          font-weight: bold;
-
-          &:hover {
-            background: rgba(243,115,53,.8);
-            color: #fff;
-          }
+      &:hover {
+        h1 {
+          text-decoration: underline;
         }
       }
     }
@@ -125,7 +75,7 @@
 
     .agreement {
       margin: 16px 0;
-      
+
       a {
         color: #0070c9;
         text-decoration: none;

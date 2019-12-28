@@ -10,5 +10,6 @@ ReactDOM.render(
   <App />, document.getElementById('root')
 )
 
-const { SplashScreen } = Plugins
+const { SplashScreen, Keyboard } = Plugins
 SplashScreen.hide()
+Keyboard.setAccessoryBarVisible({isVisible: true})

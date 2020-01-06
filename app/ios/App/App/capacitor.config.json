@@ -1,0 +1,8 @@
+{
+  "appId": "com.zatsuzen.osaifu",
+  "appName": "おさいふ",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "client/build",
+  "cordova": {}
+}

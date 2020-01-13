@@ -4,5 +4,11 @@
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "client/build",
-  "cordova": {}
+  "cordova": {},
+  "plugins": {
+    "SplashScreen": {
+      "spinnerColor": "#F8AB86",
+      "showSpinner": true
+    }
+  }
 }

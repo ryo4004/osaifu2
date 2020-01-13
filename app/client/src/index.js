@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { Plugins } from '@capacitor/core'
+import { Plugins, StatusBarStyle } from '@capacitor/core'
 
 import App from './App'
 import './reset.css'
@@ -10,6 +10,10 @@ ReactDOM.render(
   <App />, document.getElementById('root')
 )
 
-const { SplashScreen, Keyboard } = Plugins
+const { SplashScreen, Keyboard, StatusBar } = Plugins
 SplashScreen.hide()
 Keyboard.setAccessoryBarVisible({isVisible: true})
+
+StatusBar.setStyle({
+  style: StatusBarStyle.Light
+})

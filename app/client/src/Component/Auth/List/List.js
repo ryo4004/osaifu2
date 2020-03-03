@@ -105,14 +105,27 @@ const List = ({
             paymentSum += parseInt(eachPayment.payment)
             hostSum += parseInt(eachPayment.hostPayment)
             clientSum += parseInt(eachPayment.clientPayment)
+            console.log(eachPayment)
+            const paid = <div className='paid'>{Number(eachPayment.clientPayment) === 0 ? 'You' : 'Other'}</div>
             return (
               <li key={'list' + i + j} onClick={() => openModal(eachPayment)} onTouchStart={() => {}}>
                 {date}
+                {paid}
                 <div className='payment'>{lib.addSeparator(parseInt(eachPayment.payment))}<span>円</span></div>
               </li>
             )
           })
-          return <details key={'day-' + i}><summary onTouchStart={() => {}}><div><label><Open /><Close /></label><span className='date'>{eachDay.replace(/-/g, '/')}</span><div>{lib.addSeparator(paymentSum)}<span>円</span></div></div></summary><ol>{listEachDay}</ol></details>
+          return (
+            <details key={'day-' + i}>
+              <summary onTouchStart={() => {}}>
+                <div>
+                  <label><Open /><Close /></label>
+                  <span className='date'>{eachDay.replace(/-/g, '/')}</span>
+                  <div>{lib.addSeparator(paymentSum)}<span>円</span></div>
+                </div>
+              </summary><ol>{listEachDay}</ol>
+            </details>
+          )
         })}
       </ol>
     )

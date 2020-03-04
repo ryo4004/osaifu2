@@ -98,21 +98,24 @@ const List = ({
     if (calcList.size === 0) return <div className='no-data'>記録がありません</div>
     const selfName = user ? user.username : ''
     const otherName = status ? status.othername : ''
+    const selfType = status.type === 'solo' ? 'hostPayment' : (status.host === user.userKey ? 'hostPayment' : 'clientPayment')
+    const otherType = status.type === 'solo' ? 'clientPayment' : (status.host === user.userKey ? 'clientPayment' : 'hostPayment')
     return (
       <ol className='list'>
         {Array.from(calcList.keys()).map((eachDay, i) => {
           let paymentSum = 0, hostSum = 0, clientSum = 0
-          const listEachDay = calcList.get(eachDay).map((eachPayment, j) => {
-            const date = eachPayment.useDate === 'true' ? false : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
-            paymentSum += parseInt(eachPayment.payment)
-            hostSum += parseInt(eachPayment.hostPayment)
-            clientSum += parseInt(eachPayment.clientPayment)
-          const paid = Number(eachPayment.hostPayment) === 0 || Number(eachPayment.clientPayment) === 0 ? (Number(eachPayment.clientPayment) === 0 ? <div className='paid'>{selfName}</div> : <div className='paid'>{otherName}</div>) : false
+          const listEachDay = calcList.get(eachDay).map((content, j) => {
+            const date = content.useDate === 'true' ? false : <div className='date'>{lib.unixTime(content.sendDate)}</div>
+            paymentSum += parseInt(content.payment)
+            hostSum += parseInt(content.hostPayment)
+            clientSum += parseInt(content.clientPayment)
+            console.log({content}, content[selfType], Number(content.clientPayment) === 0,  (Number(content.clientPayment) === 0 ? 'self' : 'other'))
+            const paid = Number(content[selfType]) === 0 || Number(content[otherType]) === 0 ? (Number(content[selfType]) !== 0 ? <div className='paid'>{selfName}</div> : <div className='paid'>{otherName}</div>) : false
             return (
-              <li key={'list' + i + j} onClick={() => openModal(eachPayment)} onTouchStart={() => {}}>
+              <li key={'list' + i + j} onClick={() => openModal(content)} onTouchStart={() => {}}>
                 {date}
                 {paid}
-                <div className='payment'>{lib.addSeparator(parseInt(eachPayment.payment))}<span>円</span></div>
+                <div className='payment'>{lib.addSeparator(parseInt(content.payment))}<span>円</span></div>
               </li>
             )
           })

@@ -96,6 +96,8 @@ const List = ({
   const showList = () => {
     if (!calcList) return
     if (calcList.size === 0) return <div className='no-data'>記録がありません</div>
+    const selfName = user ? user.username : ''
+    const otherName = status ? status.othername : ''
     return (
       <ol className='list'>
         {Array.from(calcList.keys()).map((eachDay, i) => {
@@ -105,8 +107,7 @@ const List = ({
             paymentSum += parseInt(eachPayment.payment)
             hostSum += parseInt(eachPayment.hostPayment)
             clientSum += parseInt(eachPayment.clientPayment)
-            console.log(eachPayment)
-            const paid = <div className='paid'>{Number(eachPayment.clientPayment) === 0 ? 'You' : 'Other'}</div>
+          const paid = Number(eachPayment.hostPayment) === 0 || Number(eachPayment.clientPayment) === 0 ? (Number(eachPayment.clientPayment) === 0 ? <div className='paid'>{selfName}</div> : <div className='paid'>{otherName}</div>) : false
             return (
               <li key={'list' + i + j} onClick={() => openModal(eachPayment)} onTouchStart={() => {}}>
                 {date}

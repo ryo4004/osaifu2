@@ -103,7 +103,7 @@ const List = ({
         {Array.from(calcList.keys()).map((eachDay, i) => {
           let paymentSum = 0, hostSum = 0, clientSum = 0
           const listEachDay = calcList.get(eachDay).map((eachPayment, j) => {
-            const date = eachPayment.useDate === 'true' ? <div className='date'>なし</div> : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
+            const date = eachPayment.useDate === 'true' ? false : <div className='date'>{lib.unixTime(eachPayment.sendDate)}</div>
             paymentSum += parseInt(eachPayment.payment)
             hostSum += parseInt(eachPayment.hostPayment)
             clientSum += parseInt(eachPayment.clientPayment)

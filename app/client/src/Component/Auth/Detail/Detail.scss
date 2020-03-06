@@ -72,7 +72,7 @@
           div {
             margin: 0 8px 8px;
 
-            span:first-child {
+            & > span:first-child {
               display: inline-block;
               padding: 2px 6px;
               background: #eee;

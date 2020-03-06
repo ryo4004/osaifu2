@@ -109,7 +109,6 @@ const List = ({
             paymentSum += parseInt(content.payment)
             hostSum += parseInt(content.hostPayment)
             clientSum += parseInt(content.clientPayment)
-            console.log({content}, content[selfType], Number(content.clientPayment) === 0,  (Number(content.clientPayment) === 0 ? 'self' : 'other'))
             const paid = Number(content[selfType]) === 0 || Number(content[otherType]) === 0 ? (Number(content[selfType]) !== 0 ? <div className='paid'>{selfName}</div> : <div className='paid'>{otherName}</div>) : false
             return (
               <li key={'list' + i + j} onClick={() => openModal(content)} onTouchStart={() => {}}>

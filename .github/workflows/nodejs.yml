@@ -20,7 +20,5 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd app & npm install
-    - run: cd app && npm run build-production
-    - run: cd page & npm install
-    - run: cd page && gatsby build
+    - run: cd app && npm install && npm run build-production
+    - run: cd page && npm install && gatsby build

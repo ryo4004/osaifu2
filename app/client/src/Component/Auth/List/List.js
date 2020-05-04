@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const List = ({
-  loading, list, calcList, summary, user, status,
+  loading, calcList, summary, user, status,
   requestList, setTitle, setAdd, setModal, setContent
 }) => {
 
@@ -103,6 +103,7 @@ const List = ({
     return (
       <ol className='list'>
         {Array.from(calcList.keys()).map((eachDay, i) => {
+          /* eslint no-unused-vars: 0 */
           let paymentSum = 0, hostSum = 0, clientSum = 0
           const listEachDay = calcList.get(eachDay).map((content, j) => {
             const date = content.useDate === 'true' ? false : <div className='date'>{lib.unixTime(content.sendDate)}</div>

@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Rate = ({
-  loading, rate, err, user, status,
+  rate, user, status,
   changeRate, requestChangeRate, setTitle, setBack
 }) => {
 

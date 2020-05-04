@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Osaifuname = ({
-  loading, osaifuname, err, status,
+  osaifuname, status,
   changeOsaifuname, requestChangeOsaifuname, setTitle, setBack
 }) => {
 

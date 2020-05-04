@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Password = ({
-  loading, oldPassword, newPassword, err,
+  oldPassword, newPassword,
   changeOldPassword, changeNewPassword, requestChangePassword, setTitle, setBack
 }) => {
 

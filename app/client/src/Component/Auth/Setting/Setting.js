@@ -14,12 +14,11 @@ import Userdelete from './Userdelete/Userdelete'
 
 import './Setting.css'
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = () => ({})
 
-const mapDispatchToProps = (dispatch) => ({})
+const mapDispatchToProps = () => ({})
 
-const Setting = ({}) => {
-
+const Setting = () => {
   return (
     <div className='setting contents'>
       <div className='contents-inner'>

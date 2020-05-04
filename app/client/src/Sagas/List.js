@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { call, put, takeLatest } from 'redux-saga/effects'
 import { replace } from 'connected-react-router'
 
 import * as ActionType from '../Actions/Constants/List'

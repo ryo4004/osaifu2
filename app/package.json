@@ -11,6 +11,7 @@
     "build-css": "node-sass client/src/ -o client/src --output-style compressed",
     "build-dev": "npm run build-css && npm run build-develop -- --devtool source-map",
     "build-prod": "npm run build-css && npm run build-production",
+    "lint": "npm run lint-client && npm run lint-server",
     "lint-client": "eslint ./client/src --config .eslintrc-client.json",
     "lint-server": "eslint ./app.js --config .eslintrc-server.json && eslint ./server --config .eslintrc-server.json"
   },

@@ -1,5 +1,4 @@
 import { call, put, takeLatest, select } from 'redux-saga/effects'
-import { replace } from 'connected-react-router'
 
 import * as ActionType from '../Actions/Constants/Payment'
 import { post } from '../Library/Request'
@@ -12,6 +11,9 @@ import * as lib from '../Library/Library'
 
 function* runRequest () {
   const state = yield select()
+  if (!state.payment.payment) return yield put(setError({type: 'blankPayment'}))
+  if (state.payment.loading) return false
+  yield put(loading(true))
   const date = state.payment.date.split('-')
   const payment = {
     payment: state.payment.payment,
@@ -22,8 +24,6 @@ function* runRequest () {
     paymentDate: (new Date(date[0], date[1] - 1, date[2]).getTime()),
     sendDate: (new Date().getTime()),
   }
-  if (!state.payment.payment) return yield put(setError({type: 'blankPayment'}))
-  yield put(loading(true))
   const send = {  
     session: lib.getSession(),
     payment

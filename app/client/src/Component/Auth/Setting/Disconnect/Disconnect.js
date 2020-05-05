@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import {  requestDisconnect, setError } from '../../../../Actions/Actions/Setting'
 import { setTitle, setBack } from '../../../../Actions/Actions/Header'
 
-import * as lib from '../../../../Library/Library'
 import './Disconnect.css'
 
 const mapStateToProps = (state) => ({

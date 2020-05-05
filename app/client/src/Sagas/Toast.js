@@ -1,4 +1,4 @@
-import { call, put, takeLatest, select } from 'redux-saga/effects'
+import { put, takeLatest } from 'redux-saga/effects'
 import * as ActionType from '../Actions/Constants/Toast'
 
 import { show, hide, end } from '../Actions/Actions/Toast'

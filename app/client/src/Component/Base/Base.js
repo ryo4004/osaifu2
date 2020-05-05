@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, Switch, Link } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import Login from './Login/Login'
@@ -17,9 +17,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = () => ({})
 
 const Base = () => {
-
-  const link = location.pathname.match(/signup/i) ? <Link to='/login' className='button'>ログイン</Link> : <Link to='/signup' className='button'>アカウント作成</Link>
-
   return (
     <div className='base'>
       <header>

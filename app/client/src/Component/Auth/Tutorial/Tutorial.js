@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 
 import { setModal } from '../../../Actions/Actions/Tutorial'
@@ -6,9 +6,7 @@ import { setModal } from '../../../Actions/Actions/Tutorial'
 import './Tutorial.css'
 
 const mapStateToProps = (state) => ({
-  modal: state.tutorial.modal,
-
-  user: state.session.user
+  modal: state.tutorial.modal
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Tutorial = ({
-  modal, user,
+  modal,
   setModal
 }) => {
 
@@ -32,7 +30,7 @@ const Tutorial = ({
               <p>このアプリでは普段のお支払いを記録することができます。</p>
               <p>支払計がゼロになるよう日々のお支払いをすることでふたりの負担がバランスよくなります。</p>
               <p>ホーム画面に追加していただくとお手軽にご利用できます。</p>
-              <p><a href='https://osaifu.zatsuzen.com/guide' target='_blank'>詳しくはこちら</a></p>
+              <p><a href='https://osaifu.zatsuzen.com/guide' target='_blank' rel="noopener noreferrer">詳しくはこちら</a></p>
               <button onClick={() => setModal(false)}>はじめる</button>
             </div>
           </div>

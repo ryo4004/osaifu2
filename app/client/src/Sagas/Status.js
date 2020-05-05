@@ -1,5 +1,4 @@
 import { call, put, takeLatest } from 'redux-saga/effects'
-import { replace } from 'connected-react-router'
 
 import * as ActionType from '../Actions/Constants/Status'
 import { post } from '../Library/Request'

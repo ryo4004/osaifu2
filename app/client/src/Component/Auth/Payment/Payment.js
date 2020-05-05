@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Payment = ({
-  loading, modal, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, sessionLoading, user, statusLoading, status,
-  setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
+  loading, modal, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, user, status,
+  setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment
 }) => {
 
   useEffect(() => {
@@ -183,25 +183,24 @@ const Payment = ({
   const inputClass = payment ? 'input' : 'empty'
   const selfName = user ? user.username : ''
   const otherName = status ? status.othername : ''
-  const disabled = payment ? false : true
+  const disabledPayment = payment ? false : true
+  const disabledLoading = !loading ? false : true
   const buttonLabel = loading ? '読み込み中' : '登録'
-
-  const buttonEvent = payment ? () => sendPayment() : () => {}
 
   return (
     <div className='payment contents'>
       <div className={'modal-contents' + modalClass}>
         <header>
-          <div className='cancel' onClick={() => setModal(false)}><label>キャンセル</label></div>
+          <button className='cancel' onClick={() => setModal(false)}><label>キャンセル</label></button>
           <h2>支払い</h2>
-          <div className={'add' + (disabled ? ' disable' : '')} onClick={buttonEvent}><label>登録</label></div>
+          <button className='add' onClick={() => sendPayment()} disabled={disabledPayment || disabledLoading}><label>{buttonLabel}</label></button>
         </header>
         <div className='contents'>
           <div className='contents-inner-modal'>
             <div className='form'>
               <div className={'date' + dateClass}>
                 <label>日付</label>
-                <input type='date' value={date} onChange={(e) => updateDate(e.target.value)} />
+                <input type='date' value={date} onChange={(e) => updateDate(e.target.value)} disabled={disabledLoading} />
                 {showUseDate()}
               </div>
               <div className='payment'>
@@ -215,6 +214,7 @@ const Payment = ({
                     onKeyPress={(e) => keyPress(e)}
                     pattern='\d*'
                     placeholder='0'
+                    disabled={disabledLoading}
                   />
                   <span>円</span>
                 </div>
@@ -228,6 +228,7 @@ const Payment = ({
                   onChange={(e) => setMemo(e.target.value)}
                   onKeyPress={(e) => keyPress(e)}
                   placeholder='未入力'
+                  disabled={disabledLoading}
                 />
               </div>
 
@@ -247,7 +248,7 @@ const Payment = ({
                       onKeyPress={(e) => keyPress(e)}
                       pattern='\d*'
                       placeholder='0'
-                      disabled={disabled}
+                      disabled={disabledPayment || disabledLoading}
                     />
                     <span>円</span>
                   </div>
@@ -266,7 +267,7 @@ const Payment = ({
                       onKeyPress={(e) => keyPress(e)}
                       pattern='\d*'
                       placeholder='0'
-                      disabled={disabled}
+                      disabled={disabledPayment || disabledLoading}
                     />
                     <span>円</span>
                   </div>
@@ -276,7 +277,7 @@ const Payment = ({
               {showError()}
 
               <div className='button'>
-                <button onClick={() => sendPayment()} disabled={disabled} onTouchStart={() => {}}>{buttonLabel}</button>
+                <button onClick={() => sendPayment()} disabled={disabledPayment || disabledLoading} onTouchStart={() => {}}>{buttonLabel}</button>
               </div>
 
             </div>

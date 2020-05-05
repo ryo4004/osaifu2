@@ -4,7 +4,6 @@ const NeDB = require('nedb')
 const lib = require('./library')
 
 const uuidv1 = require('uuid/v1')
-const uuidv4 = require('uuid/v4')
 
 const userDB = new NeDB({
   filename: path.join(__dirname, 'database/user.db'),
@@ -83,7 +82,7 @@ function deleteSession (session, callback) {
 }
 
 function checkPastSignups (userid) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     userDB.findOne({userid}, (err, result) => {
       if (err) return resolve({type: 'DBError', fatal: true})
       if (result) return resolve({type: 'alreadySignuped', fatal: false})
@@ -180,7 +179,7 @@ function getUserByUserKey (userKey, callback) {
 function removeUser (user, password, callback) {
   const hash = lib.getHash(password)
   if (!user || user.passwordHash !== hash) return callback({type: 'passwordNotMatch', fatal: false}, null)
-  userDB.remove({userid: user.userid}, {}, (err, numRemoved) => {
+  userDB.remove({userid: user.userid}, {}, (err) => {
     if (err) return callback({type: 'DBError', fatal: true}, null)
     callback(null, true)
   })

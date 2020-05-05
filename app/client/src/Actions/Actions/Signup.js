@@ -25,8 +25,7 @@ export const requestSignup = {
     type: ActionType.SIGNUP_REQUEST_SIGNUP_REQUEST
   }),
   result: () => ({
-    type: ActionType.SIGNUP_REQUEST_SIGNUP_RESULT,
-    payload: { result }
+    type: ActionType.SIGNUP_REQUEST_SIGNUP_RESULT
   })
 }
 

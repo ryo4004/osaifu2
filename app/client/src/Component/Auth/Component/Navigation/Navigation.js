@@ -19,9 +19,10 @@ const CustomLink = ({ label, to, icon }) => {
   return (
     <Route
       path={to}
-      children={({ match }) => (
-        <div className={match ? 'active' : ''}><Link to={to}><i className={icon}></i><span>{label}</span></Link></div>
-      )}
+      children={function ({ match }) {
+        /* eslint react/no-children-prop: 0 */
+        return <div className={match ? 'active' : ''}><Link to={to}><i className={icon}></i><span>{label}</span></Link></div>
+      }}
     />
   )
 }

@@ -24,13 +24,13 @@ function newConnect (user, callback) {
     if (findError) return callback({type: 'DBError', fatal: true}, null)
     if (pass.length === 0) {
       console.log('insert')
-      connectDB.insert(docs, (err, newdoc) => {
+      connectDB.insert(docs, (err) => {
         if (err) return callback({type: 'DBError', fatal: true}, null)
         callback(null, docs)
       })
     } else {
       console.log('update')
-      connectDB.update({userKey: user.userKey}, docs, {}, (err, newdoc) => {
+      connectDB.update({userKey: user.userKey}, docs, {}, (err) => {
         if (err) return callback({type: 'DBError', fatal: true}, null)
         callback(null, docs)
       })
@@ -47,7 +47,7 @@ function getConnect (user, connectPass, callback) {
     if (connect.userKey === user.userKey) return callback({type: 'notAvailableBySelf', fatal: false}, null)
     console.log('time: ', connect.expire, (new Date()).getTime())
     if (connect.expire < (new Date()).getTime()) return callback({type: 'keyExpired', fatal: false}, null)
-    connectDB.remove({connectPass}, {}, (err, num) => {
+    connectDB.remove({connectPass}, {}, (err) => {
       if (err) return callback({type: 'DBError', fatal: true})
       return callback(null, connect.userKey)
     })
@@ -57,12 +57,12 @@ function getConnect (user, connectPass, callback) {
 function removeKey (connectPass, callback) {
   if (!connectPass) return callback(null)
   console.log(lib.time() + '[connect] disableKey: ' + connectPass)
-  connectDB.remove({connectPass}, {}, (err, num) => {
+  connectDB.remove({connectPass}, {}, (err) => {
     if (err) return callback({type: 'DBError', fatal: true})
     return callback(null)
   })
 }
 
 module.exports = {
-  newConnect, getConnect
+  newConnect, getConnect, removeKey
 }

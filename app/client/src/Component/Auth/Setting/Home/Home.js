@@ -37,7 +37,7 @@ const Home = ({
 
   const logout = () => {
     confirmAlert({
-      customUI: ({ onClose }) => {
+      customUI: function showModal ({ onClose }) {
         return (
           <div className='alert'>
             <h1>ログアウトしますか？</h1>

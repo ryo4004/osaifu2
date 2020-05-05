@@ -23,13 +23,13 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Detail = ({
-  modal, content, err, user, status,
+  modal, content, user, status,
   setModal, requestDelete
 }) => {
 
   const showDelete = (id) => {
     confirmAlert({
-      customUI: ({ onClose }) => {
+      customUI: function showModal ({ onClose }) {
         return (
           <div className='alert'>
             <h1>この記録を削除しますか？</h1>

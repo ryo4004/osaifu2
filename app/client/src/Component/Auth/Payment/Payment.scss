@@ -55,6 +55,12 @@
         font-size: 16px;
         cursor: pointer;
 
+        background: transparent;
+        border: none;
+        outline: none;
+        padding: 0;
+        appearance: none;
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -66,6 +72,10 @@
         &:active {
           color: rgba(243,115,53,.6);
         }
+
+        label {
+          cursor: pointer;
+        }
       }
 
       .cancel {
@@ -76,8 +86,10 @@
         right: 12px;
         font-weight: bold;
 
-        &.disable {
-          color: rgba(243,115,53,.2);
+        &:disabled {
+          label {
+            color: rgba(243,115,53,.2);
+          }
         }
       }
     }
@@ -96,7 +108,7 @@
       padding-bottom: constant(safe-area-inset-bottom);
       padding-left: constant(safe-area-inset-left);
       padding-right: constant(safe-area-inset-right);
-    
+
       padding-top: env(safe-area-inset-top);
       padding-bottom: env(safe-area-inset-bottom);
       padding-left: env(safe-area-inset-left);
@@ -197,6 +209,19 @@
                 &:placeholder-shown, &::-webkit-input-placeholder {
                   color: #333;
                 }
+
+                &[disabled] {
+                  background: #fff;
+                  color: #ccc;
+
+                  &:placeholder-shown, &::-webkit-input-placeholder {
+                    color: #ccc;
+                  }
+
+                  & + span {
+                    color: #ccc;
+                  }
+                }
               }
             }
           }
@@ -223,6 +248,19 @@
               text-align: right;
               font-size: 1rem;
               background: #fff;
+
+              &[disabled] {
+                background: #fff;
+                color: #ccc;
+
+                &:placeholder-shown, &::-webkit-input-placeholder {
+                  color: #ccc;
+                }
+
+                & + span {
+                  color: #ccc;
+                }
+              }
             }
           }
 
@@ -346,10 +384,6 @@
             outline: none;
             transition: all ease-in-out .2s;
 
-            &:focus {
-              // box-shadow: 0 0 0 0.2rem rgba(243,115,53,.25);
-            }
-
             &:hover, &:active, &:focus {
               background: rgba(243,115,53,.8);
               transition: all ease-in-out .1s;
@@ -364,6 +398,7 @@
               color: #fff;
               background: rgba(243,115,53,.2);
               cursor: default;
+              box-shadow: none;
             }
           }
 

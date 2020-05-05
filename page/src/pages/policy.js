@@ -72,7 +72,7 @@ const Policy = () => (
             <ul>
               <li>
                 <label>Googleアナリティクス</label>
-                <a href='https://policies.google.com/technologies/partner-sites?hl=ja' target='_blank' className='link-block'>Googleのサービスを使用するサイトやアプリから収集した情報のGoogleによる使用</a>
+                <a href='https://policies.google.com/technologies/partner-sites?hl=ja' target='_blank' className='link-block' rel='noopener noreferrer'>Googleのサービスを使用するサイトやアプリから収集した情報のGoogleによる使用</a>
               </li>
             </ul>
           </li>
@@ -99,7 +99,7 @@ const Policy = () => (
         </ol>
 
         <h2>8. お問い合わせ窓口</h2>
-        <p>ご意見、ご質問、苦情のお申し出その他利用者情報の取り扱いに関するお問い合わせは、まずは当社<a href='https://twitter.com/akanewz' target='_blank'>Twitterアカウント</a>までお問い合わせください。</p>
+        <p>ご意見、ご質問、苦情のお申し出その他利用者情報の取り扱いに関するお問い合わせは、まずは当社<a href='https://twitter.com/akanewz' target='_blank' rel='noopener noreferrer'>Twitterアカウント</a>までお問い合わせください。</p>
 
         <h2>9. プライバシーポリシーの変更手続き</h2>
         <p>当社は、必要に応じて、本ポリシーを変更します。ただし、法令上ユーザの同意が必要となるような本ポリシーの変更を行う場合、変更後の本ポリシーは、当社所定の方法で変更に同意したユーザに対してのみ適用されるものとします。なお、当社は本ポリシーを変更する場合には、変更後の本ポリシーの施行時期および内容を当社のウェブサイト上での表示その他の適切な方法により周知し、またはユーザに通知します。</p>

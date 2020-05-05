@@ -23,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Userdelete = ({
-  loading, deletePassword, err, user,
+  deletePassword, err,
   changeDeletePassword, requestUserdelete, setTitle, setBack, setError
 }) => {
 
@@ -40,7 +40,7 @@ const Userdelete = ({
 
   const request = () => {
     confirmAlert({
-      customUI: ({ onClose }) => {
+      customUI: function showModal ({ onClose }) {
         return (
           <div className='alert'>
             <h1>削除しますか？</h1>
@@ -59,7 +59,7 @@ const Userdelete = ({
   }
 
   const keyPress = (e) => {
-    if (e.which === 13) requestChangeUsername()
+    if (e.which === 13) request()
   }
 
   const showError = () => {

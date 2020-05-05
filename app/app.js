@@ -164,13 +164,15 @@ app.post('/setting/userdelete', (req, res) => {
   console.log(lib.time() + '/setting/userdelete')
   libUser.authentication(session, (authError, user) => {
     if (authError) return res.json({err: authError})
+    /* eslint no-unused-vars: 0 */
     libList.getDBStatus(user, (getDBStatusError, status) => {
+      if (getDBStatusError) res.json({err: getDBStatusError})
       if (status.type === 'solo') {
         libUser.removeUser(user, password, (removeError, removeResult) => {
           return res.json({remove: removeResult, err: removeError})
         })
       } else {
-        libList.removeDuoDB(user, (removeDBError, status) => {
+        libList.removeDuoDB(user, () => {
           libUser.removeUser(user, password, (removeError, removeResult) => {
             return res.json({remove: removeResult, err: removeError})
           })

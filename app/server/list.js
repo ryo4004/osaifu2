@@ -3,8 +3,6 @@ const NeDB = require('nedb')
 
 const uuidv1 = require('uuid/v1')
 
-const lib = require('./library')
-
 const listDB = new NeDB({
   filename: path.join(__dirname, 'database/list.db'),
   autoload: true
@@ -40,7 +38,7 @@ function createDB (user, callback) {
       client: false,
       name: user.username + ' のおさいふ'
     }
-    listDB.insert(newDB, (err, newdoc) => {
+    listDB.insert(newDB, (err) => {
       if (err) return callback({type: 'DBError', fatal: true}, null)
       callback(null, newDB)
     })
@@ -109,7 +107,7 @@ function osaifuDivide (duoKey, selfKey, otherKey, selfType, otherType, callback)
     if (duoFindError) return callback({type: 'DBError', fatal: true})
     await insertData(duoList, selfOsaifuDB, selfType)
     await insertData(duoList, otherOsaifuDB, otherType)
-    duoOsaifuDB.remove({}, {multi: true}, (duoRemoveError, duoRemoveNum) => {
+    duoOsaifuDB.remove({}, {multi: true}, (duoRemoveError) => {
       if (duoRemoveError) return callback({type: 'DBError', fatal: true})
       callback(null)
     })
@@ -150,7 +148,7 @@ function createDuoDB (user, hostUserKey, callback) {
             client: user.userKey,
             name: 'ふたりのおさいふ'
           }
-          listDB.insert(newDuoDBStatus, (insertError, newdoc) => {
+          listDB.insert(newDuoDBStatus, (insertError) => {
             if (insertError) return callback({type: 'DBError', fatal: true}, null)
             // それぞれのおさいふを統合
             osaifuIntegration(hostDBStatus.dbKey, dbStatus.dbKey, newDuoDBStatus.dbKey, (integrationError) => {
@@ -174,9 +172,9 @@ function osaifuIntegration (hostKey, clientKey, duoKey, callback) {
       if (clientFindError) return callback({type: 'DBError', fatal: true})
       await insertData(hostList, duoOsaifuDB, 'host')
       await insertData(clientList, duoOsaifuDB, 'client')
-      hostOsaifuDB.remove({}, {multi: true}, (hostRemoveError, hostRemoveNum) => {
+      hostOsaifuDB.remove({}, {multi: true}, (hostRemoveError) => {
         if (hostRemoveError) return callback({type: 'DBError', fatal: true})
-        clientOsaifuDB.remove({}, {multi: true}, (clientRemoveError, clientRemoveNUm) => {
+        clientOsaifuDB.remove({}, {multi: true}, (clientRemoveError) => {
           if (clientRemoveError) return callback({type: 'DBError', fatal: true})
           callback(null)
         })

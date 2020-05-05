@@ -21,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Username = ({
-  loading, username, err, user,
+  username, user,
   changeUsername, requestChangeUsername, setTitle, setBack
 }) => {
 

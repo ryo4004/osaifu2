@@ -50,8 +50,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 const Payment = ({
-  loading, modal, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, sessionLoading, user, statusLoading, status,
-  setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment, setError, setTitle
+  loading, modal, useDate, date, payment, paymentCheck, selfPayment, otherPayment, memo, err, user, status,
+  setModal, setUseDate, setDate, setPayment, setPaymentCheck, setSelfPayment, setOtherPayment, setMemo, sendPayment
 }) => {
 
   useEffect(() => {

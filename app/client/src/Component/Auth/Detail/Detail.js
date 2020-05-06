@@ -61,7 +61,7 @@ const Detail = ({
     const otherPayment = Number(content[otherType]) === 0 ? false : <div className='other-payment'><label>{otherName}</label><div>{lib.addSeparator(Number(content[otherType]))}<span>円</span></div></div>
     return (
       <div>
-        <div className='date'><div><span>{day.replace(/-/g, '/')}{time}</span></div></div>
+        <div className='date'><div><span className='day'>{day.replace(/-/g, '/')}</span>{time}</div></div>
         <div className='payment'><label>支払額</label><div>{lib.addSeparator(Number(content.payment))}<span>円</span></div></div>
         {memo}
         <div className='each-payment'>

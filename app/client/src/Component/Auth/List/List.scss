@@ -234,14 +234,16 @@
 
           .date {
             padding: 2px 6px;
+            margin-right: 6px;
             border-radius: 6px;
             background: #ddd;
-            font-size: .8rem;
             color: #333;
+            font-size: .8rem;
+            text-align: center;
           }
 
           .paid {
-            margin: 0 6px;
+            margin: 0 6px 0 0;
             padding: 2px 6px;
             border: .55px solid #666;
             border-radius: 6px;

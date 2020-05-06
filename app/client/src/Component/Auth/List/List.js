@@ -110,7 +110,9 @@ const List = ({
             paymentSum += parseInt(content.payment)
             hostSum += parseInt(content.hostPayment)
             clientSum += parseInt(content.clientPayment)
-            const paid = Number(content[selfType]) === 0 || Number(content[otherType]) === 0 ? (Number(content[selfType]) !== 0 ? <div className='paid'>{selfName}</div> : <div className='paid'>{otherName}</div>) : false
+            const percent = parseInt(content[selfType]) / parseInt(content.payment) * 100.0
+            const payPercent = percent ? {backgroundSize: percent + '% 100%'} : {backgroundSize: '0% 100%'}
+            const paid = Number(content[selfType]) === 0 || Number(content[otherType]) === 0 ? (Number(content[selfType]) !== 0 ? <div className='paid self'></div> : <div className='paid other'></div>) : <div className='paid pair' style={payPercent}></div>
             return (
               <li key={'list' + i + j} onClick={() => openModal(content)} onTouchStart={() => {}}>
                 {date}

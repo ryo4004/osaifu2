@@ -106,7 +106,7 @@ const List = ({
           /* eslint no-unused-vars: 0 */
           let paymentSum = 0, hostSum = 0, clientSum = 0
           const listEachDay = calcList.get(eachDay).map((content, j) => {
-            const date = content.useDate === 'true' ? false : <div className='date'>{lib.unixTime(content.sendDate)}</div>
+            const date = content.useDate === 'true' ? <div className='date-disable'><span>00:00</span><span>なし</span></div> : <div className='date'>{lib.unixTime(content.sendDate)}</div>
             paymentSum += parseInt(content.payment)
             hostSum += parseInt(content.hostPayment)
             clientSum += parseInt(content.clientPayment)
